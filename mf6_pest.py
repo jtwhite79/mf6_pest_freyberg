@@ -80,6 +80,7 @@ def setup_pest_interface():
     pst.model_command = "mf6"
     pst.control_data.noptmax = 0
     pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.pestpp_options["ies_num_reals"] = 50
     pst.write(os.path.join(ws,"freyberg6.pst"))
     pyemu.os_utils.run("pestpp-ies freyberg6.pst",cwd=ws)
 
