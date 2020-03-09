@@ -4,12 +4,30 @@ import numpy as np
 import pandas as pd
 import flopy
 import pyemu
-# add "REPLACE" to the sfr out in temp_history/freyberg.nam
-# then run mf5to6 in temp_history to make freyberg6.nam
-#
+
 
 def prep_mf6_model():
     org_ws = "temp_history"
+    if True:#not os.path.exists(os.path.join(org_ws,"freyberg6.nam")):
+
+        #first mod the nam file and the dumbass last reach bottom - sigh
+        m = flopy.modflow.Modflow.load("freyberg.nam",model_ws=org_ws,check=False)
+        print(m.sfr.reach_data.dtype)
+        last_reach_bot = m.sfr.reach_data["strtop"][-1] - m.sfr.reach_data["strthick"][-1]
+        cell_bot = m.dis.botm[0].array[m.sfr.reach_data["i"][-1],m.sfr.reach_data["j"][-1]]
+        print(cell_bot,last_reach_bot)
+        if last_reach_bot <= cell_bot:
+            m.sfr.reach_data["strtop"][-1] += 0.001
+        m.external_path = "."
+        m.write_input()
+        lines = open(os.path.join(org_ws,"freyberg.nam"),'r').readlines()
+        with open(os.path.join(org_ws,"freyberg_mod.nam"),'w') as f:
+            for line in lines:
+                if ".sfr.out" in line and not "REPLACE" in line:
+                    line = line.strip() + " REPLACE\n"
+                f.write(line)
+        pyemu.os_utils.run("mf5to6 freyberg_mod.nam freyberg6",cwd=org_ws)
+
     new_ws = "test"
     if os.path.exists(new_ws):
         shutil.rmtree(new_ws)
@@ -17,11 +35,25 @@ def prep_mf6_model():
     sim = flopy.mf6.MFSimulation.load(sim_ws=org_ws)
     sim.simulation_data.mfpath.set_sim_path("test")
     m = sim.get_model("freyberg6")
+    redis_fac = m.dis.nrow.data / 40 #in case this is a finely discret version
+
     obs_df = pd.read_csv("obs_loc.csv")
-    obs_df.loc[:,"name"] = obs_df.apply(lambda x: "trgw_{0}_{1}".format(x.row,x.col),axis=1)
+    obs_df.loc[:,"row"] = (obs_df.row * redis_fac).apply(np.int)
+    obs_df.loc[:, "col"] = (obs_df.col * redis_fac).apply(np.int)
+    
+    
     obs_df.loc[:,"layer"] = 3
+    obs_df.loc[:,"name"] = obs_df.apply(lambda x: "trgw_{0}_{1}_{2}".\
+        format(x.layer-1,x.row-1,x.col-1),axis=1)
     obs_df.loc[:,"obstype"] = "HEAD"
     obs_df.loc[:,"col"] = obs_df.col.apply(np.int)
+    obs_df2 = obs_df.copy()
+    obs_df2.loc[:,"layer"] = 1
+    obs_df2.loc[:,"name"] = obs_df2.apply(lambda x: "trgw_{0}_{1}_{2}".\
+        format(x.layer-1,x.row-1,x.col-1),axis=1)
+    
+    obs_df = pd.concat([obs_df,obs_df2])
+    
     #head_obs = {"head_obs.csv":[("trgw_{0}_{1}".format(r,c),"NPF",(2,r-1,c-1)) for r,c in zip(obs_df.row,obs_df.col)]}
     with open(os.path.join(new_ws,"head.obs"),'w') as f:
         f.write("BEGIN CONTINUOUS FILEOUT heads.csv\n")
@@ -84,9 +116,9 @@ def setup_pest_interface():
     pst.write(os.path.join(ws,"freyberg6.pst"))
     pyemu.os_utils.run("pestpp-ies freyberg6.pst",cwd=ws)
 
-    pst.control_data.noptmax = -1
-    pst.write(os.path.join(ws, "freyberg6.pst"))
-    pyemu.os_utils.start_workers(ws,"pestpp-ies","freyberg6.pst",num_workers=10,master_dir="master_ies")
+    #pst.control_data.noptmax = -1
+    #pst.write(os.path.join(ws, "freyberg6.pst"))
+    #pyemu.os_utils.start_workers(ws,"pestpp-ies","freyberg6.pst",num_workers=10,master_dir="master_ies")
 
 
 def _write_instuctions(ws):
