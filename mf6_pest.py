@@ -34,6 +34,7 @@ def prep_mf6_model():
     os.mkdir(new_ws)
     sim = flopy.mf6.MFSimulation.load(sim_ws=org_ws)
     sim.simulation_data.mfpath.set_sim_path("test")
+    sim.name_file.continue_ = True
     m = sim.get_model("freyberg6")
     redis_fac = m.dis.nrow.data / 40 #in case this is a finely discret version
 
@@ -303,20 +304,19 @@ def _write_templates(ws):
         df.loc[:, "scale"] = 1.0
         dfs.append(df)
     df = pd.concat(dfs)
-
     return df
 
 
 def run_prior_sweep():
     t_d = "template"
     assert os.path.exists(t_d)
-    pst_file = "freyberg6_run.pst"
+    pst_file = "freyberg6.pst"
     assert os.path.exists(os.path.join(t_d, pst_file))
     pst = pyemu.Pst(os.path.join(t_d, pst_file))
     pst.control_data.noptmax = -1
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
-    pst_file = "freyberg6_run_sweep.pst"
-    pst.write(os.path.join(t_d,"freyberg6_run_sweep.pst"))
+    pst_file = "freyberg6_sweep.pst"
+    pst.write(os.path.join(t_d,pst_file))
     m_d = "master_prior"
     pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=5,master_dir=m_d)
 
@@ -340,8 +340,8 @@ def invest():
 
 if __name__ == "__main__":
     #prep_mf6_model()
-    #setup_pest_interface()
-    #build_and_draw_prior()
+    setup_pest_interface()
+    build_and_draw_prior()
     #run_ies_demo()
     run_prior_sweep()
     #invest()
