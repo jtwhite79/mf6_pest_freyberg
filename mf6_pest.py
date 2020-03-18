@@ -121,6 +121,49 @@ def setup_pest_interface():
     #pyemu.os_utils.start_workers(ws,"pestpp-ies","freyberg6.pst",num_workers=10,master_dir="master_ies")
 
 
+def build_and_draw_prior():
+    t_d = "template"
+    sim = flopy.mf6.MFSimulation.load(sim_ws=t_d)
+    m = sim.get_model("freyberg6")
+    xgrid = m.modelgrid.xcellcenters
+    ygrid = m.modelgrid.ycellcenters
+    pst = pyemu.Pst(os.path.join(t_d,"freyberg6.pst"))
+    par = pst.parameter_data
+    static_par = par.loc[par.parnme.apply(lambda x: x[:3] in ["npf","sto"]),:].copy()
+    static_par.loc[:, "i"] = static_par.parnme.apply(lambda x: int(x.split('_')[3]))
+    static_par.loc[:, "j"] = static_par.parnme.apply(lambda x: int(x.split('_')[4]))
+    static_par.loc[:, "x"] = static_par.apply(lambda x: xgrid[x.i,x.j],axis=1)
+    static_par.loc[:, "y"] = static_par.apply(lambda x: ygrid[x.i, x.j], axis=1)
+    static_par.loc[:,"pargp"] = static_par.parnme.apply(lambda x: "_".join(x.split('_')[:3]))
+
+    wel_par = par.loc[par.parnme.apply(lambda x: x.startswith("wel")),:].copy()
+    wel_par.loc[:,"x"] = wel_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+    wel_par.loc[:,"y"] = 0.0
+    wel_par.loc[:,"pargp"] = wel_par.parnme.apply(lambda x: '_'.join(x.split('_')[:-1]))
+
+    rch_par = par.loc[par.parnme.str.startswith("rch"),:].copy()
+    rch_par.loc[:,"x"] = rch_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+    rch_par.loc[:,"y"] = 0.0
+
+
+    spatial_v = pyemu.geostats.ExpVario(contribution=1.0,a=1000.0)
+    temporal_v = pyemu.geostats.ExpVario(contribution=1.0,a=60)
+    spatial_gs = pyemu.geostats.GeoStruct(variograms=spatial_v)
+    temporal_gs = pyemu.geostats.GeoStruct(variograms=temporal_v)
+
+
+    static_struct_dict = {spatial_gs:[]}
+    for pargp in static_par.pargp.unique():
+        static_struct_dict[spatial_gs].append(static_par.loc[static_par.pargp==pargp,["parnme","x","y","i","j"]])
+    temporal_struct_dict = {temporal_gs: [rch_par.loc[:, ["parnme", "x", "y"]]]}
+    for pargp in wel_par.pargp.unique():
+        temporal_struct_dict[temporal_gs].append(wel_par.loc[wel_par.pargp == pargp, ["parnme", "x", "y"]])
+    ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
+    pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
+    #temporal_pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=temporal_struct_dict,num_reals=300)
+    print(pe.max())
+
+
 def _write_instuctions(ws):
     obs_df = pd.read_csv(os.path.join(ws,"heads.csv"), index_col=0)
     names,vals = [],[]
@@ -165,7 +208,10 @@ def _write_instuctions(ws):
     return df
 
 def _write_templates(ws):
-
+    sim = flopy.mf6.MFSimulation.load(sim_ws=ws)
+    m = sim.get_model("freyberg6")
+    nrow = m.dis.nrow.data
+    ncol = m.dis.ncol.data
     # write a wel file template
     f_in = open(os.path.join(ws,"freyberg6.wel"),'r')
     with open(os.path.join(ws,"freyberg6.wel.tpl"),'w') as f:
@@ -228,7 +274,7 @@ def _write_templates(ws):
 
     #  write array some templates
     def write_array_template(filename,prefix):
-        arr = np.loadtxt(filename)
+        arr = np.loadtxt(filename).reshape(nrow,ncol)
         f_tpl = open(filename+".tpl",'w')
         f_tpl.write("ptf ~\n")
         names,vals = [],[]
@@ -257,6 +303,29 @@ def _write_templates(ws):
 
     return df
 
+
+def run_prior_sweep():
+    pass
+
+
+
+def run_ies_demo():
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d,pst_file))
+    pst = pyemu.Pst(os.path.join(t_d,pst_file))
+    pst.control_data.noptmax = 3
+
+def invest():
+    ins_file = os.path.join("template","heads.csv.ins")
+    ins = pyemu.pst_utils.InstructionFile(ins_file)
+    ins.read_output_file(ins_file.replace(".ins",""))
+
+
 if __name__ == "__main__":
     #prep_mf6_model()
-    setup_pest_interface()
+    #setup_pest_interface()
+    build_and_draw_prior()
+    #run_ies_demo()
+    #invest()
