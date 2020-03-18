@@ -145,7 +145,6 @@ def build_and_draw_prior():
     rch_par.loc[:,"x"] = rch_par.parnme.apply(lambda x: int(x.split('_')[-1]))
     rch_par.loc[:,"y"] = 0.0
 
-
     spatial_v = pyemu.geostats.ExpVario(contribution=1.0,a=1000.0)
     temporal_v = pyemu.geostats.ExpVario(contribution=1.0,a=60)
     spatial_gs = pyemu.geostats.GeoStruct(variograms=spatial_v)
@@ -159,9 +158,13 @@ def build_and_draw_prior():
     for pargp in wel_par.pargp.unique():
         temporal_struct_dict[temporal_gs].append(wel_par.loc[wel_par.pargp == pargp, ["parnme", "x", "y"]])
     ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
-    pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
+    #pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
     #temporal_pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=temporal_struct_dict,num_reals=300)
-    print(pe.max())
+    struct_dict = static_struct_dict
+    for k,v in temporal_struct_dict.items():
+        struct_dict[k] = v
+    pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=struct_dict,num_reals=300)
+    pe.to_binary(os.path.join(t_d,"prior.jcb"))
 
 
 def _write_instuctions(ws):
@@ -305,8 +308,17 @@ def _write_templates(ws):
 
 
 def run_prior_sweep():
-    pass
-
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d, pst_file))
+    pst = pyemu.Pst(os.path.join(t_d, pst_file))
+    pst.control_data.noptmax = -1
+    pst.pestpp_options["ies_par_en"] = "prior.jcb"
+    pst_file = "freyberg6_run_sweep.pst"
+    pst.write(os.path.join(t_d,"freyberg6_run_sweep.pst"))
+    m_d = "master_prior"
+    pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=5,master_dir=m_d)
 
 
 def run_ies_demo():
@@ -316,6 +328,9 @@ def run_ies_demo():
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
+    pst.pestpp_options["ies_par_en"] = "prior.jcb"
+    pst.pestpp_options["ies_num_reals"] = 20
+
 
 def invest():
     ins_file = os.path.join("template","heads.csv.ins")
@@ -326,6 +341,7 @@ def invest():
 if __name__ == "__main__":
     #prep_mf6_model()
     #setup_pest_interface()
-    build_and_draw_prior()
+    #build_and_draw_prior()
     #run_ies_demo()
+    run_prior_sweep()
     #invest()
