@@ -320,6 +320,23 @@ def run_prior_sweep():
     m_d = "master_prior"
     pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=5,master_dir=m_d)
 
+def set_truth_obs():
+    t_d = "template"
+    m_d = "master_prior"
+    assert os.path.exists(m_d)
+    pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
+    oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
+    pv = oe.phi_vector
+    pv.sort_values(inplace=True)
+    idx = pv.index[int(pv.shape[0]/2)]
+    pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
+    pst.observation_data.loc[:,"weight"] = 0.0
+    obs = pst.observation_data
+    obs.loc[obs.obsnme.apply(lambda x: "trgw" in x),"weight"] = 1.0
+    pst.control_data.noptmax = 0
+    pst.write(os.path.join(t_d,"freyberg6_run.pst"))
+    pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
+
 
 def run_ies_demo():
     t_d = "template"
@@ -328,20 +345,25 @@ def run_ies_demo():
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
-    pst.pestpp_options["ies_par_en"] = "prior.jcb"
+    pst.pestpp_options = {}
+    #pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options["ies_num_reals"] = 20
+    pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
+    m_d = "master_ies"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=5, master_dir=m_d)
 
 
 def invest():
-    ins_file = os.path.join("template","heads.csv.ins")
-    ins = pyemu.pst_utils.InstructionFile(ins_file)
-    ins.read_output_file(ins_file.replace(".ins",""))
+    pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
+    pyemu.helpers.setup_fake_forward_run(pst,"fake.pst","master_ies",new_cwd="master_ies")
 
 
 if __name__ == "__main__":
     #prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    #run_ies_demo()
-    run_prior_sweep()
+    #setup_pest_interface()
+    #build_and_draw_prior()
+    run_ies_demo()
+    #run_prior_sweep()
+    #set_truth_obs()
     #invest()
