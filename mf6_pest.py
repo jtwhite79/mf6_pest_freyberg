@@ -2,6 +2,8 @@ import os
 import shutil
 import numpy as np
 import pandas as pd
+from matplotlib.backends.backend_pdf import PdfPages as pdf
+import matplotlib.pyplot as plt
 import flopy
 import pyemu
 
@@ -61,6 +63,7 @@ def prep_mf6_model():
         obs_df.loc[:,["name","obstype","layer","row","col"]].to_csv(f,sep=' ',line_terminator='\n',
             index=False,header=False,mode="a")
         f.write("END CONTINUOUS\n")
+
     props_3d = [("npf","k"),("npf","k33"),("sto","ss"),("sto","sy")]
     props_trans = [("rch","recharge")]
     #print(dir(m.dis.nlay))
@@ -73,12 +76,6 @@ def prep_mf6_model():
             filename = "{0}_{1}_{2}.dat".format(pack,attr,k)
             m.get_package(pack).__getattribute__(attr).store_as_external_file(filename,layer=k)
 
-
-    # for pack,attr in props_trans:
-    #     #print(m.get_package(pack).__getattribute__(attr))
-    #     #for kper in range(m.nper.data):
-    #     filename = "{0}_{1}.dat".format(pack,attr)
-    #     m.get_package(pack).__getattribute__(attr)[3].store_as_external_file(filename)
     sim.write_simulation()
     lines = open(os.path.join(new_ws,"freyberg6.nam"),'r').readlines()
     new_lines = []
@@ -89,6 +86,42 @@ def prep_mf6_model():
     with open(os.path.join(new_ws,"freyberg6.nam"),'w') as f:
         [f.write(line) for line in new_lines]
         f.flush()
+
+    # mod sfr
+    lines = open(os.path.join(new_ws,"freyberg6.sfr"),'r').readlines()
+    with open(os.path.join(new_ws,"freyberg6.sfr"),'w') as f:
+        iline = 0
+        while True:
+            if iline >= len(lines):
+                break
+            line = lines[iline]
+            f.write(line)
+            if "begin options" in line.lower():
+                f.write("  BOUNDNAMES\n")
+                f.write("OBS6 FILEIN sfr.obs\n")
+            if "begin packagedata" in line.lower():
+                iline += 1
+                #line = lines[iline]
+                irch = 0
+                while "end" not in line.lower():
+                    print(iline)
+                    line = lines[iline]
+                    if "end" in line.lower():
+                        break
+                    bn = "headwater"
+                    if irch > int(m.dis.nrow.data / 2):
+                        bn = "tailwater"
+                    line = line.strip() + " " + bn + "\n"
+                    f.write(line)
+                    irch += 1
+                    iline += 1
+                f.write(line)
+            iline += 1
+
+    with open(os.path.join(new_ws,"sfr.obs"),'w') as f:
+        f.write("BEGIN CONTINUOUS FILEOUT sfr.csv\nheadwater outflow headwater\n")
+        f.write("tailwater outflow tailwater\ngage_1 inflow 40\nEND CONTINUOUS")
+
     shutil.copy2(os.path.join(org_ws,"mf6.exe"),os.path.join(new_ws,"mf6.exe"))
     pyemu.os_utils.run("mf6",cwd=new_ws)
     #ext_dict = {""}
@@ -151,7 +184,6 @@ def build_and_draw_prior():
     spatial_gs = pyemu.geostats.GeoStruct(variograms=spatial_v)
     temporal_gs = pyemu.geostats.GeoStruct(variograms=temporal_v)
 
-
     static_struct_dict = {spatial_gs:[]}
     for pargp in static_par.pargp.unique():
         static_struct_dict[spatial_gs].append(static_par.loc[static_par.pargp==pargp,["parnme","x","y","i","j"]])
@@ -169,6 +201,28 @@ def build_and_draw_prior():
 
 
 def _write_instuctions(ws):
+    sim = flopy.mf6.MFSimulation.load(sim_ws=ws)
+    m = sim.get_model("freyberg6")
+    perlen = sim.tdis.perioddata.array["perlen"]
+    totim = np.cumsum(perlen).astype(int)
+    sp_end = pd.to_datetime("12-31-2015") + pd.to_timedelta(totim,unit='d') - pd.to_timedelta(1,unit='d')
+    totim_dict = {t:s.strftime("%Y%m%d") for t,s in zip(totim,sp_end)}
+
+    sfr_obs_df = pd.read_csv(os.path.join(ws, "sfr.csv"), index_col=0)
+    names, vals = [], []
+    with open(os.path.join(ws, "sfr.csv.ins"), 'w') as f:
+        f.write("pif ~\nl1\n")
+        for i in sfr_obs_df.index:
+            f.write("l1 w")
+            for c in sfr_obs_df.columns:
+                name = "{0}_{1}".format(c.lower(), totim_dict[int(i)])
+                f.write(" !{0}! ".format(name))
+                names.append(name)
+                vals.append(sfr_obs_df.loc[i, c])
+            f.write("\n")
+    sfr_df = pd.DataFrame({"obsnme": names, "obsval": vals}, index=names)
+    sfr_df.loc[:, "obgnme"] = sfr_df.obsnme.apply(lambda x: x.split('_')[0])
+
     obs_df = pd.read_csv(os.path.join(ws,"heads.csv"), index_col=0)
     names,vals = [],[]
     with open(os.path.join(ws,"heads.csv.ins"),'w') as f:
@@ -176,7 +230,7 @@ def _write_instuctions(ws):
         for i in obs_df.index:
             f.write("l1 w")
             for c in obs_df.columns:
-                name = "{0}_{1}".format(c.lower(),i)
+                name = "{0}_{1}".format(c.lower(), totim_dict[int(i)])
                 f.write(" !{0}! ".format(name))
                 names.append(name)
                 vals.append(obs_df.loc[i,c])
@@ -190,6 +244,7 @@ def _write_instuctions(ws):
         f.write("pif ~\n")
         for kper in range(25):
             f.write("~{0}{1:4d}~ \n".format(tag,kper+1))
+            kper = sp_end[kper].strftime("%Y%m%d")
             f.write("l8 w w w w w w !in_ss_flx_{0}! \n".format(kper))
             f.write("l1 w w w w w w !in_sy_flx_{0}! \n".format(kper))
             f.write("l1 w w w w w w !in_wel_flx_{0}! \n".format(kper))
@@ -208,7 +263,7 @@ def _write_instuctions(ws):
     flx_df.loc[:,"obgnme"] = flx_df.index.map(lambda x: '_'.join(x.split('_')[:2]))
     flx_df.loc[:,"obsnme"] = flx_df.index.values
     #print(flx_df)
-    df = pd.concat([head_df,flx_df],sort=False)
+    df = pd.concat([head_df,flx_df,sfr_df],sort=False)
     return df
 
 def _write_templates(ws):
@@ -315,10 +370,11 @@ def run_prior_sweep():
     pst = pyemu.Pst(os.path.join(t_d, pst_file))
     pst.control_data.noptmax = -1
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
+    pst.pestpp_options.pop("ies_num_reals",None)
     pst_file = "freyberg6_sweep.pst"
     pst.write(os.path.join(t_d,pst_file))
     m_d = "master_prior"
-    pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=5,master_dir=m_d)
+    pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=15,master_dir=m_d)
 
 def set_truth_obs():
     t_d = "template"
@@ -328,15 +384,20 @@ def set_truth_obs():
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
     pv = oe.phi_vector
     pv.sort_values(inplace=True)
-    idx = pv.index[int(pv.shape[0]/2)]
+    #idx = pv.index[int(pv.shape[0]/2)]
+    idx = pv.index[-1]
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
-    obs.loc[obs.obsnme.apply(lambda x: "trgw" in x),"weight"] = 1.0
+    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_29_15" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
+    obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
+    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231"]
     pst.write(os.path.join(t_d,"freyberg6_run.pst"))
-    pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
 
+    pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
+    pst = pyemu.Pst(os.path.join(t_d,"freyberg6_run.pst"))
+    print(pst.phi_components)
 
 def run_ies_demo():
     t_d = "template"
@@ -346,24 +407,38 @@ def run_ies_demo():
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
     pst.pestpp_options = {}
-    #pst.pestpp_options["ies_par_en"] = "prior.jcb"
-    pst.pestpp_options["ies_num_reals"] = 20
+    pst.pestpp_options["ies_par_en"] = "prior.jcb"
+    pst.pestpp_options["ies_num_reals"] = 50
+    pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
     m_d = "master_ies"
-    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=5, master_dir=m_d)
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+
+
+def make_ies_figs():
+    m_d = "master_ies"
+    assert os.path.join(m_d)
+    pst_file = "freyberg6_run_ies.pst"
+    pst = pyemu.Pst(os.path.join(m_d,pst_file))
+    pr_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".0.obs.csv")))
+    pt_oe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.obs.csv".format(pst.control_data.noptmax))))
+    obs = pst.observation_data
+    for nz_grp in pst.nnz_obs_groups:
+        grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
+        grp_obs.loc[:,"dateime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
 
 
 def invest():
     pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
     pyemu.helpers.setup_fake_forward_run(pst,"fake.pst","master_ies",new_cwd="master_ies")
 
-
 if __name__ == "__main__":
     #prep_mf6_model()
     #setup_pest_interface()
     #build_and_draw_prior()
-    run_ies_demo()
     #run_prior_sweep()
     #set_truth_obs()
+    #run_ies_demo()
+    #make_ies_figs()
     #invest()
