@@ -1,13 +1,16 @@
 import os
 import shutil
+import string
+
 import numpy as np
 import pandas as pd
+
 from matplotlib.backends.backend_pdf import PdfPages as pdf
 import matplotlib.pyplot as plt
 import flopy
 import pyemu
 
-
+abet = string.ascii_uppercase
 def prep_mf6_model():
     org_ws = "temp_history"
     if True:#not os.path.exists(os.path.join(org_ws,"freyberg6.nam")):
@@ -236,7 +239,7 @@ def _write_instuctions(ws):
                 vals.append(obs_df.loc[i,c])
             f.write("\n")
     head_df = pd.DataFrame({"obsnme":names,"obsval":vals},index=names)
-    head_df.loc[:,"obgnme"] = head_df.obsnme.apply(lambda x: '_'.join(x.split('_')[:3]))
+    head_df.loc[:,"obgnme"] = head_df.obsnme.apply(lambda x: '_'.join(x.split('_')[:4]))
 
     tag = "VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD"
 
@@ -406,7 +409,7 @@ def run_ies_demo():
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
-    pst.pestpp_options = {}
+    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options["ies_num_reals"] = 50
     pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
@@ -424,21 +427,61 @@ def make_ies_figs():
     pr_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".0.obs.csv")))
     pt_oe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.obs.csv".format(pst.control_data.noptmax))))
     obs = pst.observation_data
-    for nz_grp in pst.nnz_obs_groups:
+    print(pst.nnz_obs_groups)
+    print(pst.forecast_names)
+    fig = plt.figure(figsize=(8,6))
+    ax_count = 0
+    unit_dict = {"head":"sw-gw flux $\\frac{m}{d}$",
+                "tail": "sw-gw flux $\\frac{m}{d}$",
+                "trgw" : "gw level $m$",
+                "gage" : "sw flux $\\frac{m}{d}$"}
+    for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
-        grp_obs.loc[:,"dateime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
+        print(grp_obs)
+        grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
+        ax = plt.subplot2grid((5,2),(i,0),colspan=2)
+        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.5) for i in pr_oe.index]
+        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
+        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
+        unit = None
+        for tag,u in unit_dict.items():
+            if tag in nz_grp:
+                unit = u
+        ax.set_ylabel(unit)
 
+        ax_count += 1
+    for i,forecast in enumerate(pst.forecast_names):
+        ax = plt.subplot2grid((5,2),(3,i),rowspan=2)
+        pr_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='0.5',edgecolor="none",alpha=0.5)
+        pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
+        ylim = ax.get_ylim()
+        oval = obs.loc[forecast,"obsval"]
+        ax.plot([oval,oval],ylim,'r')
+        ax.set_title("{0}) {1}".format(abet[ax_count],forecast),loc="left")
+        unit = None
+        for tag,u in unit_dict.items():
+            if tag in forecast:
+                unit = u
+        ax.set_xlabel(unit)
+        ax.set_ylabel("increasing probability density")
+        ax.set_yticks([])
+
+
+    plt.tight_layout()
+    plt.show()
 
 def invest():
     pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
     pyemu.helpers.setup_fake_forward_run(pst,"fake.pst","master_ies",new_cwd="master_ies")
 
 if __name__ == "__main__":
-    #prep_mf6_model()
-    #setup_pest_interface()
-    #build_and_draw_prior()
-    #run_prior_sweep()
-    #set_truth_obs()
-    #run_ies_demo()
-    #make_ies_figs()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
+    run_ies_demo()
+    make_ies_figs()
     #invest()
