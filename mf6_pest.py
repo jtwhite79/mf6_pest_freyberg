@@ -193,7 +193,7 @@ def build_and_draw_prior():
     temporal_struct_dict = {temporal_gs: [rch_par.loc[:, ["parnme", "x", "y"]]]}
     for pargp in wel_par.pargp.unique():
         temporal_struct_dict[temporal_gs].append(wel_par.loc[wel_par.pargp == pargp, ["parnme", "x", "y"]])
-    ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
+    #ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
     #pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
     #temporal_pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=temporal_struct_dict,num_reals=300)
     struct_dict = static_struct_dict
@@ -403,6 +403,8 @@ def set_truth_obs():
     print(pst.phi_components)
 
 def run_ies_demo():
+    '''todo: localize
+    '''
     t_d = "template"
     assert os.path.exists(t_d)
     pst_file = "freyberg6_run.pst"
@@ -476,12 +478,76 @@ def invest():
     pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
     pyemu.helpers.setup_fake_forward_run(pst,"fake.pst","master_ies",new_cwd="master_ies")
 
+def run_glm_demo():
+
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d,pst_file))
+    pst = pyemu.Pst(os.path.join(t_d,pst_file))
+    # fix/tie to reduce adj par numbers
+    tie_step = 6
+    par = pst.parameter_data
+    par.loc[:,"partied"] = np.NaN
+    gr_par = par.loc[par.pargp.apply(lambda x: "npf" in x or "sto" in x),:].copy()
+    gr_par.loc[:,"k"] = gr_par.parnme.apply(lambda x: int(x.split('_')[2]))
+    gr_par.loc[:,"i"] = gr_par.parnme.apply(lambda x: int(x.split('_')[3]))
+    gr_par.loc[:,"j"] = gr_par.parnme.apply(lambda x: int(x.split('_')[4]))
+    
+    for i in range(tie_step,gr_par.i.max()+tie_step,tie_step):
+        for j in range(tie_step,gr_par.j.max()+tie_step,tie_step):
+            ir = [ii for ii in range(i-tie_step,i)]
+            jr = [jj for jj in range(j-tie_step,j)]
+            t_par = gr_par.loc[gr_par.apply(lambda x:x.i in ir and x.j in jr, axis=1),:]
+            for grp in t_par.pargp.unique():
+                tt_par = t_par.loc[t_par.pargp==grp,:]
+                par.loc[tt_par.parnme[1:],"partrans"] = "tied"
+                par.loc[tt_par.parnme[1:],"partied"] = tt_par.parnme[0]
+    w_par = par.loc[par.parnme.str.startswith("wel"),:]
+    for grp in w_par.pargp.unique():
+        ww_par = w_par.loc[w_par.pargp==grp,:]
+        par.loc[ww_par.parnme[1:],"partrans"] = "tied"
+        par.loc[ww_par.parnme[1:],"partied"] = ww_par.parnme[0]
+
+
+    pst.control_data.noptmax = 3
+    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.pestpp_options["n_iter_super"] = 999
+    pst.pestpp_options["n_iter_base"] = -1
+    pst.pestpp_options["glm_num_reals"] = 50
+    pst.pestpp_options["glm_accept_mc_phi"] = True
+    pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"))
+    m_d = "master_glm"
+    pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
+
+
+def run_sen_demo():
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d,pst_file))
+    pst = pyemu.Pst(os.path.join(t_d,pst_file))
+    par = pst.parameter_data
+    w_names = par.loc[par.parnme.str.startswith("wel"),"parnme"]
+    par.loc[w_names,"pargp"] = "welflux"
+
+    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.pestpp_options["tie_by_group"] = True
+    pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"))
+    m_d = "master_sen"
+    pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
+
+
 if __name__ == "__main__":
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
-    run_ies_demo()
-    make_ies_figs()
+    # prep_mf6_model()
+    #setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    # set_truth_obs()
+    # run_ies_demo()
+    # make_ies_figs()
+    run_glm_demo()
+    #run_sen_demo()
     #invest()
