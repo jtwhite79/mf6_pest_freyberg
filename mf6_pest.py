@@ -391,7 +391,7 @@ def set_truth_obs():
     #idx = pv.index[int(pv.shape[0]/2)]
     #idx = pv.index[int(pv.shape[0]/2)]
     oe.sort_values(by=pst.forecast_names[0],inplace=True)
-    idx = oe.index[-1]
+    idx = oe.index[-int(oe.shape[0]/10)]
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -666,18 +666,58 @@ def run_sen_demo():
 def start():
     pyemu.os_utils.start_workers("template", "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15)
 
+def make_sen_figs():
+    m_d = "master_sen_morris"
+    assert os.path.exists(m_d)
+    pst_file = "freyberg6_run_sen.pst"
+    pst = pyemu.Pst(os.path.join(m_d,pst_file))
+    mio_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".mio")),index_col=0)
+    phi_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".msn")),skipinitialspace=True).loc[:,["parameter_name","sen_mean_abs", "sen_std_dev"]]
+    
+    df = mio_df.loc[mio_df.index.map(lambda x: x in pst.forecast_names),["parameter_name","sen_mean_abs", "sen_std_dev"]].copy()
+    phi_df.index = ["phi" for _ in range(phi_df.shape[0])]
+    df = pd.concat([df,phi_df])
+    #print(df)
+    #print(phi_df.columns)
+    #print(df.columns)
+    fig,ax = plt.subplots(1,1,figsize=(8,4))
+    x = np.arange(df.parameter_name.unique().shape[0])
+    offset = -0.2
+    step = 0.1
+    name_dict = {"headwater":"headwater forecast","tailwater":"tailwater forecast","trgw":"groundwater level forecast","phi":"phi"}
+    par_dict = {"k33_0":"layer 1 VK","k33_1":"layer 2 VK","k33_2":"layer 3 VK",
+    "ss_0":"layer 1 SS","ss_1":"layer 2 SS","ss_2":"layer 3 SS",
+    "sy":"layer 1 SY","rch":"recharge","wel":"well extraction rates","k_0":"layer 1 HK","k_1":"layer 2 HK","k_2":"layer 3 HK"}
+    df.index = df.index.map(lambda x: name_dict[x.split('_')[0]])
+    df.loc[:,"parameter_name"] = df.parameter_name.apply(lambda x: [v for k,v in par_dict.items() if k in x][0])
+    for o in df.index.unique():
+        print(o)
+        odf = df.loc[o,:].copy()
+        odf.loc[:,"sen_mean_abs"] /= odf.sen_mean_abs.sum()
+        odf.loc[:,"sen_mean_abs"] *= 100.0
+        odf.sort_values(by="parameter_name",inplace=True)
+
+        ax.bar(x+offset,odf.sen_mean_abs,width=step,label=o)
+        offset += step
+    ax.set_xticks(x)
+    ax.set_xticklabels(odf.parameter_name.values,rotation=90)
+    ax.legend()
+    ax.set_ylabel("percent of total mean absolute sensitivity")
+    plt.tight_layout()
+    plt.savefig(os.path.join(m_d,"morris.pdf"))
 
 if __name__ == "__main__":
     # prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    #set_truth_obs()
     
-    run_ies_demo()
-    run_glm_demo()
-    run_sen_demo()
-    make_ies_figs()
-    make_glm_figs()
+    #run_ies_demo()
+    #run_glm_demo()
+    #run_sen_demo()
+    #make_ies_figs()
+    #make_glm_figs()
+    make_sen_figs()
     #invest()
     #start()
