@@ -7,19 +7,20 @@ for PEST(++) datasets
 
 
 
-version: 4.3.2
-binary compiled on Mar  5 2020 at 15:36:06
+version: 4.3.6
+binary compiled on Mar 25 2020 at 09:16:35
 
 using control file: "freyberg6.pst"
 in directory: "C:\Dev\mf6_pest_freyberg\template"
 
+...reading external file 'freyberg6.pargrp_data.csv'
+...reading external file 'freyberg6.par_data.csv'
+...reading external file 'freyberg6.obs_data.csv'
+...reading external file 'freyberg6.tplfile_data.csv'
+...reading external file 'freyberg6.insfile_data.csv'
 
 Note 'NOPTMAX' == 0, switching to forgiveness mode when checking inputs
 
-Note: 3 unused lines in pest control file:
-  -->  line number 6: '2.000000E+01  -3.000000E+00   3.000000E-01   1.000000E-02        -7       999          lamforgive        noderforgive' 
-  -->  line number 10: '0         0         0         0             jcosave          verboserec          jcosaveitn          reisaveitn          parsaveitn        noparsaverun' 
-  -->  line number 12: '1' 
 noptmax = 0, resetting max_run_fail = 1
 
 Case dimensions:- 
@@ -29,8 +30,8 @@ Case dimensions:-
     Number of prior estimates = 0
 
 PEST Control Information
-    relparmax = 10
-    facparmax = 10
+    relparmax = 1
+    facparmax = 1.1
     facorig = 0.001
     phiredswh = 0.1
     noptmax = 0
@@ -70,7 +71,7 @@ super_eigthresh: 1e-06
 n_iter_base: 1000000
 n_iter_super: 0
 super_relparmax: 0.1
-max_super_frz_iter: 10
+max_super_frz_iter: 20
 max_reg_iter: 20
 lambdas: 0.1,1,10,100,1000,
 iteration_summary: 0
@@ -97,7 +98,10 @@ sweep_base_run: 0
 opt_objective_function: 
 opt_coin_log: 1
 opt_skip_final: 0
-opt_std_weights0
+opt_std_weights: 0
+opt_stack_size: 0
+opt_par_stack: 
+opt_obs_stack: 
 opt_decision_variable_groups: 
 opt_external_variable_groups: 
 opt_constraint_groups: 
@@ -134,7 +138,6 @@ ies_accept_phi_fac: 1.05
 ies_lambda_inc_fac: 10
 ies_lambda_dec_fac: 0.75
 ies_save_lambda_ensembles: 0
-ies_weights_ensemble: 
 ies_subset_how: RANDOM
 ies_localize_how: PARAMETERS
 ies_num_threads: -1
@@ -213,41 +216,41 @@ Model interface files:-
 
 Parameter group information
 NAME            INCREMENT TYPE     DERIVATIVE INCREMENT    INCREMENT LOWER BOUND  FORCE CENTRAL     INCREMENT MULTIPLIER
-sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
-sto_sy_0              RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k33_2             RELATIVE                     0.01                        0         SWITCH                        2
 npf_k_2               RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
 npf_k33_1             RELATIVE                     0.01                        0         SWITCH                        2
 npf_k33_0             RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
+npf_k33_2             RELATIVE                     0.01                        0         SWITCH                        2
+sto_sy_0              RELATIVE                     0.01                        0         SWITCH                        2
 rch                   RELATIVE                     0.01                        0         SWITCH                        2
-welflux_16            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_13            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_24            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_17            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_18            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_1             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_14            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_6             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_0             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_4             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_15            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_24            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_1             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_3             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_14            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_16            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_0             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_17            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_13            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_4             RELATIVE                     0.01                        0         SWITCH                        2
 
 
 
@@ -9477,9 +9480,13 @@ PEST SVD Information
 ...saving results from control file parameter value run to  freyberg6.obs.csv
 
   ---  control file parameter phi report:  ---  
-       phi type           mean            std            min            max
-      composite              0              0              0              0
-       measured              0              0              0              0
-         actual              0              0              0              0
+       measured    4.34189e-27              0    4.34189e-27    4.34189e-27
+         actual    4.34189e-27              0    4.34189e-27    4.34189e-27
+     note: 'measured' phi reported above includes 
+           realizations of measurement noise, 
+           'actual' phi does not.
+     note: 'measured' phi reported above includes 
+           realizations of measurement noise, 
+           'actual' phi does not.
 
 

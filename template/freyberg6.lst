@@ -1846,11 +1846,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =        9680.0017            EXT-INFLOW =         164.9806
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =       99131.6842                   GWF =        1787.7389
+                 GWF =       99131.6860                   GWF =        1787.7389
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      108811.6859              TOTAL IN =        1952.7195
+            TOTAL IN =      108811.6877              TOTAL IN =        1952.7195
 
           OUT:                                     OUT:
           ----                                     ----
@@ -1859,13 +1859,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      108811.6859           EXT-OUTFLOW =        1952.7195
+         EXT-OUTFLOW =      108811.6877           EXT-OUTFLOW =        1952.7195
 
-           TOTAL OUT =      108811.6859             TOTAL OUT =        1952.7195
+           TOTAL OUT =      108811.6877             TOTAL OUT =        1952.7195
 
-            IN - OUT =           0.0000              IN - OUT =       2.2737E-13
+            IN - OUT =           0.0000              IN - OUT =      -4.5475E-13
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
 
 
@@ -1889,15 +1889,15 @@ SFR GEOMETRY DATA
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         576.2973                STO-SS =           9.0911     STORAGE         
-              STO-SY =       89482.8703                STO-SY =        1417.2489     STORAGE         
+              STO-SY =       89482.8681                STO-SY =        1417.2488     STORAGE         
                  WEL =       24825.0730                   WEL =         417.5474     WEL-1           
                  GHB =       35798.4099                   GHB =         632.9828     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =       99842.1335                   SFR =        1796.9334     SFR_1           
+                 SFR =       99842.1341                   SFR =        1796.9334     SFR_1           
 
-           TOTAL OUT =      250524.7841             TOTAL OUT =        4273.8035
+           TOTAL OUT =      250524.7824             TOTAL OUT =        4273.8035
 
-            IN - OUT =         422.6847              IN - OUT =           3.2067
+            IN - OUT =         422.6864              IN - OUT =           3.2067
 
  PERCENT DISCREPANCY =           0.17     PERCENT DISCREPANCY =           0.08
 
@@ -2000,11 +2000,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       14526.7204            EXT-INFLOW =         156.3458
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      158953.7470                   GWF =        1929.7440
+                 GWF =      158953.7488                   GWF =        1929.7440
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      173480.4674              TOTAL IN =        2086.0897
+            TOTAL IN =      173480.4693              TOTAL IN =        2086.0897
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2013,9 +2013,9 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      173480.4674           EXT-OUTFLOW =        2086.0897
+         EXT-OUTFLOW =      173480.4693           EXT-OUTFLOW =        2086.0897
 
-           TOTAL OUT =      173480.4674             TOTAL OUT =        2086.0897
+           TOTAL OUT =      173480.4693             TOTAL OUT =        2086.0897
 
             IN - OUT =           0.0000              IN - OUT =      -4.5475E-13
 
@@ -2043,15 +2043,15 @@ SFR GEOMETRY DATA
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         731.9862                STO-SS =           5.0222     STORAGE         
-              STO-SY =      113969.3046                STO-SY =         789.8850     STORAGE         
+              STO-SY =      113969.3027                STO-SY =         789.8850     STORAGE         
                  WEL =       44755.3283                   WEL =         642.9115     WEL-1           
                  GHB =       56621.8502                   GHB =         671.7239     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      160070.9119                   SFR =        1942.8638     SFR_1           
+                 SFR =      160070.9123                   SFR =        1942.8638     SFR_1           
 
-           TOTAL OUT =      376149.3812             TOTAL OUT =        4052.4064
+           TOTAL OUT =      376149.3797             TOTAL OUT =        4052.4064
 
-            IN - OUT =         445.9829              IN - OUT =           0.7516
+            IN - OUT =         445.9844              IN - OUT =           0.7515
 
  PERCENT DISCREPANCY =           0.12     PERCENT DISCREPANCY =           0.02
 
@@ -2154,11 +2154,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       18465.8771            EXT-INFLOW =         131.3052
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      215239.1907                   GWF =        1876.1815
+                 GWF =      215239.1924                   GWF =        1876.1815
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      233705.0678              TOTAL IN =        2007.4867
+            TOTAL IN =      233705.0694              TOTAL IN =        2007.4867
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2167,13 +2167,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      233705.0678           EXT-OUTFLOW =        2007.4867
+         EXT-OUTFLOW =      233705.0694           EXT-OUTFLOW =        2007.4867
 
-           TOTAL OUT =      233705.0678             TOTAL OUT =        2007.4867
+           TOTAL OUT =      233705.0694             TOTAL OUT =        2007.4867
 
-            IN - OUT =           0.0000              IN - OUT =      -2.2737E-13
+            IN - OUT =           0.0000              IN - OUT =           0.0000
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
 
 
@@ -2186,26 +2186,26 @@ SFR GEOMETRY DATA
            IN:                                      IN:
            ---                                      ---
               STO-SS =          36.9937                STO-SS =           1.2331     STORAGE         
-              STO-SY =        5488.1992                STO-SY =         182.9400     STORAGE         
+              STO-SY =        5488.1991                STO-SY =         182.9400     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      478715.3166                   RCH =        3403.9984     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      484240.5095              TOTAL IN =        3588.1715
+            TOTAL IN =      484240.5093              TOTAL IN =        3588.1715
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.5207     STORAGE         
-              STO-SY =      116566.4851                STO-SY =          86.5727     STORAGE         
+              STO-SY =      116566.4833                STO-SY =          86.5727     STORAGE         
                  WEL =       74359.4459                   WEL =         986.8039     WEL-1           
                  GHB =       76058.7127                   GHB =         647.8954     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      216320.1683                   SFR =        1874.9752     SFR_1           
+                 SFR =      216320.1686                   SFR =        1874.9752     SFR_1           
 
-           TOTAL OUT =      484052.4201             TOTAL OUT =        3596.7680
+           TOTAL OUT =      484052.4185             TOTAL OUT =        3596.7680
 
-            IN - OUT =         188.0894              IN - OUT =          -8.5965
+            IN - OUT =         188.0908              IN - OUT =          -8.5965
 
  PERCENT DISCREPANCY =           0.04     PERCENT DISCREPANCY =          -0.24
 
@@ -2263,33 +2263,33 @@ SFR GEOMETRY DATA
  BOUNDARY        1  CELL             (1,40,6)   RATE    -19.2865    
  BOUNDARY        2  CELL             (1,40,7)   RATE    -19.0731    
  BOUNDARY        3  CELL             (1,40,8)   RATE    -18.7159    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -18.2909    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -17.8625    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -17.4690    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -17.1509    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -16.9614    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -16.9893    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -18.2910    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -17.8626    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -17.4691    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -17.1510    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -16.9616    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -16.9895    
  BOUNDARY       10  CELL            (1,40,15)   RATE    -17.3653    
  BOUNDARY       11  CELL             (2,40,6)   RATE    -20.0122    
  BOUNDARY       12  CELL             (2,40,7)   RATE    -19.7884    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -19.4137    
  BOUNDARY       14  CELL             (2,40,9)   RATE    -18.9679    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -18.5184    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -18.1057    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -17.7722    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -17.5739    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -17.6037    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -17.9970    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -21.7919    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -18.5185    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -18.1058    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -17.7723    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -17.5741    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -17.6039    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -17.9971    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -21.7920    
  BOUNDARY       22  CELL             (3,40,7)   RATE    -21.5478    
  BOUNDARY       23  CELL             (3,40,8)   RATE    -21.1375    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -20.6488    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -20.1595    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -19.7102    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -19.3481    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -19.1303    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -19.1640    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -19.5952    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -20.6489    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -20.1596    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -19.7103    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -19.3482    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -19.1304    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -19.1642    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -19.5954    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      6
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      6
@@ -2308,11 +2308,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       21477.5212            EXT-INFLOW =          97.1498
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      265370.4996                   GWF =        1617.1390
+                 GWF =      265370.4979                   GWF =        1617.1389
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      286848.0208              TOTAL IN =        1714.2888
+            TOTAL IN =      286848.0191              TOTAL IN =        1714.2887
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2321,9 +2321,9 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      286848.0208           EXT-OUTFLOW =        1714.2888
+         EXT-OUTFLOW =      286848.0191           EXT-OUTFLOW =        1714.2887
 
-           TOTAL OUT =      286848.0208             TOTAL OUT =        1714.2888
+           TOTAL OUT =      286848.0191             TOTAL OUT =        1714.2887
 
             IN - OUT =           0.0000              IN - OUT =           0.0000
 
@@ -2339,27 +2339,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =         236.3683                STO-SS =           6.4314     STORAGE         
-              STO-SY =       36052.4289                STO-SY =         985.9429     STORAGE         
+              STO-SS =         236.3623                STO-SS =           6.4312     STORAGE         
+              STO-SY =       36051.4968                STO-SY =         985.9128     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      556790.1472                   RCH =        2518.5429     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      593078.9444              TOTAL IN =        3510.9173
+            TOTAL IN =      593078.0062              TOTAL IN =        3510.8870
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.0000     STORAGE         
-              STO-SY =      116566.4851                STO-SY =           0.0000     STORAGE         
+              STO-SY =      116566.4833                STO-SY =           0.0000     STORAGE         
                  WEL =      116181.4361                   WEL =        1349.0965     WEL-1           
-                 GHB =       93640.4031                   GHB =         567.1513     GHB-1           
+                 GHB =       93640.4831                   GHB =         567.1539     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      266223.0255                   SFR =        1609.7696     SFR_1           
+                 SFR =      266223.3102                   SFR =        1609.7788     SFR_1           
 
-           TOTAL OUT =      593358.9579             TOTAL OUT =        3526.0173
+           TOTAL OUT =      593359.3208             TOTAL OUT =        3526.0291
 
-            IN - OUT =        -280.0136              IN - OUT =         -15.1001
+            IN - OUT =        -281.3147              IN - OUT =         -15.1421
 
  PERCENT DISCREPANCY =          -0.05     PERCENT DISCREPANCY =          -0.43
 
@@ -2417,31 +2417,31 @@ SFR GEOMETRY DATA
  BOUNDARY        1  CELL             (1,40,6)   RATE    -15.6965    
  BOUNDARY        2  CELL             (1,40,7)   RATE    -15.4891    
  BOUNDARY        3  CELL             (1,40,8)   RATE    -15.1384    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -14.7158    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -14.2848    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -13.8895    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -14.7159    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -14.2849    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -13.8896    
  BOUNDARY        7  CELL            (1,40,12)   RATE    -13.5767    
  BOUNDARY        8  CELL            (1,40,13)   RATE    -13.4024    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -13.4434    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -13.7942    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -13.4435    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -13.7943    
  BOUNDARY       11  CELL             (2,40,6)   RATE    -16.2913    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -16.0740    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -16.0741    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -15.7065    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -15.2635    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -15.2636    
  BOUNDARY       15  CELL            (2,40,10)   RATE    -14.8118    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -14.3975    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -14.3976    
  BOUNDARY       17  CELL            (2,40,12)   RATE    -14.0698    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -13.8874    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -13.9310    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -14.2977    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -13.8875    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -13.9311    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -14.2978    
  BOUNDARY       21  CELL             (3,40,6)   RATE    -17.7443    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -17.5071    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -17.1047    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -17.5072    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -17.1048    
  BOUNDARY       24  CELL             (3,40,9)   RATE    -16.6195    
  BOUNDARY       25  CELL            (3,40,10)   RATE    -16.1270    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -15.6754    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -15.3188    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -15.1187    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -15.6755    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -15.3189    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -15.1188    
  BOUNDARY       29  CELL            (3,40,14)   RATE    -15.1671    
  BOUNDARY       30  CELL            (3,40,15)   RATE    -15.5692    
 
@@ -2462,11 +2462,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       23392.2494            EXT-INFLOW =          63.8243
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      302690.8614                   GWF =        1244.0121
+                 GWF =      302691.0321                   GWF =        1244.0178
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      326083.1108              TOTAL IN =        1307.8363
+            TOTAL IN =      326083.2815              TOTAL IN =        1307.8421
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2475,11 +2475,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      326083.1108           EXT-OUTFLOW =        1307.8363
+         EXT-OUTFLOW =      326083.2815           EXT-OUTFLOW =        1307.8421
 
-           TOTAL OUT =      326083.1108             TOTAL OUT =        1307.8363
+           TOTAL OUT =      326083.2815             TOTAL OUT =        1307.8421
 
-            IN - OUT =           0.0000              IN - OUT =           0.0000
+            IN - OUT =       5.8208E-11              IN - OUT =       4.5475E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -2493,27 +2493,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =         553.8735                STO-SS =          10.5835     STORAGE         
-              STO-SY =       85259.2161                STO-SY =        1640.2262     STORAGE         
+              STO-SS =         553.8685                STO-SS =          10.5835     STORAGE         
+              STO-SY =       85258.4438                STO-SY =        1640.2316     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      606428.1776                   RCH =        1654.6010     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      692241.2672              TOTAL IN =        3305.4108
+            TOTAL IN =      692240.4899              TOTAL IN =        3305.4161
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.0000     STORAGE         
-              STO-SY =      116566.4851                STO-SY =           0.0000     STORAGE         
+              STO-SY =      116566.4833                STO-SY =           0.0000     STORAGE         
                  WEL =      164910.5591                   WEL =        1624.3041     WEL-1           
-                 GHB =      107263.7994                   GHB =         454.1132     GHB-1           
+                 GHB =      107263.9249                   GHB =         454.1147     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      303124.4325                   SFR =        1230.0469     SFR_1           
+                 SFR =      303124.8689                   SFR =        1230.0520     SFR_1           
 
-           TOTAL OUT =      692612.8842             TOTAL OUT =        3308.4642
+           TOTAL OUT =      692613.4444             TOTAL OUT =        3308.4708
 
-            IN - OUT =        -371.6170              IN - OUT =          -3.0534
+            IN - OUT =        -372.9545              IN - OUT =          -3.0547
 
  PERCENT DISCREPANCY =          -0.05     PERCENT DISCREPANCY =          -0.09
 
@@ -2561,22 +2561,22 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      8
 
               GHB (GHB-1)   PERIOD 8   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -12.0329    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -12.0330    
  BOUNDARY        2  CELL             (1,40,7)   RATE    -11.8485    
  BOUNDARY        3  CELL             (1,40,8)   RATE    -11.5346    
  BOUNDARY        4  CELL             (1,40,9)   RATE    -11.1532    
  BOUNDARY        5  CELL            (1,40,10)   RATE    -10.7615    
  BOUNDARY        6  CELL            (1,40,11)   RATE    -10.4035    
  BOUNDARY        7  CELL            (1,40,12)   RATE    -10.1259    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -9.98190    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -9.98193    
  BOUNDARY        9  CELL            (1,40,14)   RATE    -10.0340    
  BOUNDARY       10  CELL            (1,40,15)   RATE    -10.3463    
  BOUNDARY       11  CELL             (2,40,6)   RATE    -12.4921    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -12.2990    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -12.2991    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -11.9704    
  BOUNDARY       14  CELL             (2,40,9)   RATE    -11.5711    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -11.1611    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -10.7864    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -11.1612    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -10.7865    
  BOUNDARY       17  CELL            (2,40,12)   RATE    -10.4962    
  BOUNDARY       18  CELL            (2,40,13)   RATE    -10.3457    
  BOUNDARY       19  CELL            (2,40,14)   RATE    -10.4009    
@@ -2584,13 +2584,13 @@ SFR GEOMETRY DATA
  BOUNDARY       21  CELL             (3,40,6)   RATE    -13.6092    
  BOUNDARY       22  CELL             (3,40,7)   RATE    -13.3985    
  BOUNDARY       23  CELL             (3,40,8)   RATE    -13.0388    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -12.6016    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -12.1546    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -11.7463    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -12.6017    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -12.1547    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -11.7464    
  BOUNDARY       27  CELL            (3,40,12)   RATE    -11.4304    
  BOUNDARY       28  CELL            (3,40,13)   RATE    -11.2658    
  BOUNDARY       29  CELL            (3,40,14)   RATE    -11.3267    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -11.6842    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -11.6843    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      8
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      8
@@ -2609,11 +2609,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       24664.2319            EXT-INFLOW =          41.0317
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      329609.7608                   GWF =         868.3516
+                 GWF =      329610.0489                   GWF =         868.3554
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      354273.9927              TOTAL IN =         909.3833
+            TOTAL IN =      354274.2809              TOTAL IN =         909.3871
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2622,11 +2622,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      354273.9927           EXT-OUTFLOW =         909.3833
+         EXT-OUTFLOW =      354274.2809           EXT-OUTFLOW =         909.3871
 
-           TOTAL OUT =      354273.9927             TOTAL OUT =         909.3833
+           TOTAL OUT =      354274.2809             TOTAL OUT =         909.3871
 
-            IN - OUT =           0.0000              IN - OUT =           0.0000
+            IN - OUT =       1.1642E-10              IN - OUT =       2.2737E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -2640,27 +2640,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =         897.1874                STO-SS =          11.0746     STORAGE         
-              STO-SY =      139011.2734                STO-SY =        1733.9373     STORAGE         
+              STO-SS =         897.1835                STO-SS =          11.0747     STORAGE         
+              STO-SY =      139010.6490                STO-SY =        1733.9421     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      639403.4582                   RCH =        1063.7187     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      779311.9190              TOTAL IN =        2808.7307
+            TOTAL IN =      779311.2907              TOTAL IN =        2808.7355
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.0000     STORAGE         
-              STO-SY =      116566.4851                STO-SY =           0.0000     STORAGE         
+              STO-SY =      116566.4833                STO-SY =           0.0000     STORAGE         
                  WEL =      215263.9862                   WEL =        1624.3041     WEL-1           
-                 GHB =      117888.3741                   GHB =         342.7282     GHB-1           
+                 GHB =      117888.5325                   GHB =         342.7293     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      329606.0831                   SFR =         854.2468     SFR_1           
+                 SFR =      329606.6363                   SFR =         854.2506     SFR_1           
 
-           TOTAL OUT =      780072.5366             TOTAL OUT =        2821.2791
+           TOTAL OUT =      780073.2465             TOTAL OUT =        2821.2839
 
-            IN - OUT =        -760.6176              IN - OUT =         -12.5484
+            IN - OUT =        -761.9559              IN - OUT =         -12.5484
 
  PERCENT DISCREPANCY =          -0.10     PERCENT DISCREPANCY =          -0.45
 
@@ -2715,36 +2715,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      9
 
               GHB (GHB-1)   PERIOD 9   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -9.01354    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -8.85118    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -8.57246    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -8.23058    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -7.87658    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -7.55386    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -7.30977    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -7.19547    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -7.26127    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -7.54428    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -9.34535    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -9.17541    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -8.88367    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -8.52575    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -8.15519    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -7.81743    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -7.56218    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -7.44283    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -7.51244    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -7.80795    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -9.01357    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -8.85120    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -8.57249    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -8.23061    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -7.87660    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -7.55389    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -7.30979    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -7.19549    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -7.26129    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -7.54431    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -9.34538    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -9.17544    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -8.88369    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -8.52577    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -8.15521    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -7.81746    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -7.56221    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -7.44286    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -7.51247    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -7.80798    
  BOUNDARY       21  CELL             (3,40,6)   RATE    -10.1689    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -9.98323    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -9.66381    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -9.27172    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -8.86710    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -8.49845    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -8.22021    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -8.08968    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -8.16677    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -8.49074    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -9.98326    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -9.66384    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -9.27175    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -8.86713    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -8.49848    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -8.22024    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -8.08971    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -8.16679    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -8.49077    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      9
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD      9
@@ -2763,11 +2763,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       25761.8926            EXT-INFLOW =          35.4084
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      346521.7655                   GWF =         545.5485
+                 GWF =      346522.1427                   GWF =         545.5514
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      372283.6581              TOTAL IN =         580.9569
+            TOTAL IN =      372284.0353              TOTAL IN =         580.9598
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2776,11 +2776,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      372283.6581           EXT-OUTFLOW =         580.9569
+         EXT-OUTFLOW =      372284.0353           EXT-OUTFLOW =         580.9598
 
-           TOTAL OUT =      372283.6581             TOTAL OUT =         580.9569
+           TOTAL OUT =      372284.0353             TOTAL OUT =         580.9598
 
-            IN - OUT =           0.0000              IN - OUT =       1.1369E-13
+            IN - OUT =       1.1642E-10              IN - OUT =           0.0000
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -2794,27 +2794,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1207.3168                STO-SS =          10.0042     STORAGE         
-              STO-SY =      187802.7767                STO-SY =        1573.9195     STORAGE         
+              STO-SS =        1207.3136                STO-SS =          10.0042     STORAGE         
+              STO-SY =      187802.2685                STO-SY =        1573.9232     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      667859.5670                   RCH =         917.9390     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      856869.6604              TOTAL IN =        2501.8626
+            TOTAL IN =      856869.1490              TOTAL IN =        2501.8664
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.0000     STORAGE         
-              STO-SY =      116566.4851                STO-SY =           0.0000     STORAGE         
+              STO-SY =      116566.4833                STO-SY =           0.0000     STORAGE         
                  WEL =      268965.1734                   WEL =        1732.2964     WEL-1           
-                 GHB =      125671.1654                   GHB =         251.0578     GHB-1           
+                 GHB =      125671.3484                   GHB =         251.0586     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      346060.0827                   SFR =         530.7742     SFR_1           
+                 SFR =      346060.7250                   SFR =         530.7771     SFR_1           
 
-           TOTAL OUT =      858010.5147             TOTAL OUT =        2514.1283
+           TOTAL OUT =      858011.3382             TOTAL OUT =        2514.1320
 
-            IN - OUT =       -1140.8543              IN - OUT =         -12.2657
+            IN - OUT =       -1142.1891              IN - OUT =         -12.2656
 
  PERCENT DISCREPANCY =          -0.13     PERCENT DISCREPANCY =          -0.49
 
@@ -2869,36 +2869,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     10
 
               GHB (GHB-1)   PERIOD 10   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -7.52882    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -7.38764    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -7.14445    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -6.84522    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -6.53542    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -6.25537    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -6.04933    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -5.96414    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -6.04290    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -6.31070    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -7.78576    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -7.63804    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -7.38357    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -7.07047    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -6.74637    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -6.45348    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -6.23811    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -6.14941    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -6.23248    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -6.51228    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -8.45170    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -8.29029    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -8.01177    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -7.66892    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -7.31512    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -6.99543    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -6.76084    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -6.66394    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -6.75595    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -7.06257    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -7.52884    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -7.38766    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -7.14447    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -6.84524    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -6.53544    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -6.25539    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -6.04934    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -5.96415    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -6.04292    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -6.31072    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -7.78578    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -7.63806    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -7.38359    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -7.07049    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -6.74639    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -6.45350    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -6.23813    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -6.14943    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -6.23249    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -6.51230    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -8.45172    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -8.29032    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -8.01179    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -7.66894    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -7.31514    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -6.99545    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -6.76086    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -6.66396    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -6.75597    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -7.06259    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     10
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     10
@@ -2917,11 +2917,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       27219.6430            EXT-INFLOW =          48.5917
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      357951.1234                   GWF =         380.9786
+                 GWF =      357951.5686                   GWF =         380.9809
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      385170.7663              TOTAL IN =         429.5703
+            TOTAL IN =      385171.2116              TOTAL IN =         429.5725
 
           OUT:                                     OUT:
           ----                                     ----
@@ -2930,11 +2930,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      385170.7663           EXT-OUTFLOW =         429.5703
+         EXT-OUTFLOW =      385171.2116           EXT-OUTFLOW =         429.5725
 
-           TOTAL OUT =      385170.7663             TOTAL OUT =         429.5703
+           TOTAL OUT =      385171.2116             TOTAL OUT =         429.5725
 
-            IN - OUT =           0.0000              IN - OUT =       5.6843E-14
+            IN - OUT =       1.1642E-10              IN - OUT =       5.6843E-14
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -2948,27 +2948,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1385.7162                STO-SS =           5.9466     STORAGE         
-              STO-SY =      216171.5919                STO-SY =         945.6272     STORAGE         
+              STO-SS =        1385.7136                STO-SS =           5.9467     STORAGE         
+              STO-SY =      216171.1704                STO-SY =         945.6301     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      705650.7497                   RCH =        1259.7061     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      923208.0579              TOTAL IN =        2211.2799
+            TOTAL IN =      923207.6337              TOTAL IN =        2211.2828
 
           OUT:                                     OUT:
           ----                                     ----
               STO-SS =         747.6081                STO-SS =           0.0000     STORAGE         
-              STO-SY =      116566.4851                STO-SY =           0.0000     STORAGE         
+              STO-SY =      116566.4833                STO-SY =           0.0000     STORAGE         
                  WEL =      318214.0860                   WEL =        1641.6304     WEL-1           
-                 GHB =      131918.6798                   GHB =         208.2505     GHB-1           
+                 GHB =      131918.8813                   GHB =         208.2511     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      357078.2154                   SFR =         367.2711     SFR_1           
+                 SFR =      357078.9262                   SFR =         367.2734     SFR_1           
 
-           TOTAL OUT =      924525.0745             TOTAL OUT =        2217.1520
+           TOTAL OUT =      924525.9849             TOTAL OUT =        2217.1549
 
-            IN - OUT =       -1317.0166              IN - OUT =          -5.8721
+            IN - OUT =       -1318.3512              IN - OUT =          -5.8721
 
  PERCENT DISCREPANCY =          -0.14     PERCENT DISCREPANCY =          -0.27
 
@@ -3023,36 +3023,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     11
 
               GHB (GHB-1)   PERIOD 11   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -7.97505    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -7.85237    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -7.64281    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -7.38792    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -7.12792    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -6.89667    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -6.73141    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -6.67282    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -6.76193    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -7.03187    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -8.23116    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -8.10279    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -7.88351    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -7.61684    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -7.34495    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -7.10320    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -6.93054    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -6.86941    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -6.96368    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -7.24754    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -8.91940    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -8.77924    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -8.53931    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -8.24741    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -7.95101    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -7.68759    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -7.49984    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -7.43325    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -7.53776    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -7.85164    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -7.97506    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -7.85238    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -7.64283    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -7.38793    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -7.12794    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -6.89669    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -6.73143    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -6.67284    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -6.76195    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -7.03189    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -8.23118    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -8.10281    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -7.88352    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -7.61686    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -7.34497    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -7.10322    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -6.93056    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -6.86942    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -6.96369    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -7.24755    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -8.91942    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -8.77926    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -8.53933    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -8.24743    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -7.95103    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -7.68761    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -7.49986    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -7.43326    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -7.53778    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -7.85166    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     11
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     11
@@ -3071,11 +3071,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       29598.6778            EXT-INFLOW =          76.7431
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      370514.7624                   GWF =         405.2787
+                 GWF =      370515.2671                   GWF =         405.2806
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      400113.4401              TOTAL IN =         482.0217
+            TOTAL IN =      400113.9448              TOTAL IN =         482.0237
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3084,11 +3084,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      400113.4401           EXT-OUTFLOW =         482.0217
+         EXT-OUTFLOW =      400113.9448           EXT-OUTFLOW =         482.0237
 
-           TOTAL OUT =      400113.4401             TOTAL OUT =         482.0217
+           TOTAL OUT =      400113.9448             TOTAL OUT =         482.0237
 
-            IN - OUT =           0.0000              IN - OUT =       5.6843E-14
+            IN - OUT =       1.1642E-10              IN - OUT =       1.7053E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -3102,27 +3102,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.7247     STORAGE         
-              STO-SY =      219957.2371                STO-SY =         122.1176     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.7247     STORAGE         
+              STO-SY =      219956.8463                STO-SY =         122.1186     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      767325.6072                   RCH =        1989.5115     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =      988691.0270              TOTAL IN =        2112.3538
+            TOTAL IN =      988690.6337              TOTAL IN =        2112.3548
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =         768.6666                STO-SS =           0.6793     STORAGE         
-              STO-SY =      119713.7369                STO-SY =         101.5243     STORAGE         
+              STO-SS =         768.6664                STO-SS =           0.6793     STORAGE         
+              STO-SY =      119713.7001                STO-SY =         101.5231     STORAGE         
                  WEL =      360953.9342                   WEL =        1378.7048     WEL-1           
-                 GHB =      138950.1259                   GHB =         226.8208     GHB-1           
+                 GHB =      138950.3428                   GHB =         226.8213     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      369679.1046                   SFR =         406.4803     SFR_1           
+                 SFR =      369679.8744                   SFR =         406.4822     SFR_1           
 
-           TOTAL OUT =      990065.5682             TOTAL OUT =        2114.2095
+           TOTAL OUT =      990066.5179             TOTAL OUT =        2114.2107
 
-            IN - OUT =       -1374.5412              IN - OUT =          -1.8556
+            IN - OUT =       -1375.8842              IN - OUT =          -1.8559
 
  PERCENT DISCREPANCY =          -0.14     PERCENT DISCREPANCY =          -0.09
 
@@ -3179,10 +3179,10 @@ SFR GEOMETRY DATA
               GHB (GHB-1)   PERIOD 12   STEP 1
  BOUNDARY        1  CELL             (1,40,6)   RATE    -10.2619    
  BOUNDARY        2  CELL             (1,40,7)   RATE    -10.1487    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -9.95919    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -9.73529    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -9.51490    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -9.32473    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -9.95921    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -9.73530    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -9.51491    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -9.32474    
  BOUNDARY        7  CELL            (1,40,12)   RATE    -9.19364    
  BOUNDARY        8  CELL            (1,40,13)   RATE    -9.15658    
  BOUNDARY        9  CELL            (1,40,14)   RATE    -9.26138    
@@ -3191,16 +3191,16 @@ SFR GEOMETRY DATA
  BOUNDARY       12  CELL             (2,40,7)   RATE    -10.4749    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -10.2765    
  BOUNDARY       14  CELL             (2,40,9)   RATE    -10.0422    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -9.81166    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -9.61285    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -9.47588    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -9.43729    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -9.81168    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -9.61286    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -9.47589    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -9.43730    
  BOUNDARY       19  CELL            (2,40,14)   RATE    -9.54747    
  BOUNDARY       20  CELL            (2,40,15)   RATE    -9.86759    
  BOUNDARY       21  CELL             (3,40,6)   RATE    -11.4813    
  BOUNDARY       22  CELL             (3,40,7)   RATE    -11.3521    
  BOUNDARY       23  CELL             (3,40,8)   RATE    -11.1352    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -10.8789    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -10.8790    
  BOUNDARY       25  CELL            (3,40,10)   RATE    -10.6285    
  BOUNDARY       26  CELL            (3,40,11)   RATE    -10.4128    
  BOUNDARY       27  CELL            (3,40,12)   RATE    -10.2647    
@@ -3225,11 +3225,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       32948.6566            EXT-INFLOW =         111.6660
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      389396.1873                   GWF =         629.3808
+                 GWF =      389396.7290                   GWF =         629.3821
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      422344.8440              TOTAL IN =         741.0468
+            TOTAL IN =      422345.3857              TOTAL IN =         741.0480
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3238,13 +3238,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      422344.8440           EXT-OUTFLOW =         741.0468
+         EXT-OUTFLOW =      422345.3857           EXT-OUTFLOW =         741.0480
 
-           TOTAL OUT =      422344.8440             TOTAL OUT =         741.0468
+           TOTAL OUT =      422345.3857             TOTAL OUT =         741.0480
 
-            IN - OUT =           0.0000              IN - OUT =      -3.4106E-13
+            IN - OUT =       1.7462E-10              IN - OUT =           0.0000
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
 
 
@@ -3256,27 +3256,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.0000     STORAGE         
-              STO-SY =      219957.2371                STO-SY =           0.0000     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.0000     STORAGE         
+              STO-SY =      219956.8463                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      854171.5364                   RCH =        2894.8643     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1075536.9562              TOTAL IN =        2894.8643
+            TOTAL IN =     1075536.5629              TOTAL IN =        2894.8643
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =         945.8314                STO-SS =           5.9055     STORAGE         
-              STO-SY =      147162.5747                STO-SY =         914.9613     STORAGE         
+              STO-SS =         945.8307                STO-SS =           5.9055     STORAGE         
+              STO-SY =      147162.4705                STO-SY =         914.9590     STORAGE         
                  WEL =      391556.1266                   WEL =        1020.0731     WEL-1           
-                 GHB =      148030.4651                   GHB =         302.6780     GHB-1           
+                 GHB =      148030.6925                   GHB =         302.6783     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      388950.7884                   SFR =         642.3895     SFR_1           
+                 SFR =      388951.5946                   SFR =         642.3907     SFR_1           
 
-           TOTAL OUT =     1076645.7861             TOTAL OUT =        2886.0073
+           TOTAL OUT =     1076646.7148             TOTAL OUT =        2886.0066
 
-            IN - OUT =       -1108.8299              IN - OUT =           8.8570
+            IN - OUT =       -1110.1519              IN - OUT =           8.8577
 
  PERCENT DISCREPANCY =          -0.10     PERCENT DISCREPANCY =           0.31
 
@@ -3337,10 +3337,10 @@ SFR GEOMETRY DATA
  BOUNDARY        4  CELL             (1,40,9)   RATE    -13.3316    
  BOUNDARY        5  CELL            (1,40,10)   RATE    -13.1205    
  BOUNDARY        6  CELL            (1,40,11)   RATE    -12.9395    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -12.8103    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -12.8104    
  BOUNDARY        8  CELL            (1,40,13)   RATE    -12.7644    
  BOUNDARY        9  CELL            (1,40,14)   RATE    -12.8614    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -13.1984    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -13.1985    
  BOUNDARY       11  CELL             (2,40,6)   RATE    -14.3265    
  BOUNDARY       12  CELL             (2,40,7)   RATE    -14.2043    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -14.0036    
@@ -3379,11 +3379,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       37387.6143            EXT-INFLOW =         143.1922
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      420579.3771                   GWF =        1005.9093
+                 GWF =      420579.9556                   GWF =        1005.9105
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      457966.9914              TOTAL IN =        1149.1015
+            TOTAL IN =      457967.5699              TOTAL IN =        1149.1027
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3392,11 +3392,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      457966.9914           EXT-OUTFLOW =        1149.1015
+         EXT-OUTFLOW =      457967.5699           EXT-OUTFLOW =        1149.1027
 
-           TOTAL OUT =      457966.9914             TOTAL OUT =        1149.1015
+           TOTAL OUT =      457967.5699             TOTAL OUT =        1149.1027
 
-            IN - OUT =           0.0000              IN - OUT =      -2.2737E-13
+            IN - OUT =       1.1642E-10              IN - OUT =      -2.2737E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
@@ -3410,27 +3410,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.0000     STORAGE         
-              STO-SY =      219957.2371                STO-SY =           0.0000     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.0000     STORAGE         
+              STO-SY =      219956.8463                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =      969248.4938                   RCH =        3712.1599     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1190613.9135              TOTAL IN =        3712.1599
+            TOTAL IN =     1190613.5202              TOTAL IN =        3712.1599
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        1261.3314                STO-SS =          10.1774     STORAGE         
-              STO-SY =      196348.8136                STO-SY =        1586.6529     STORAGE         
+              STO-SS =        1261.3303                STO-SS =          10.1774     STORAGE         
+              STO-SY =      196348.6376                STO-SY =        1586.6506     STORAGE         
                  WEL =      412330.9260                   WEL =         670.1548     WEL-1           
-                 GHB =      160953.5021                   GHB =         416.8722     GHB-1           
+                 GHB =      160953.7367                   GHB =         416.8724     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      420672.7606                   SFR =        1023.2894     SFR_1           
+                 SFR =      420673.5966                   SFR =        1023.2904     SFR_1           
 
-           TOTAL OUT =     1191567.3338             TOTAL OUT =        3707.1467
+           TOTAL OUT =     1191568.2272             TOTAL OUT =        3707.1456
 
-            IN - OUT =        -953.4202              IN - OUT =           5.0132
+            IN - OUT =        -954.7070              IN - OUT =           5.0144
 
  PERCENT DISCREPANCY =          -0.08     PERCENT DISCREPANCY =           0.14
 
@@ -3494,11 +3494,11 @@ SFR GEOMETRY DATA
  BOUNDARY        7  CELL            (1,40,12)   RATE    -16.4627    
  BOUNDARY        8  CELL            (1,40,13)   RATE    -16.3930    
  BOUNDARY        9  CELL            (1,40,14)   RATE    -16.4736    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -16.8377    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -16.8378    
  BOUNDARY       11  CELL             (2,40,6)   RATE    -18.2389    
  BOUNDARY       12  CELL             (2,40,7)   RATE    -18.1001    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -17.8752    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -17.6211    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -17.6212    
  BOUNDARY       15  CELL            (2,40,10)   RATE    -17.3826    
  BOUNDARY       16  CELL            (2,40,11)   RATE    -17.1772    
  BOUNDARY       17  CELL            (2,40,12)   RATE    -17.0224    
@@ -3508,7 +3508,7 @@ SFR GEOMETRY DATA
  BOUNDARY       21  CELL             (3,40,6)   RATE    -19.8153    
  BOUNDARY       22  CELL             (3,40,7)   RATE    -19.6643    
  BOUNDARY       23  CELL             (3,40,8)   RATE    -19.4185    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -19.1406    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -19.1407    
  BOUNDARY       25  CELL            (3,40,10)   RATE    -18.8828    
  BOUNDARY       26  CELL            (3,40,11)   RATE    -18.6613    
  BOUNDARY       27  CELL            (3,40,12)   RATE    -18.4950    
@@ -3533,11 +3533,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       42414.0324            EXT-INFLOW =         162.1425
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      464462.3106                   GWF =        1415.5785
+                 GWF =      464462.9192                   GWF =        1415.5795
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      506876.3430              TOTAL IN =        1577.7210
+            TOTAL IN =      506876.9516              TOTAL IN =        1577.7220
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3546,13 +3546,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      506876.3430           EXT-OUTFLOW =        1577.7210
+         EXT-OUTFLOW =      506876.9516           EXT-OUTFLOW =        1577.7220
 
-           TOTAL OUT =      506876.3430             TOTAL OUT =        1577.7210
+           TOTAL OUT =      506876.9516             TOTAL OUT =        1577.7220
 
-            IN - OUT =           0.0000              IN - OUT =       2.2737E-13
+            IN - OUT =       1.7462E-10              IN - OUT =      -4.5475E-13
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
 
 
@@ -3564,27 +3564,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.0000     STORAGE         
-              STO-SY =      219957.2371                STO-SY =           0.0000     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.0000     STORAGE         
+              STO-SY =      219956.8463                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1099554.9610                   RCH =        4203.4344     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1320920.3808              TOTAL IN =        4203.4344
+            TOTAL IN =     1320919.9875              TOTAL IN =        4203.4344
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        1615.9527                STO-SS =          11.4394     STORAGE         
-              STO-SY =      251672.1418                STO-SY =        1784.6235     STORAGE         
+              STO-SS =        1615.9514                STO-SS =          11.4394     STORAGE         
+              STO-SY =      251671.9315                STO-SY =        1784.6224     STORAGE         
                  WEL =      425686.7434                   WEL =         430.8328     WEL-1           
-                 GHB =      177499.5622                   GHB =         533.7439     GHB-1           
+                 GHB =      177499.8034                   GHB =         533.7441     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      465011.9712                   SFR =        1430.2971     SFR_1           
+                 SFR =      465012.8354                   SFR =        1430.2980     SFR_1           
 
-           TOTAL OUT =     1321486.3713             TOTAL OUT =        4190.9367
+           TOTAL OUT =     1321487.2649             TOTAL OUT =        4190.9367
 
-            IN - OUT =        -565.9906              IN - OUT =          12.4977
+            IN - OUT =        -567.2775              IN - OUT =          12.4977
 
  PERCENT DISCREPANCY =          -0.04     PERCENT DISCREPANCY =           0.30
 
@@ -3649,25 +3649,25 @@ SFR GEOMETRY DATA
  BOUNDARY        8  CELL            (1,40,13)   RATE    -18.8045    
  BOUNDARY        9  CELL            (1,40,14)   RATE    -18.8609    
  BOUNDARY       10  CELL            (1,40,15)   RATE    -19.2392    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -21.0243    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -21.0244    
  BOUNDARY       12  CELL             (2,40,7)   RATE    -20.8634    
  BOUNDARY       13  CELL             (2,40,8)   RATE    -20.6017    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -20.3043    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -20.3044    
  BOUNDARY       15  CELL            (2,40,10)   RATE    -20.0218    
  BOUNDARY       16  CELL            (2,40,11)   RATE    -19.7728    
  BOUNDARY       17  CELL            (2,40,12)   RATE    -19.5755    
  BOUNDARY       18  CELL            (2,40,13)   RATE    -19.4626    
  BOUNDARY       19  CELL            (2,40,14)   RATE    -19.5218    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -19.9171    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -19.9172    
  BOUNDARY       21  CELL             (3,40,6)   RATE    -22.8632    
  BOUNDARY       22  CELL             (3,40,7)   RATE    -22.6879    
  BOUNDARY       23  CELL             (3,40,8)   RATE    -22.4019    
  BOUNDARY       24  CELL             (3,40,9)   RATE    -22.0767    
  BOUNDARY       25  CELL            (3,40,10)   RATE    -21.7712    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -21.5025    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -21.5026    
  BOUNDARY       27  CELL            (3,40,12)   RATE    -21.2900    
  BOUNDARY       28  CELL            (3,40,13)   RATE    -21.1656    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -21.2304    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -21.2305    
  BOUNDARY       30  CELL            (3,40,15)   RATE    -21.6634    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     15
@@ -3687,11 +3687,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       46978.0149            EXT-INFLOW =         162.9994
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      512429.9394                   GWF =        1713.1296
+                 GWF =      512430.5705                   GWF =        1713.1304
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      559407.9543              TOTAL IN =        1876.1290
+            TOTAL IN =      559408.5853              TOTAL IN =        1876.1298
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3700,11 +3700,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      559407.9543           EXT-OUTFLOW =        1876.1290
+         EXT-OUTFLOW =      559408.5853           EXT-OUTFLOW =        1876.1298
 
-           TOTAL OUT =      559407.9543             TOTAL OUT =        1876.1290
+           TOTAL OUT =      559408.5853             TOTAL OUT =        1876.1298
 
-            IN - OUT =           0.0000              IN - OUT =       4.5475E-13
+            IN - OUT =       1.1642E-10              IN - OUT =           0.0000
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -3718,27 +3718,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.0000     STORAGE         
-              STO-SY =      219957.2371                STO-SY =           0.0000     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.0000     STORAGE         
+              STO-SY =      219956.8463                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1217873.1003                   RCH =        4225.6478     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1439238.5201              TOTAL IN =        4225.6478
+            TOTAL IN =     1439238.1268              TOTAL IN =        4225.6478
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        1884.2912                STO-SS =           9.5835     STORAGE         
-              STO-SY =      293560.7763                STO-SY =        1496.0227     STORAGE         
+              STO-SS =        1884.2898                STO-SS =           9.5835     STORAGE         
+              STO-SY =      293560.5420                STO-SY =        1496.0218     STORAGE         
                  WEL =      436096.8154                   WEL =         371.7883     WEL-1           
-                 GHB =      194688.6853                   GHB =         613.8973     GHB-1           
+                 GHB =      194688.9315                   GHB =         613.8974     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      513188.6532                   SFR =        1720.5958     SFR_1           
+                 SFR =      513189.5406                   SFR =        1720.5966     SFR_1           
 
-           TOTAL OUT =     1439419.2214             TOTAL OUT =        4211.8875
+           TOTAL OUT =     1439420.1192             TOTAL OUT =        4211.8877
 
-            IN - OUT =        -180.7013              IN - OUT =          13.7603
+            IN - OUT =        -181.9924              IN - OUT =          13.7602
 
  PERCENT DISCREPANCY =          -0.01     PERCENT DISCREPANCY =           0.33
 
@@ -3841,11 +3841,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       51488.9250            EXT-INFLOW =         145.5132
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      569715.7995                   GWF =        1847.9310
+                 GWF =      569716.4520                   GWF =        1847.9317
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      621204.7245              TOTAL IN =        1993.4442
+            TOTAL IN =      621205.3770              TOTAL IN =        1993.4449
 
           OUT:                                     OUT:
           ----                                     ----
@@ -3854,9 +3854,9 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      621204.7245           EXT-OUTFLOW =        1993.4442
+         EXT-OUTFLOW =      621205.3770           EXT-OUTFLOW =        1993.4449
 
-           TOTAL OUT =      621204.7245             TOTAL OUT =        1993.4442
+           TOTAL OUT =      621205.3770             TOTAL OUT =        1993.4449
 
             IN - OUT =       1.1642E-10              IN - OUT =      -2.2737E-13
 
@@ -3872,27 +3872,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1408.1827                STO-SS =           0.0000     STORAGE         
-              STO-SY =      219957.2371                STO-SY =           0.0000     STORAGE         
+              STO-SS =        1408.1802                STO-SS =           0.0000     STORAGE         
+              STO-SY =      219956.8463                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1334815.3741                   RCH =        3772.3314     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1556180.7938              TOTAL IN =        3772.3314
+            TOTAL IN =     1556180.4006              TOTAL IN =        3772.3314
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2032.4133                STO-SS =           4.7781     STORAGE         
-              STO-SY =      316870.4257                STO-SY =         751.9242     STORAGE         
+              STO-SS =        2032.4116                STO-SS =           4.7781     STORAGE         
+              STO-SY =      316870.1627                STO-SY =         751.9232     STORAGE         
                  WEL =      451913.4072                   WEL =         510.2126     WEL-1           
-                 GHB =      214737.4594                   GHB =         646.7346     GHB-1           
+                 GHB =      214737.7107                   GHB =         646.7348     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      570711.9363                   SFR =        1855.5898     SFR_1           
+                 SFR =      570712.8457                   SFR =        1855.5905     SFR_1           
 
-           TOTAL OUT =     1556265.6418             TOTAL OUT =        3769.2394
+           TOTAL OUT =     1556266.5381             TOTAL OUT =        3769.2393
 
-            IN - OUT =         -84.8480              IN - OUT =           3.0920
+            IN - OUT =         -86.1375              IN - OUT =           3.0921
 
  PERCENT DISCREPANCY =          -0.01     PERCENT DISCREPANCY =           0.08
 
@@ -3963,7 +3963,7 @@ SFR GEOMETRY DATA
  BOUNDARY       14  CELL             (2,40,9)   RATE    -20.4793    
  BOUNDARY       15  CELL            (2,40,10)   RATE    -20.1000    
  BOUNDARY       16  CELL            (2,40,11)   RATE    -19.7563    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -19.4775    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -19.4776    
  BOUNDARY       18  CELL            (2,40,13)   RATE    -19.3087    
  BOUNDARY       19  CELL            (2,40,14)   RATE    -19.3437    
  BOUNDARY       20  CELL            (2,40,15)   RATE    -19.7396    
@@ -3995,11 +3995,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       54932.1878            EXT-INFLOW =         114.7754
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      622800.6922                   GWF =        1769.4964
+                 GWF =      622801.3618                   GWF =        1769.4970
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      677732.8800              TOTAL IN =        1884.2719
+            TOTAL IN =      677733.5496              TOTAL IN =        1884.2724
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4008,11 +4008,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      677732.8800           EXT-OUTFLOW =        1884.2719
+         EXT-OUTFLOW =      677733.5496           EXT-OUTFLOW =        1884.2724
 
-           TOTAL OUT =      677732.8800             TOTAL OUT =        1884.2719
+           TOTAL OUT =      677733.5496             TOTAL OUT =        1884.2724
 
-            IN - OUT =       1.1642E-10              IN - OUT =       2.2737E-13
+            IN - OUT =           0.0000              IN - OUT =           0.0000
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -4026,27 +4026,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1457.8842                STO-SS =           1.6567     STORAGE         
-              STO-SY =      227405.1933                STO-SY =         248.2652     STORAGE         
+              STO-SS =        1457.8818                STO-SS =           1.6567     STORAGE         
+              STO-SY =      227404.8138                STO-SY =         248.2656     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1424079.6225                   RCH =        2975.4749     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1652942.7000              TOTAL IN =        3225.3969
+            TOTAL IN =     1652942.3181              TOTAL IN =        3225.3973
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.2999     STORAGE         
-              STO-SY =      318382.6834                STO-SY =          50.4086     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.2999     STORAGE         
+              STO-SY =      318382.4128                STO-SY =          50.4083     STORAGE         
                  WEL =      476087.4702                   WEL =         805.8021     WEL-1           
-                 GHB =      233209.4667                   GHB =         615.7336     GHB-1           
+                 GHB =      233209.7219                   GHB =         615.7337     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      623745.0617                   SFR =        1767.7708     SFR_1           
+                 SFR =      623745.9881                   SFR =        1767.7714     SFR_1           
 
-           TOTAL OUT =     1653466.0917             TOTAL OUT =        3240.0150
+           TOTAL OUT =     1653467.0010             TOTAL OUT =        3240.0154
 
-            IN - OUT =        -523.3917              IN - OUT =         -14.6181
+            IN - OUT =        -524.6829              IN - OUT =         -14.6182
 
  PERCENT DISCREPANCY =          -0.03     PERCENT DISCREPANCY =          -0.45
 
@@ -4101,36 +4101,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     18
 
               GHB (GHB-1)   PERIOD 18   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -17.9402    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -17.7432    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -17.4144    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -17.0248    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -16.6344    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -16.2778    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -15.9913    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -15.8228    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -15.8548    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -16.2109    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -18.6296    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -18.4231    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -18.0782    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -17.6695    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -17.2599    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -16.8859    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -16.5855    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -16.4090    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -16.4430    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -16.8153    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -20.3007    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -20.0754    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -19.6979    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -19.2502    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -18.8044    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -18.3975    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -18.0714    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -17.8775    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -17.9152    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -18.3233    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -17.9393    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -17.7424    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -17.4137    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -17.0242    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -16.6338    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -16.2773    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -15.9908    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -15.8223    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -15.8544    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -16.2105    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -18.6286    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -18.4222    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -18.0774    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -17.6689    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -17.2593    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -16.8854    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -16.5850    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -16.4085    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -16.4425    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -16.8148    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -20.2997    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -20.0744    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -19.6970    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -19.2495    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -18.8038    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -18.3970    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -18.0708    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -17.8769    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -17.9146    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -18.3228    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     18
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     18
@@ -4149,11 +4149,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       57403.9908            EXT-INFLOW =          79.7356
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      669004.5251                   GWF =        1490.4462
+                 GWF =      669005.2639                   GWF =        1490.4485
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      726408.5160              TOTAL IN =        1570.1818
+            TOTAL IN =      726409.2547              TOTAL IN =        1570.1840
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4162,11 +4162,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      726408.5160           EXT-OUTFLOW =        1570.1818
+         EXT-OUTFLOW =      726409.2547           EXT-OUTFLOW =        1570.1840
 
-           TOTAL OUT =      726408.5160             TOTAL OUT =        1570.1818
+           TOTAL OUT =      726409.2547             TOTAL OUT =        1570.1840
 
-            IN - OUT =       1.1642E-10              IN - OUT =       4.5475E-13
+            IN - OUT =           0.0000              IN - OUT =           0.0000
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -4180,29 +4180,29 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        1679.7312                STO-SS =           7.1564     STORAGE         
-              STO-SY =      261529.8210                STO-SY =        1100.7944     STORAGE         
+              STO-SS =        1679.7793                STO-SS =           7.1580     STORAGE         
+              STO-SY =      261537.1614                STO-SY =        1101.0435     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1488159.4367                   RCH =        2067.0908     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1751368.9889              TOTAL IN =        3175.0416
+            TOTAL IN =     1751376.3774              TOTAL IN =        3175.2922
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.0000     STORAGE         
-              STO-SY =      318382.6834                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.0000     STORAGE         
+              STO-SY =      318382.4128                STO-SY =           0.0000     STORAGE         
                  WEL =      512434.7421                   WEL =        1172.4926     WEL-1           
-                 GHB =      249603.1019                   GHB =         528.8269     GHB-1           
+                 GHB =      249602.7658                   GHB =         528.8079     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      669622.4376                   SFR =        1479.9154     SFR_1           
+                 SFR =      669621.1897                   SFR =        1479.8452     SFR_1           
 
-           TOTAL OUT =     1752084.3746             TOTAL OUT =        3181.2349
+           TOTAL OUT =     1752082.5182             TOTAL OUT =        3181.1457
 
-            IN - OUT =        -715.3856              IN - OUT =          -6.1934
+            IN - OUT =        -706.1409              IN - OUT =          -5.8535
 
- PERCENT DISCREPANCY =          -0.04     PERCENT DISCREPANCY =          -0.19
+ PERCENT DISCREPANCY =          -0.04     PERCENT DISCREPANCY =          -0.18
 
 
 
@@ -4255,36 +4255,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     19
 
               GHB (GHB-1)   PERIOD 19   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -14.3508    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -14.1601    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -13.8378    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -13.4500    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -13.0551    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -12.6940    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -12.4097    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -12.2538    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -12.2979    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -12.6283    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -14.9043    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -14.7045    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -14.3668    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -13.9602    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -13.5463    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -13.1678    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -12.8700    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -12.7070    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -12.7536    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -13.0992    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -16.2431    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -16.0250    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -15.6553    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -15.2099    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -14.7587    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -14.3461    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -14.0221    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -13.8433    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -13.8951    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -14.2742    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -14.3503    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -14.1596    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -13.8373    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -13.4495    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -13.0547    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -12.6936    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -12.4093    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -12.2535    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -12.2976    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -12.6280    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -14.9038    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -14.7040    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -14.3662    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -13.9597    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -13.5458    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -13.1674    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -12.8696    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -12.7066    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -12.7533    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -13.0989    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -16.2425    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -16.0245    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -15.6547    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -15.2093    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -14.7582    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -14.3456    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -14.0217    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -13.8429    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -13.8947    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -14.2738    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     19
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     19
@@ -4303,11 +4303,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       58921.8694            EXT-INFLOW =          50.5960
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      702245.0019                   GWF =        1108.0159
+                 GWF =      702244.4275                   GWF =        1107.9721
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      761166.8712              TOTAL IN =        1158.6118
+            TOTAL IN =      761166.2969              TOTAL IN =        1158.5681
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4316,13 +4316,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      761166.8712           EXT-OUTFLOW =        1158.6118
+         EXT-OUTFLOW =      761166.2969           EXT-OUTFLOW =        1158.5681
 
-           TOTAL OUT =      761166.8712             TOTAL OUT =        1158.6118
+           TOTAL OUT =      761166.2969             TOTAL OUT =        1158.5681
 
-            IN - OUT =       1.1642E-10              IN - OUT =           0.0000
+            IN - OUT =           0.0000              IN - OUT =      -2.2737E-13
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
 
 
@@ -4334,27 +4334,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2004.4277                STO-SS =          10.8232     STORAGE         
-              STO-SY =      311933.2475                STO-SY =        1680.1142     STORAGE         
+              STO-SS =        2004.4666                STO-SS =          10.8229     STORAGE         
+              STO-SY =      311939.3186                STO-SY =        1680.0719     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1527509.4013                   RCH =        1311.6655     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1841447.0765              TOTAL IN =        3002.6029
+            TOTAL IN =     1841453.1864              TOTAL IN =        3002.5603
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.0000     STORAGE         
-              STO-SY =      318382.6834                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.0000     STORAGE         
+              STO-SY =      318382.4128                STO-SY =           0.0000     STORAGE         
                  WEL =      557540.2797                   WEL =        1503.5179     WEL-1           
-                 GHB =      262067.7960                   GHB =         415.4898     GHB-1           
+                 GHB =      262067.0643                   GHB =         415.4766     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      702425.0765                   SFR =        1093.4213     SFR_1           
+                 SFR =      702422.4928                   SFR =        1093.3768     SFR_1           
 
-           TOTAL OUT =     1842457.2452             TOTAL OUT =        3012.4290
+           TOTAL OUT =     1842453.6574             TOTAL OUT =        3012.3713
 
-            IN - OUT =       -1010.1687              IN - OUT =          -9.8261
+            IN - OUT =       -1000.4710              IN - OUT =          -9.8110
 
  PERCENT DISCREPANCY =          -0.05     PERCENT DISCREPANCY =          -0.33
 
@@ -4409,36 +4409,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     20
 
               GHB (GHB-1)   PERIOD 20   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -10.7105    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -10.5369    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -10.2407    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -9.87972    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -9.50812    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -9.16919    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -8.90973    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -8.78178    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -8.84296    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -9.14522    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -11.1153    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -10.9336    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -10.6233    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -10.2452    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -9.85600    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -9.50103    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -9.22947    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -9.09581    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -9.16046    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -9.47622    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -12.1055    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -11.9070    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -11.5674    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -11.1531    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -10.7282    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -10.3408    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -10.0449    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -9.89843    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -9.96993    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -10.3160    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -10.7102    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -10.5366    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -10.2404    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -9.87941    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -9.50781    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -9.16889    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -8.90944    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -8.78150    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -8.84269    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -9.14495    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -11.1150    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -10.9332    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -10.6230    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -10.2449    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -9.85568    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -9.50072    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -9.22917    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -9.09552    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -9.16017    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -9.47593    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -12.1052    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -11.9067    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -11.5670    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -11.1527    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -10.7279    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -10.3405    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -10.0445    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -9.89810    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -9.96961    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -10.3157    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     20
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     20
@@ -4457,11 +4457,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       60032.9360            EXT-INFLOW =          35.8409
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      724596.2880                   GWF =         721.0092
+                 GWF =      724594.6724                   GWF =         720.9756
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      784629.2239              TOTAL IN =         756.8501
+            TOTAL IN =      784627.6084              TOTAL IN =         756.8165
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4470,11 +4470,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      784629.2239           EXT-OUTFLOW =         756.8501
+         EXT-OUTFLOW =      784627.6084           EXT-OUTFLOW =         756.8165
 
-           TOTAL OUT =      784629.2239             TOTAL OUT =         756.8501
+           TOTAL OUT =      784627.6084             TOTAL OUT =         756.8165
 
-            IN - OUT =       1.1642E-10              IN - OUT =           0.0000
+            IN - OUT =           0.0000              IN - OUT =           0.0000
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -4488,27 +4488,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2353.7017                STO-SS =          11.2669     STORAGE         
-              STO-SY =      366569.5801                STO-SY =        1762.4623     STORAGE         
+              STO-SS =        2353.7320                STO-SS =          11.2666     STORAGE         
+              STO-SY =      366574.3498                STO-SY =        1762.4204     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1556313.0461                   RCH =         929.1498     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1925236.3279              TOTAL IN =        2702.8791
+            TOTAL IN =     1925241.1279              TOTAL IN =        2702.8368
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.0000     STORAGE         
-              STO-SY =      318382.6834                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.0000     STORAGE         
+              STO-SY =      318382.4128                STO-SY =           0.0000     STORAGE         
                  WEL =      610317.6681                   WEL =        1702.4964     WEL-1           
-                 GHB =      271460.5649                   GHB =         302.9925     GHB-1           
+                 GHB =      271459.5381                   GHB =         302.9830     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      724213.1046                   SFR =         702.8396     SFR_1           
+                 SFR =      724209.4866                   SFR =         702.8063     SFR_1           
 
-           TOTAL OUT =     1926415.4306             TOTAL OUT =        2708.3286
+           TOTAL OUT =     1926410.5135             TOTAL OUT =        2708.2857
 
-            IN - OUT =       -1179.1026              IN - OUT =          -5.4495
+            IN - OUT =       -1169.3856              IN - OUT =          -5.4489
 
  PERCENT DISCREPANCY =          -0.06     PERCENT DISCREPANCY =          -0.20
 
@@ -4563,36 +4563,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     21
 
               GHB (GHB-1)   PERIOD 21   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -8.21716    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -8.06597    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -7.80595    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -7.48623    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -7.15482    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -6.85361    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -6.62895    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -6.53041    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -6.60474    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -6.87998    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -8.50996    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -8.35173    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -8.07956    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -7.74489    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -7.39801    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -7.08290    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -6.84795    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -6.74520    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -6.82341    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -7.11143    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -9.25030    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -9.07739    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -8.77938    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -8.41272    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -8.03397    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -7.68994    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -7.43401    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -7.32148    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -7.40795    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -7.72408    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -8.21689    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -8.06571    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -7.80569    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -7.48597    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -7.15458    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -6.85337    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -6.62872    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -6.53019    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -6.60452    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -6.87977    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -8.50968    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -8.35145    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -8.07929    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -7.74462    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -7.39775    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -7.08264    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -6.84771    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -6.74496    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -6.82318    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -7.11121    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -9.25000    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -9.07709    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -8.77908    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -8.41243    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -8.03369    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -7.68967    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -7.43374    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -7.32122    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -7.40770    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -7.72384    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     21
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     21
@@ -4611,11 +4611,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       61265.6949            EXT-INFLOW =          39.7664
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      738489.6317                   GWF =         448.1724
+                 GWF =      738487.2206                   GWF =         448.1467
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      799755.3266              TOTAL IN =         487.9388
+            TOTAL IN =      799752.9155              TOTAL IN =         487.9131
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4624,13 +4624,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      799755.3266           EXT-OUTFLOW =         487.9388
+         EXT-OUTFLOW =      799752.9155           EXT-OUTFLOW =         487.9131
 
-           TOTAL OUT =      799755.3266             TOTAL OUT =         487.9388
+           TOTAL OUT =      799752.9155             TOTAL OUT =         487.9131
 
-            IN - OUT =       1.1642E-10              IN - OUT =      -5.6843E-14
+            IN - OUT =           0.0000              IN - OUT =       5.6843E-14
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
 
 
@@ -4642,27 +4642,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2614.0091                STO-SS =           8.3970     STORAGE         
-              STO-SY =      407636.3652                STO-SY =        1324.7350     STORAGE         
+              STO-SS =        2614.0321                STO-SS =           8.3968     STORAGE         
+              STO-SY =      407640.0008                STO-SY =        1324.6984     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1588271.4894                   RCH =        1030.9175     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     1998521.8637              TOTAL IN =        2364.0495
+            TOTAL IN =     1998525.5223              TOTAL IN =        2364.0127
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.0000     STORAGE         
-              STO-SY =      318382.6834                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.0000     STORAGE         
+              STO-SY =      318382.4128                STO-SY =           0.0000     STORAGE         
                  WEL =      663373.9635                   WEL =        1711.4934     WEL-1           
-                 GHB =      278530.2416                   GHB =         228.0541     GHB-1           
+                 GHB =      278528.9747                   GHB =         228.0463     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      737717.6858                   SFR =         435.6317     SFR_1           
+                 SFR =      737713.3314                   SFR =         435.6079     SFR_1           
 
-           TOTAL OUT =     2000045.9839             TOTAL OUT =        2375.1791
+           TOTAL OUT =     2000040.0903             TOTAL OUT =        2375.1476
 
-            IN - OUT =       -1524.1202              IN - OUT =         -11.1296
+            IN - OUT =       -1514.5680              IN - OUT =         -11.1349
 
  PERCENT DISCREPANCY =          -0.08     PERCENT DISCREPANCY =          -0.47
 
@@ -4717,36 +4717,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     22
 
               GHB (GHB-1)   PERIOD 22   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -7.59264    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -7.46135    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -7.23593    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -6.95967    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -6.67524    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -6.41999    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -6.23517    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -6.16503    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -6.25153    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -6.52104    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -7.84261    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -7.70525    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -7.46937    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -7.18034    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -6.88286    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -6.61600    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -6.42292    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -6.34988    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -6.44096    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -6.72298    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -8.50444    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -8.35440    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -8.09625    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -7.77982    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -7.45527    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -7.16425    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -6.95414    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -6.87441    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -6.97499    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -7.28463    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -7.59245    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -7.46117    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -7.23574    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -6.95949    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -6.67506    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -6.41982    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -6.23500    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -6.16486    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -6.25137    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -6.52087    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -7.84241    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -7.70506    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -7.46918    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -7.18015    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -6.88267    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -6.61582    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -6.42274    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -6.34970    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -6.44079    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -6.72280    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -8.50422    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -8.35419    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -8.09605    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -7.77961    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -7.45507    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -7.16405    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -6.95395    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -6.87422    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -6.97479    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -7.28444    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     22
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     22
@@ -4765,11 +4765,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       63102.5849            EXT-INFLOW =          61.2297
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      749725.7501                   GWF =         374.5373
+                 GWF =      749722.7744                   GWF =         374.5185
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      812828.3350              TOTAL IN =         435.7669
+            TOTAL IN =      812825.3593              TOTAL IN =         435.7481
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4778,11 +4778,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      812828.3350           EXT-OUTFLOW =         435.7669
+         EXT-OUTFLOW =      812825.3593           EXT-OUTFLOW =         435.7481
 
-           TOTAL OUT =      812828.3350             TOTAL OUT =         435.7669
+           TOTAL OUT =      812825.3593             TOTAL OUT =         435.7481
 
-            IN - OUT =       1.1642E-10              IN - OUT =       5.6843E-14
+            IN - OUT =           0.0000              IN - OUT =       5.6843E-14
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -4796,27 +4796,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2709.2937                STO-SS =           3.1762     STORAGE         
-              STO-SY =      422965.8565                STO-SY =         510.9830     STORAGE         
+              STO-SS =        2709.3121                STO-SS =           3.1760     STORAGE         
+              STO-SY =      422968.7763                STO-SY =         510.9592     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1635891.6086                   RCH =        1587.3373     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     2061566.7588              TOTAL IN =        2101.4965
+            TOTAL IN =     2061569.6970              TOTAL IN =        2101.4725
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2041.4096                STO-SS =           0.0000     STORAGE         
-              STO-SY =      318382.6834                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2041.4080                STO-SS =           0.0000     STORAGE         
+              STO-SY =      318382.4128                STO-SY =           0.0000     STORAGE         
                  WEL =      709210.6323                   WEL =        1527.8890     WEL-1           
-                 GHB =      284908.0417                   GHB =         212.5933     GHB-1           
+                 GHB =      284906.6066                   GHB =         212.5877     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      748595.8321                   SFR =         362.6049     SFR_1           
+                 SFR =      748590.9073                   SFR =         362.5859     SFR_1           
 
-           TOTAL OUT =     2063138.5991             TOTAL OUT =        2103.0872
+           TOTAL OUT =     2063131.9668             TOTAL OUT =        2103.0626
 
-            IN - OUT =       -1571.8403              IN - OUT =          -1.5907
+            IN - OUT =       -1562.2698              IN - OUT =          -1.5901
 
  PERCENT DISCREPANCY =          -0.08     PERCENT DISCREPANCY =          -0.08
 
@@ -4871,36 +4871,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     23
 
               GHB (GHB-1)   PERIOD 23   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -8.98842    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -8.87219    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -8.67578    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -8.44042    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -8.20488    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -7.99915    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -7.85601    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -7.81339    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -7.91609    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -8.20458    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -9.27631    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -9.15468    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -8.94912    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -8.70288    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -8.45655    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -8.24150    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -8.09197    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -8.04767    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -8.15526    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -8.45865    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -10.0514    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -9.91869    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -9.69390    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -9.42446    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -9.15633    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -8.92234    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -8.76031    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -8.71175    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -8.83004    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -9.16450    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -8.98827    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -8.87205    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -8.67564    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -8.44027    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -8.20473    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -7.99900    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -7.85586    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -7.81323    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -7.91592    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -8.20444    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -9.27616    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -9.15453    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -8.94897    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -8.70273    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -8.45640    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -8.24134    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -8.09181    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -8.04751    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -8.15509    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -8.45849    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -10.0512    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -9.91852    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -9.69373    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -9.42430    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -9.15616    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -8.92217    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -8.76013    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -8.71157    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -8.82986    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -9.16432    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     23
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     23
@@ -4919,11 +4919,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       66016.0059            EXT-INFLOW =          93.9813
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      765116.6665                   GWF =         496.4812
+                 GWF =      765113.2131                   GWF =         496.4658
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      831132.6724              TOTAL IN =         590.4625
+            TOTAL IN =      831129.2190              TOTAL IN =         590.4471
 
           OUT:                                     OUT:
           ----                                     ----
@@ -4932,11 +4932,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      831132.6724           EXT-OUTFLOW =         590.4625
+         EXT-OUTFLOW =      831129.2190           EXT-OUTFLOW =         590.4471
 
-           TOTAL OUT =      831132.6724             TOTAL OUT =         590.4625
+           TOTAL OUT =      831129.2190             TOTAL OUT =         590.4471
 
-            IN - OUT =       1.1642E-10              IN - OUT =      -2.2737E-13
+            IN - OUT =           0.0000              IN - OUT =      -1.1369E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
@@ -4950,27 +4950,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2710.3904                STO-SS =       3.5376E-02     STORAGE         
-              STO-SY =      423160.2001                STO-SY =           6.2691     STORAGE         
+              STO-SS =        2710.4086                STO-SS =       3.5372E-02     STORAGE         
+              STO-SY =      423163.0981                STO-SY =           6.2684     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1711420.0715                   RCH =        2436.4020     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     2137290.6619              TOTAL IN =        2442.7066
+            TOTAL IN =     2137293.5782              TOTAL IN =        2442.7058
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2135.2516                STO-SS =           3.0272     STORAGE         
-              STO-SY =      332764.3362                STO-SY =         463.9243     STORAGE         
+              STO-SS =        2135.2523                STO-SS =           3.0272     STORAGE         
+              STO-SY =      332764.4418                STO-SY =         463.9364     STORAGE         
                  WEL =      746570.0361                   WEL =        1205.1421     WEL-1           
-                 GHB =      293003.3564                   GHB =         261.1392     GHB-1           
+                 GHB =      293001.7724                   GHB =         261.1344     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      764247.5166                   SFR =         504.8930     SFR_1           
+                 SFR =      764242.0582                   SFR =         504.8758     SFR_1           
 
-           TOTAL OUT =     2138720.4969             TOTAL OUT =        2438.1257
+           TOTAL OUT =     2138713.5608             TOTAL OUT =        2438.1159
 
-            IN - OUT =       -1429.8350              IN - OUT =           4.5808
+            IN - OUT =       -1419.9826              IN - OUT =           4.5899
 
  PERCENT DISCREPANCY =          -0.07     PERCENT DISCREPANCY =           0.19
 
@@ -5025,36 +5025,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     24
 
               GHB (GHB-1)   PERIOD 24   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -11.9584    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -11.8453    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -11.6583    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -11.4406    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -11.2299    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -11.0496    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -10.9246    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -10.8871    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -10.9912    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -11.3140    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -12.3520    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -12.2335    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -12.0375    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -11.8095    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -11.5890    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -11.4004    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -11.2696    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -11.2305    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -11.3396    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -11.6777    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -13.3946    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -13.2656    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -13.0513    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -12.8020    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -12.5629    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -12.3586    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -12.2176    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -12.1747    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -12.2948    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -12.6658    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -11.9582    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -11.8452    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -11.6582    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -11.4404    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -11.2298    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -11.0495    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -10.9245    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -10.8870    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -10.9910    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -11.3139    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -12.3518    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -12.2334    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -12.0374    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -11.8094    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -11.5889    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -11.4003    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -11.2694    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -11.2303    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -11.3395    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -11.6776    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -13.3945    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -13.2655    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -13.0512    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -12.8018    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -12.5628    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -12.3585    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -12.2174    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -12.1745    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -12.2947    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -12.6657    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     24
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     24
@@ -5073,11 +5073,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       69870.5673            EXT-INFLOW =         128.4854
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      789179.6140                   GWF =         802.0982
+                 GWF =      789175.7515                   GWF =         802.0846
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      859050.1813              TOTAL IN =         930.5836
+            TOTAL IN =      859046.3188              TOTAL IN =         930.5700
 
           OUT:                                     OUT:
           ----                                     ----
@@ -5086,13 +5086,13 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      859050.1813           EXT-OUTFLOW =         930.5836
+         EXT-OUTFLOW =      859046.3188           EXT-OUTFLOW =         930.5700
 
-           TOTAL OUT =      859050.1813             TOTAL OUT =         930.5836
+           TOTAL OUT =      859046.3188             TOTAL OUT =         930.5700
 
-            IN - OUT =       1.1642E-10              IN - OUT =           0.0000
+            IN - OUT =           0.0000              IN - OUT =      -1.1369E-13
 
- PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
 
 
 
@@ -5104,27 +5104,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2710.3904                STO-SS =           0.0000     STORAGE         
-              STO-SY =      423160.2001                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2710.4086                STO-SS =           0.0000     STORAGE         
+              STO-SY =      423163.0981                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1811346.9541                   RCH =        3330.8961     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     2237217.5445              TOTAL IN =        3330.8961
+            TOTAL IN =     2237220.4608              TOTAL IN =        3330.8961
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2386.1438                STO-SS =           8.3631     STORAGE         
-              STO-SY =      371832.3885                STO-SY =        1302.2684     STORAGE         
+              STO-SS =        2386.1475                STO-SS =           8.3632     STORAGE         
+              STO-SY =      371832.9754                STO-SY =        1302.2845     STORAGE         
                  WEL =      771686.7465                   WEL =         837.2237     WEL-1           
-                 GHB =      303714.1429                   GHB =         357.0262     GHB-1           
+                 GHB =      303712.4478                   GHB =         357.0225     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      788744.0435                   SFR =         816.5509     SFR_1           
+                 SFR =      788738.1740                   SFR =         816.5372     SFR_1           
 
-           TOTAL OUT =     2238363.4652             TOTAL OUT =        3321.4323
+           TOTAL OUT =     2238356.4913             TOTAL OUT =        3321.4310
 
-            IN - OUT =       -1145.9207              IN - OUT =           9.4638
+            IN - OUT =       -1136.0305              IN - OUT =           9.4651
 
  PERCENT DISCREPANCY =          -0.05     PERCENT DISCREPANCY =           0.28
 
@@ -5179,36 +5179,36 @@ SFR GEOMETRY DATA
  UBDSV06 SAVING              GHB IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE GHB-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     25
 
               GHB (GHB-1)   PERIOD 25   STEP 1
- BOUNDARY        1  CELL             (1,40,6)   RATE    -15.7643    
- BOUNDARY        2  CELL             (1,40,7)   RATE    -15.6413    
- BOUNDARY        3  CELL             (1,40,8)   RATE    -15.4413    
- BOUNDARY        4  CELL             (1,40,9)   RATE    -15.2142    
- BOUNDARY        5  CELL            (1,40,10)   RATE    -15.0003    
- BOUNDARY        6  CELL            (1,40,11)   RATE    -14.8175    
- BOUNDARY        7  CELL            (1,40,12)   RATE    -14.6845    
- BOUNDARY        8  CELL            (1,40,13)   RATE    -14.6309    
- BOUNDARY        9  CELL            (1,40,14)   RATE    -14.7226    
- BOUNDARY       10  CELL            (1,40,15)   RATE    -15.0751    
- BOUNDARY       11  CELL             (2,40,6)   RATE    -16.3054    
- BOUNDARY       12  CELL             (2,40,7)   RATE    -16.1764    
- BOUNDARY       13  CELL             (2,40,8)   RATE    -15.9666    
- BOUNDARY       14  CELL             (2,40,9)   RATE    -15.7284    
- BOUNDARY       15  CELL            (2,40,10)   RATE    -15.5041    
- BOUNDARY       16  CELL            (2,40,11)   RATE    -15.3126    
- BOUNDARY       17  CELL            (2,40,12)   RATE    -15.1730    
- BOUNDARY       18  CELL            (2,40,13)   RATE    -15.1166    
- BOUNDARY       19  CELL            (2,40,14)   RATE    -15.2128    
- BOUNDARY       20  CELL            (2,40,15)   RATE    -15.5821    
- BOUNDARY       21  CELL             (3,40,6)   RATE    -17.7040    
- BOUNDARY       22  CELL             (3,40,7)   RATE    -17.5636    
- BOUNDARY       23  CELL             (3,40,8)   RATE    -17.3343    
- BOUNDARY       24  CELL             (3,40,9)   RATE    -17.0739    
- BOUNDARY       25  CELL            (3,40,10)   RATE    -16.8313    
- BOUNDARY       26  CELL            (3,40,11)   RATE    -16.6246    
- BOUNDARY       27  CELL            (3,40,12)   RATE    -16.4747    
- BOUNDARY       28  CELL            (3,40,13)   RATE    -16.4124    
- BOUNDARY       29  CELL            (3,40,14)   RATE    -16.5181    
- BOUNDARY       30  CELL            (3,40,15)   RATE    -16.9236    
+ BOUNDARY        1  CELL             (1,40,6)   RATE    -15.7641    
+ BOUNDARY        2  CELL             (1,40,7)   RATE    -15.6412    
+ BOUNDARY        3  CELL             (1,40,8)   RATE    -15.4412    
+ BOUNDARY        4  CELL             (1,40,9)   RATE    -15.2141    
+ BOUNDARY        5  CELL            (1,40,10)   RATE    -15.0002    
+ BOUNDARY        6  CELL            (1,40,11)   RATE    -14.8174    
+ BOUNDARY        7  CELL            (1,40,12)   RATE    -14.6844    
+ BOUNDARY        8  CELL            (1,40,13)   RATE    -14.6308    
+ BOUNDARY        9  CELL            (1,40,14)   RATE    -14.7225    
+ BOUNDARY       10  CELL            (1,40,15)   RATE    -15.0750    
+ BOUNDARY       11  CELL             (2,40,6)   RATE    -16.3053    
+ BOUNDARY       12  CELL             (2,40,7)   RATE    -16.1763    
+ BOUNDARY       13  CELL             (2,40,8)   RATE    -15.9665    
+ BOUNDARY       14  CELL             (2,40,9)   RATE    -15.7283    
+ BOUNDARY       15  CELL            (2,40,10)   RATE    -15.5040    
+ BOUNDARY       16  CELL            (2,40,11)   RATE    -15.3125    
+ BOUNDARY       17  CELL            (2,40,12)   RATE    -15.1729    
+ BOUNDARY       18  CELL            (2,40,13)   RATE    -15.1165    
+ BOUNDARY       19  CELL            (2,40,14)   RATE    -15.2127    
+ BOUNDARY       20  CELL            (2,40,15)   RATE    -15.5820    
+ BOUNDARY       21  CELL             (3,40,6)   RATE    -17.7039    
+ BOUNDARY       22  CELL             (3,40,7)   RATE    -17.5635    
+ BOUNDARY       23  CELL             (3,40,8)   RATE    -17.3342    
+ BOUNDARY       24  CELL             (3,40,9)   RATE    -17.0738    
+ BOUNDARY       25  CELL            (3,40,10)   RATE    -16.8312    
+ BOUNDARY       26  CELL            (3,40,11)   RATE    -16.6244    
+ BOUNDARY       27  CELL            (3,40,12)   RATE    -16.4746    
+ BOUNDARY       28  CELL            (3,40,13)   RATE    -16.4123    
+ BOUNDARY       29  CELL            (3,40,14)   RATE    -16.5180    
+ BOUNDARY       30  CELL            (3,40,15)   RATE    -16.9235    
 
  UBDSV06 SAVING              RCH IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE RCH-1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     25
  UBDSV06 SAVING              SFR IN MODEL FREYBERG6        PACKAGE FREYBERG6       CONNECTED TO MODEL FREYBERG6        PACKAGE SFR_1            ON UNIT   1031 AT TIME STEP      1, STRESS PERIOD     25
@@ -5227,11 +5227,11 @@ SFR GEOMETRY DATA
           EXT-INFLOW =       74666.1315            EXT-INFLOW =         154.6956
             RAINFALL =           0.0000              RAINFALL =           0.0000
               RUNOFF =           0.0000                RUNOFF =           0.0000
-                 GWF =      826667.3351                   GWF =        1209.2813
+                 GWF =      826663.1185                   GWF =        1209.2699
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
          EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
 
-            TOTAL IN =      901333.4666              TOTAL IN =        1363.9769
+            TOTAL IN =      901329.2500              TOTAL IN =        1363.9655
 
           OUT:                                     OUT:
           ----                                     ----
@@ -5240,11 +5240,11 @@ SFR GEOMETRY DATA
               RUNOFF =           0.0000                RUNOFF =           0.0000
                  GWF =           0.0000                   GWF =           0.0000
          EVAPORATION =           0.0000           EVAPORATION =           0.0000
-         EXT-OUTFLOW =      901333.4666           EXT-OUTFLOW =        1363.9769
+         EXT-OUTFLOW =      901329.2500           EXT-OUTFLOW =        1363.9655
 
-           TOTAL OUT =      901333.4666             TOTAL OUT =        1363.9769
+           TOTAL OUT =      901329.2500             TOTAL OUT =        1363.9655
 
-            IN - OUT =       2.3283E-10              IN - OUT =       4.5475E-13
+            IN - OUT =           0.0000              IN - OUT =       2.2737E-13
 
  PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
 
@@ -5258,27 +5258,27 @@ SFR GEOMETRY DATA
 
            IN:                                      IN:
            ---                                      ---
-              STO-SS =        2710.3904                STO-SS =           0.0000     STORAGE         
-              STO-SY =      423160.2001                STO-SY =           0.0000     STORAGE         
+              STO-SS =        2710.4086                STO-SS =           0.0000     STORAGE         
+              STO-SY =      423163.0981                STO-SY =           0.0000     STORAGE         
                  WEL =           0.0000                   WEL =           0.0000     WEL-1           
                  GHB =           0.0000                   GHB =           0.0000     GHB-1           
                  RCH =     1935668.6946                   RCH =        4010.3787     RCH-1           
                  SFR =           0.0000                   SFR =           0.0000     SFR_1           
 
-            TOTAL IN =     2361539.2850              TOTAL IN =        4010.3787
+            TOTAL IN =     2361542.2013              TOTAL IN =        4010.3787
 
           OUT:                                     OUT:
           ----                                     ----
-              STO-SS =        2734.6881                STO-SS =          11.2434     STORAGE         
-              STO-SY =      426218.4071                STO-SY =        1754.3877     STORAGE         
+              STO-SS =        2734.6941                STO-SS =          11.2434     STORAGE         
+              STO-SY =      426219.3660                STO-SY =        1754.3997     STORAGE         
                  WEL =      788155.7287                   WEL =         531.2575     WEL-1           
-                 GHB =      318486.5830                   GHB =         476.5303     GHB-1           
+                 GHB =      318484.7897                   GHB =         476.5272     GHB-1           
                  RCH =           0.0000                   RCH =           0.0000     RCH-1           
-                 SFR =      826733.6484                   SFR =        1225.4711     SFR_1           
+                 SFR =      826727.4131                   SFR =        1225.4593     SFR_1           
 
-           TOTAL OUT =     2362329.0552             TOTAL OUT =        3998.8900
+           TOTAL OUT =     2362321.9916             TOTAL OUT =        3998.8871
 
-            IN - OUT =        -789.7702              IN - OUT =          11.4887
+            IN - OUT =        -779.7902              IN - OUT =          11.4916
 
  PERCENT DISCREPANCY =          -0.03     PERCENT DISCREPANCY =           0.29
 

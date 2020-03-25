@@ -122,8 +122,8 @@ def prep_mf6_model():
             iline += 1
 
     with open(os.path.join(new_ws,"sfr.obs"),'w') as f:
-        f.write("BEGIN CONTINUOUS FILEOUT sfr.csv\nheadwater outflow headwater\n")
-        f.write("tailwater outflow tailwater\ngage_1 inflow 40\nEND CONTINUOUS")
+        f.write("BEGIN CONTINUOUS FILEOUT sfr.csv\nheadwater sfr headwater\n")
+        f.write("tailwater sfr tailwater\ngage_1 inflow 40\nEND CONTINUOUS")
 
     shutil.copy2(os.path.join(org_ws,"mf6.exe"),os.path.join(new_ws,"mf6.exe"))
     pyemu.os_utils.run("mf6",cwd=new_ws)
@@ -150,7 +150,7 @@ def setup_pest_interface():
     pst.control_data.noptmax = 0
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["ies_num_reals"] = 50
-    pst.write(os.path.join(ws,"freyberg6.pst"))
+    pst.write(os.path.join(ws,"freyberg6.pst"),version=2)
     pyemu.os_utils.run("pestpp-ies freyberg6.pst",cwd=ws)
 
     #pst.control_data.noptmax = -1
@@ -375,7 +375,7 @@ def run_prior_sweep():
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options.pop("ies_num_reals",None)
     pst_file = "freyberg6_sweep.pst"
-    pst.write(os.path.join(t_d,pst_file))
+    pst.write(os.path.join(t_d,pst_file),version=2)
     m_d = "master_prior"
     pyemu.os_utils.start_workers(t_d,"pestpp-ies",pst_file,num_workers=15,master_dir=m_d)
 
@@ -388,7 +388,7 @@ def set_truth_obs():
     pv = oe.phi_vector
     pv.sort_values(inplace=True)
     #idx = pv.index[int(pv.shape[0]/2)]
-    idx = pv.index[-1]
+    idx = pv.index[int(pv.shape[0]/2)]
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -396,7 +396,7 @@ def set_truth_obs():
     obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
     pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231"]
-    pst.write(os.path.join(t_d,"freyberg6_run.pst"))
+    pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
 
     pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
     pst = pyemu.Pst(os.path.join(t_d,"freyberg6_run.pst"))
@@ -416,7 +416,7 @@ def run_ies_demo():
     pst.pestpp_options["ies_num_reals"] = 50
     pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
     pst.pestpp_options["additional_ins_delimiters"] = ","
-    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
+    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
     m_d = "master_ies"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
@@ -428,6 +428,12 @@ def make_ies_figs():
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
     pr_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".0.obs.csv")))
     pt_oe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.obs.csv".format(pst.control_data.noptmax))))
+    pr_oe = pyemu.ObservationEnsemble(pst=pst,df=pr_oe)
+    pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+    pr_pv = pr_oe.phi_vector
+    pt_pv = pt_oe.phi_vector
+
+
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     print(pst.forecast_names)
@@ -441,10 +447,10 @@ def make_ies_figs():
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
-        ax = plt.subplot2grid((5,2),(i,0),colspan=2)
+        ax = plt.subplot2grid((5,3),(i,0),colspan=3)
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.5) for i in pr_oe.index]
-        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
+        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.25) for i in pt_oe.index]
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
         unit = None
@@ -454,8 +460,18 @@ def make_ies_figs():
         ax.set_ylabel(unit)
 
         ax_count += 1
+
+    ax = plt.subplot2grid((5,3),(3,0),rowspan=2)   
+    ax.hist(pr_pv,alpha=0.5,facecolor="0.5",edgecolor="none")
+    ax.hist(pt_pv,alpha=0.5,facecolor="b",edgecolor="none")
+    ax.set_title("{0}) ensemble $\phi$ distributions".format(abet[ax_count]), loc="left")
+    #ax.set_yticks([])
+    ax.set_xlabel("$\phi$")
+    ax.set_ylabel("number of realizations")
+    ax_count += 1
+
     for i,forecast in enumerate(pst.forecast_names):
-        ax = plt.subplot2grid((5,2),(3,i),rowspan=2)
+        ax = plt.subplot2grid((5,3),(3,i+1),rowspan=2)
         pr_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='0.5',edgecolor="none",alpha=0.5)
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
@@ -472,7 +488,71 @@ def make_ies_figs():
 
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(os.path.join(m_d,"ies_sum.pdf"))
+
+
+def make_glm_figs():
+    m_d = "master_glm"
+    assert os.path.join(m_d)
+    pst_file = "freyberg6_run_glm.pst"
+    pst = pyemu.Pst(os.path.join(m_d,pst_file))
+    pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
+    pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+    pv = pt_oe.phi_vector
+    obs = pst.observation_data
+    print(pst.nnz_obs_groups)
+    print(pst.forecast_names)
+    fig = plt.figure(figsize=(8,6))
+    ax_count = 0
+    unit_dict = {"head":"sw-gw flux $\\frac{m}{d}$",
+                "tail": "sw-gw flux $\\frac{m}{d}$",
+                "trgw" : "gw level $m$",
+                "gage" : "sw flux $\\frac{m}{d}$"}
+    for i,nz_grp in enumerate(pst.nnz_obs_groups):
+        grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
+        print(grp_obs)
+        grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
+        ax = plt.subplot2grid((5,3),(i,0),colspan=3)
+        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
+        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
+        unit = None
+        for tag,u in unit_dict.items():
+            if tag in nz_grp:
+                unit = u
+        ax.set_ylabel(unit)
+
+        ax_count += 1
+
+    ax = plt.subplot2grid((5,3),(3,0),rowspan=2)   
+    ax.hist(pv,alpha=0.5,facecolor="b",edgecolor="none")
+    ax.set_title("{0}) posterior ensemble $\phi$ distribution".format(abet[ax_count]), loc="left")
+    #ax.set_yticks([])
+    ax.set_xlabel("$\phi$")
+    ax.set_ylabel("number of realizations")
+    ax_count += 1
+    
+
+    for i,forecast in enumerate(pst.forecast_names):
+        ax = plt.subplot2grid((5,3),(3,i+1),rowspan=2)
+        pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
+        ylim = ax.get_ylim()
+        oval = obs.loc[forecast,"obsval"]
+        ax.plot([oval,oval],ylim,'r')
+        ax.set_title("{0}) {1}".format(abet[ax_count],forecast),loc="left")
+        unit = None
+        for tag,u in unit_dict.items():
+            if tag in forecast:
+                unit = u
+        ax.set_xlabel(unit)
+        ax.set_ylabel("increasing probability density")
+        ax.set_yticks([])
+        ax_count += 1
+
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(m_d,"glm_sum.pdf"))
 
 def invest():
     pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
@@ -517,7 +597,7 @@ def run_glm_demo():
     pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 50
     pst.pestpp_options["glm_accept_mc_phi"] = True
-    pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"))
+    pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
 
@@ -535,19 +615,21 @@ def run_sen_demo():
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["tie_by_group"] = True
-    pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"))
+    pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
     m_d = "master_sen"
     pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
 
 
 if __name__ == "__main__":
-    # prep_mf6_model()
-    #setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
-    # set_truth_obs()
-    # run_ies_demo()
-    # make_ies_figs()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
+    
+    run_ies_demo()
     run_glm_demo()
-    #run_sen_demo()
+    run_sen_demo()
+    make_ies_figs()
+    make_glm_figs()
     #invest()
