@@ -311,7 +311,7 @@ def _write_templates(ws):
     # write a recharge template
     f_in = open(os.path.join(ws,"freyberg6.rch"),'r')
     names,vals = [],[]
-    with open(os.path.join(ws,"freybeg6.rch.tpl"),'w') as f:
+    with open(os.path.join(ws,"freyberg6.rch.tpl"),'w') as f:
         f.write("ptf ~\n")
         while True:
             line = f_in.readline()
@@ -573,8 +573,30 @@ def make_glm_figs():
     plt.savefig(os.path.join(m_d,"glm_sum.pdf"))
 
 def invest():
-    pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run_ies.pst"))
-    pyemu.helpers.setup_fake_forward_run(pst,"fake.pst","master_ies",new_cwd="master_ies")
+    pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run.pst"))
+    par = pst.parameter_data
+    r_pars = par.loc[par.parnme.apply(lambda x: 'rch' in x),"parnme"]
+    print(r_pars)
+
+    pst.parameter_data.loc[r_pars,"parval1"] = par.loc[r_pars,"parubnd"]
+    pst.control_data.noptmax = 0
+    pst.write(os.path.join("template","test1.pst"))
+    pyemu.os_utils.run("pestpp-ies test1.pst",cwd="template")
+    shutil.copy2(os.path.join("template","freyberg6.lst"),os.path.join("template","test1.lst"))
+    shutil.copy2(os.path.join("template","freyberg6.rch"),os.path.join("template","test1.rch"))
+    pst.parameter_data.loc[r_pars,"parval1"] = par.loc[r_pars,"parlbnd"]
+    pst.control_data.noptmax = 0
+    pst.write(os.path.join("template","test2.pst"))
+    pyemu.os_utils.run("pestpp-ies test2.pst",cwd="template")
+    shutil.copy2(os.path.join("template","freyberg6.lst"),os.path.join("template","test2.lst"))
+    shutil.copy2(os.path.join("template","freyberg6.rch"),os.path.join("template","test2.rch"))
+    pst1 = pyemu.Pst(os.path.join("template","test1.pst"))
+    pst2 = pyemu.Pst(os.path.join("template","test2.pst"))
+    d = pst1.res.modelled - pst2.res.modelled
+    print(d)
+
+
+    
 
 def run_glm_demo():
 
@@ -634,15 +656,22 @@ def run_sen_demo():
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["tie_by_group"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
-    m_d = "master_sen"
+    m_d = "master_sen_morris"
     pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
+    pst.pestpp_options['gsa_method'] = "sobol"
+    pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
+    m_d = "master_sen_sobol"
+    pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
+
+def start():
+    pyemu.os_utils.start_workers("template", "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15)
 
 
 if __name__ == "__main__":
     # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
     set_truth_obs()
     
     run_ies_demo()
@@ -650,4 +679,5 @@ if __name__ == "__main__":
     run_sen_demo()
     make_ies_figs()
     make_glm_figs()
-    # invest()
+    #invest()
+    #start()
