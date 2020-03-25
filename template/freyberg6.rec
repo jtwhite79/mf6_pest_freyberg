@@ -216,41 +216,41 @@ Model interface files:-
 
 Parameter group information
 NAME            INCREMENT TYPE     DERIVATIVE INCREMENT    INCREMENT LOWER BOUND  FORCE CENTRAL     INCREMENT MULTIPLIER
-npf_k_2               RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k33_1             RELATIVE                     0.01                        0         SWITCH                        2
-npf_k33_0             RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
 npf_k33_2             RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
 sto_sy_0              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k33_0             RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
+npf_k33_1             RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_2               RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
 rch                   RELATIVE                     0.01                        0         SWITCH                        2
-welflux_18            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_6             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_15            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_24            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_1             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_3             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_14            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_16            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_24            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_6             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_4             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_15            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_3             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_1             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_0             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_14            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_18            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_17            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_13            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_4             RELATIVE                     0.01                        0         SWITCH                        2
 
 
 
@@ -8455,31 +8455,31 @@ gage_1_20170930                        428.27                gage               
 gage_1_20171031                        581.34                gage                   1
 gage_1_20171130                        917.58                gage                   1
 gage_1_20171231                        1345.8                gage                   1
-headwater_20151231                    -9602.3           headwater                   1
-headwater_20160131                     -13029           headwater                   1
-headwater_20160229                     -15082           headwater                   1
-headwater_20160331                     -15837           headwater                   1
-headwater_20160430                     -15071           headwater                   1
-headwater_20160531                     -12850           headwater                   1
-headwater_20160630                    -9898.7           headwater                   1
-headwater_20160731                    -7073.9           headwater                   1
-headwater_20160831                    -4870.7           headwater                   1
-headwater_20160930                    -4031.8           headwater                   1
-headwater_20161031                    -4704.8           headwater                   1
-headwater_20161130                    -6769.5           headwater                   1
-headwater_20161231                    -9714.8           headwater                   1
-headwater_20170131                     -12618           headwater                   1
-headwater_20170228                     -14476           headwater                   1
-headwater_20170331                     -14999           headwater                   1
-headwater_20170430                     -13939           headwater                   1
-headwater_20170531                     -11547           headwater                   1
-headwater_20170630                    -8604.3           headwater                   1
-headwater_20170731                    -5880.5           headwater                   1
-headwater_20170831                    -4215.4           headwater                   1
-headwater_20170930                    -4152.5           headwater                   1
-headwater_20171031                    -5548.6           headwater                   1
-headwater_20171130                    -8127.3           headwater                   1
-headwater_20171231                     -11170           headwater                   1
+headwater_20151231                    -644.22           headwater                   1
+headwater_20160131                    -860.19           headwater                   1
+headwater_20160229                    -1029.5           headwater                   1
+headwater_20160331                    -1110.9           headwater                   1
+headwater_20160430                      -1082           headwater                   1
+headwater_20160531                    -935.95           headwater                   1
+headwater_20160630                    -723.75           headwater                   1
+headwater_20160731                     -508.8           headwater                   1
+headwater_20160831                    -318.88           headwater                   1
+headwater_20160930                    -220.19           headwater                   1
+headwater_20161031                    -232.84           headwater                   1
+headwater_20161130                    -361.45           headwater                   1
+headwater_20161231                    -577.21           headwater                   1
+headwater_20170131                     -811.7           headwater                   1
+headwater_20170228                    -982.12           headwater                   1
+headwater_20170331                    -1061.2           headwater                   1
+headwater_20170430                    -1017.9           headwater                   1
+headwater_20170531                    -859.07           headwater                   1
+headwater_20170630                     -639.6           headwater                   1
+headwater_20170731                    -415.26           headwater                   1
+headwater_20170831                    -255.51           headwater                   1
+headwater_20170930                    -211.83           headwater                   1
+headwater_20171031                    -282.18           headwater                   1
+headwater_20171130                     -458.2           headwater                   1
+headwater_20171231                    -692.09           headwater                   1
 in_ghb_flx_20151231                         0              in_ghb                   1
 in_ghb_flx_20160131                         0              in_ghb                   1
 in_ghb_flx_20160229                         0              in_ghb                   1
@@ -8780,31 +8780,31 @@ out_wel_flx_20170930                  1527.89             out_wel               
 out_wel_flx_20171031                  1205.14             out_wel                   1
 out_wel_flx_20171130                  837.224             out_wel                   1
 out_wel_flx_20171231                  531.258             out_wel                   1
-tailwater_20151231                     -18020           tailwater                   1
-tailwater_20160131                     -24400           tailwater                   1
-tailwater_20160229                     -28921           tailwater                   1
-tailwater_20160331                     -30846           tailwater                   1
-tailwater_20160430                     -29644           tailwater                   1
-tailwater_20160531                     -25283           tailwater                   1
-tailwater_20160630                     -19260           tailwater                   1
-tailwater_20160731                     -13370           tailwater                   1
-tailwater_20160831                    -8499.2           tailwater                   1
-tailwater_20160930                    -6273.4           tailwater                   1
-tailwater_20161031                    -7110.8           tailwater                   1
-tailwater_20161130                     -11004           tailwater                   1
-tailwater_20161231                     -17062           tailwater                   1
-tailwater_20170131                     -23382           tailwater                   1
-tailwater_20170228                     -27746           tailwater                   1
-tailwater_20170331                     -29436           tailwater                   1
-tailwater_20170430                     -27772           tailwater                   1
-tailwater_20170531                     -23093           tailwater                   1
-tailwater_20170630                     -16988           tailwater                   1
-tailwater_20170731                     -11041           tailwater                   1
-tailwater_20170831                    -7081.1           tailwater                   1
-tailwater_20170930                    -6359.3           tailwater                   1
-tailwater_20171031                      -8722           tailwater                   1
-tailwater_20171130                     -13804           tailwater                   1
-tailwater_20171231                     -20222           tailwater                   1
+tailwater_20151231                    -478.38           tailwater                   1
+tailwater_20160131                    -628.99           tailwater                   1
+tailwater_20160229                    -758.24           tailwater                   1
+tailwater_20160331                    -818.81           tailwater                   1
+tailwater_20160430                    -794.21           tailwater                   1
+tailwater_20160531                    -681.19           tailwater                   1
+tailwater_20160630                    -520.27           tailwater                   1
+tailwater_20160731                    -359.55           tailwater                   1
+tailwater_20160831                    -226.66           tailwater                   1
+tailwater_20160930                    -160.79           tailwater                   1
+tailwater_20161031                    -172.44           tailwater                   1
+tailwater_20161130                    -267.93           tailwater                   1
+tailwater_20161231                     -428.7           tailwater                   1
+tailwater_20170131                    -603.87           tailwater                   1
+tailwater_20170228                    -731.01           tailwater                   1
+tailwater_20170331                    -786.72           tailwater                   1
+tailwater_20170430                    -751.62           tailwater                   1
+tailwater_20170531                    -631.37           tailwater                   1
+tailwater_20170630                    -468.41           tailwater                   1
+tailwater_20170731                    -305.75           tailwater                   1
+tailwater_20170831                    -192.66           tailwater                   1
+tailwater_20170930                     -162.7           tailwater                   1
+tailwater_20171031                     -214.3           tailwater                   1
+tailwater_20171130                    -343.89           tailwater                   1
+tailwater_20171231                    -517.19           tailwater                   1
 trgw_0_13_10_20151231                  34.263        trgw_0_13_10                   1
 trgw_0_13_10_20160131                  34.386        trgw_0_13_10                   1
 trgw_0_13_10_20160229                  34.487        trgw_0_13_10                   1

@@ -384,18 +384,21 @@ def set_truth_obs():
     m_d = "master_prior"
     assert os.path.exists(m_d)
     pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
+    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231","trgw_0_9_1_20171231"]
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
     pv = oe.phi_vector
-    pv.sort_values(inplace=True)
+    #pv.sort_values(inplace=True)
     #idx = pv.index[int(pv.shape[0]/2)]
-    idx = pv.index[int(pv.shape[0]/2)]
+    #idx = pv.index[int(pv.shape[0]/2)]
+    oe.sort_values(by=pst.forecast_names[0],inplace=True)
+    idx = oe.index[-1]
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
     obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_29_15" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
     obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
-    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231"]
+    
     pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
 
     pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
@@ -447,10 +450,10 @@ def make_ies_figs():
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
-        ax = plt.subplot2grid((5,3),(i,0),colspan=3)
+        ax = plt.subplot2grid((5,4),(i,0),colspan=4)
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.5) for i in pr_oe.index]
-        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.25) for i in pt_oe.index]
+        [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
+        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
         unit = None
@@ -461,7 +464,7 @@ def make_ies_figs():
 
         ax_count += 1
 
-    ax = plt.subplot2grid((5,3),(3,0),rowspan=2)   
+    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
     ax.hist(pr_pv,alpha=0.5,facecolor="0.5",edgecolor="none")
     ax.hist(pt_pv,alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) ensemble $\phi$ distributions".format(abet[ax_count]), loc="left")
@@ -471,7 +474,7 @@ def make_ies_figs():
     ax_count += 1
 
     for i,forecast in enumerate(pst.forecast_names):
-        ax = plt.subplot2grid((5,3),(3,i+1),rowspan=2)
+        ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
         pr_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='0.5',edgecolor="none",alpha=0.5)
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
@@ -485,6 +488,8 @@ def make_ies_figs():
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
+        ax.grid(False)
+        ax_count +=1 
 
 
     plt.tight_layout()
@@ -498,6 +503,8 @@ def make_glm_figs():
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
     pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+    f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
+    f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -512,7 +519,7 @@ def make_glm_figs():
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
-        ax = plt.subplot2grid((5,3),(i,0),colspan=3)
+        ax = plt.subplot2grid((5,4),(i,0),colspan=4)
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
@@ -522,10 +529,11 @@ def make_glm_figs():
             if tag in nz_grp:
                 unit = u
         ax.set_ylabel(unit)
+        ax.grid(False)
 
         ax_count += 1
 
-    ax = plt.subplot2grid((5,3),(3,0),rowspan=2)   
+    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
     ax.hist(pv,alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) posterior ensemble $\phi$ distribution".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
@@ -533,9 +541,14 @@ def make_glm_figs():
     ax.set_ylabel("number of realizations")
     ax_count += 1
     
-
     for i,forecast in enumerate(pst.forecast_names):
-        ax = plt.subplot2grid((5,3),(3,i+1),rowspan=2)
+        ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
+        axt = plt.twinx()
+        x,y = pyemu.plot_utils.gaussian_distribution(f_df.loc[forecast,"prior_mean"],f_df.loc[forecast,"prior_stdev"])
+        axt.fill_between(x,0,y,facecolor="0.5",alpha=0.25)
+        x,y = pyemu.plot_utils.gaussian_distribution(f_df.loc[forecast,"post_mean"],f_df.loc[forecast,"post_stdev"])
+        axt.fill_between(x,0,y,facecolor="b",alpha=0.25)
+
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
@@ -548,6 +561,11 @@ def make_glm_figs():
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
+        ax.grid(False)
+        ylim = axt.get_ylim()
+        axt.set_ylim(0,ylim[1])
+        
+
         ax_count += 1
 
 
@@ -621,10 +639,10 @@ def run_sen_demo():
 
 
 if __name__ == "__main__":
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
     set_truth_obs()
     
     run_ies_demo()
@@ -632,4 +650,4 @@ if __name__ == "__main__":
     run_sen_demo()
     make_ies_figs()
     make_glm_figs()
-    #invest()
+    # invest()

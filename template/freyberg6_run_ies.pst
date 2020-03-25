@@ -6,7 +6,7 @@ svdmode                                 1
 maxsing                          10000000
 eigthresh                           1e-06
 eigwrite                                1
-forecasts                      headwater_20171231,tailwater_20171231
+forecasts                      headwater_20171231,tailwater_20171231,trgw_0_9_1_20171231
 ies_par_en                     prior.jcb
 ies_num_reals                  50
 ies_bad_phi_sigma              1.5
