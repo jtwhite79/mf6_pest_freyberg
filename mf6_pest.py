@@ -198,10 +198,14 @@ def build_and_draw_prior():
     temporal_gs = pyemu.geostats.GeoStruct(variograms=temporal_v)
 
     static_struct_dict = {spatial_gs:[]}
-    for pargp in static_par.pargp.unique():
+    sgrps = static_par.pargp.unique()
+    sgrps.sort()
+    for pargp in sgrps:
         static_struct_dict[spatial_gs].append(static_par.loc[static_par.pargp==pargp,["parnme","x","y","i","j"]])
     temporal_struct_dict = {temporal_gs: [rch_par.loc[:, ["parnme", "x", "y"]]]}
-    for pargp in wel_par.pargp.unique():
+    wgrps = wel_par.pargp.unique()
+    wgrps.sort()
+    for pargp in wgrps:
         temporal_struct_dict[temporal_gs].append(wel_par.loc[wel_par.pargp == pargp, ["parnme", "x", "y"]])
     #ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
     #pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
@@ -209,6 +213,8 @@ def build_and_draw_prior():
     struct_dict = static_struct_dict
     for k,v in temporal_struct_dict.items():
         struct_dict[k] = v
+    print(struct_dict)
+    np.random.seed(pyemu.en.SEED)
     pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=struct_dict,num_reals=300)
     pe.to_binary(os.path.join(t_d,"prior.jcb"))
 
@@ -583,27 +589,28 @@ def make_glm_figs():
     plt.savefig(os.path.join(plt_dir,"glm.pdf"))
 
 def invest():
-    pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run.pst"))
-    par = pst.parameter_data
-    r_pars = par.loc[par.parnme.apply(lambda x: 'rch' in x),"parnme"]
-    print(r_pars)
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
+    if os.path.exists("template1"):
+        shutil.rmtree("template1")
+    shutil.copytree("template","template1")
+    if os.path.exists("master_prior1"):
+        shutil.rmtree("master_prior1")
+    shutil.copytree("master_prior","master_prior1")
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
+    pst = pyemu.Pst(os.path.join("template","freyberg6.pst"))
+    pe1 = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join("template","prior.jcb"))
+    pe2 = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join("template1","prior.jcb"))
 
-    pst.parameter_data.loc[r_pars,"parval1"] = par.loc[r_pars,"parubnd"]
-    pst.control_data.noptmax = 0
-    pst.write(os.path.join("template","test1.pst"))
-    pyemu.os_utils.run("pestpp-ies test1.pst",cwd="template")
-    shutil.copy2(os.path.join("template","freyberg6.lst"),os.path.join("template","test1.lst"))
-    shutil.copy2(os.path.join("template","freyberg6.rch"),os.path.join("template","test1.rch"))
-    pst.parameter_data.loc[r_pars,"parval1"] = par.loc[r_pars,"parlbnd"]
-    pst.control_data.noptmax = 0
-    pst.write(os.path.join("template","test2.pst"))
-    pyemu.os_utils.run("pestpp-ies test2.pst",cwd="template")
-    shutil.copy2(os.path.join("template","freyberg6.lst"),os.path.join("template","test2.lst"))
-    shutil.copy2(os.path.join("template","freyberg6.rch"),os.path.join("template","test2.rch"))
-    pst1 = pyemu.Pst(os.path.join("template","test1.pst"))
-    pst2 = pyemu.Pst(os.path.join("template","test2.pst"))
-    d = pst1.res.modelled - pst2.res.modelled
-    print(d)
+    diff = pe1 - pe2
+    print(diff.sum())
 
 
     
@@ -883,7 +890,7 @@ def make_opt_figs():
     plt.savefig(os.path.join(plt_dir,"opt.pdf"))
 
 def _rebase_results():
-    raise Exception("you better be sure!")
+    #raise Exception("you better be sure!")
     b_d = "baseline_results"
     if os.path.exists(b_d):
         shutil.rmtree(b_d)
@@ -955,18 +962,18 @@ if __name__ == "__main__":
     run_prior_sweep()
     set_truth_obs()
     
-    # run_ies_demo()
-    # run_glm_demo()
-    # run_sen_demo()
-    # run_opt_demo()
+    run_ies_demo()
+    run_glm_demo()
+    run_sen_demo()
+    run_opt_demo()
     
-    # make_ies_figs()
-    # make_glm_figs()
-    # make_sen_figs()
-    # make_opt_figs()
+    make_ies_figs()
+    make_glm_figs()
+    make_sen_figs()
+    make_opt_figs()
 
     #invest()
     #start()
-    #_rebase_results()
+    _rebase_results()
     #compare_to_baseline()
-    #test()
+    test()
