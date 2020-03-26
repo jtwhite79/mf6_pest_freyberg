@@ -730,7 +730,7 @@ def run_opt_demo():
     print(pst.parameter_groups)
 
     # mod the headwater and tailwater obs
-    min_swgw_flux = -500
+    min_swgw_flux = -250
     obs = pst.observation_data
     obs.loc[:,"weight"] = 0.0
     constraints = obs.loc[obs.obsnme.apply(lambda x: "headwater" in x or "tailwater" in x),"obsnme"]
@@ -758,8 +758,20 @@ def run_opt_demo():
     pst.pestpp_options["opt_direction"] = "max"
     pst.control_data.noptmax = 1
     pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
-    m_d = "master_opt"
+    m_d = "master_opt_neutral"
+    #pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
+
+    oe_pt = os.path.join("master_ies","freyberg6_run_ies.3.obs.csv")
+    if not os.path.exists(oe_pt):
+        raise Exception("couldnt find existing oe_pt:"+oe_pt)
+    shutil.copy(oe_pt,os.path.join(t_d,"obs_stack.csv"))
+    pst.pestpp_options["opt_obs_stack"] = "obs_stack.csv"
+    pst.pestpp_options["opt_recalc_chance_every"] = 100
+    pst.pestpp_options["opt_risk"] = 0.95
+    pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
+    m_d = "master_opt_averse"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
+
 
 
 if __name__ == "__main__":
