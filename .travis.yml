@@ -35,7 +35,7 @@ before_install:
   - ln -fs /usr/bin/g++-6 "$HOME/.local/bin/g++" && g++ --version
   - ls -l /usr/bin/g++-6
   - export CXX="g++"
-  - git clone -b develop --depth 1 https://github.com/usgs/pestpp
+  - git clone -b develop --depth 1 https://github.com/jwhite-usgs/pestpp
   - cd pestpp/src
   - bindir=$HOME/bin/linux COMPILER=gcc CXX=g++ FC=gfortran STATIC=no make -j 5 install
   - cd ../../
@@ -47,7 +47,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 install:
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas nose matplotlib jupyter notebook cartopy sphinx nbconvert
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas nose matplotlib
   - pip install coveralls
   - pip install pyshp
   - pip install nose-timer
