@@ -4,11 +4,15 @@ import string
 
 import numpy as np
 import pandas as pd
-
+from matplotlib.patches import Polygon
 from matplotlib.backends.backend_pdf import PdfPages as pdf
 import matplotlib.pyplot as plt
 import flopy
 import pyemu
+
+plt_dir = "plots"
+if not os.path.exists(plt_dir):
+    os.mkdir(plt_dir)
 
 abet = string.ascii_uppercase
 def prep_mf6_model():
@@ -493,7 +497,7 @@ def make_ies_figs():
 
 
     plt.tight_layout()
-    plt.savefig(os.path.join(m_d,"ies_sum.pdf"))
+    plt.savefig(os.path.join(plt_dir,"ies.pdf"))
 
 
 def make_glm_figs():
@@ -570,7 +574,7 @@ def make_glm_figs():
 
 
     plt.tight_layout()
-    plt.savefig(os.path.join(m_d,"glm_sum.pdf"))
+    plt.savefig(os.path.join(plt_dir,"glm.pdf"))
 
 def invest():
     pst = pyemu.Pst(os.path.join("master_ies","freyberg6_run.pst"))
@@ -704,7 +708,7 @@ def make_sen_figs():
     ax.legend()
     ax.set_ylabel("percent of total mean absolute sensitivity")
     plt.tight_layout()
-    plt.savefig(os.path.join(m_d,"morris.pdf"))
+    plt.savefig(os.path.join(plt_dir,"morris.pdf"))
 
 
 def run_opt_demo():
@@ -740,7 +744,7 @@ def run_opt_demo():
 
     # build up pi constraints
     equations,pilbl = [],[]
-    min_well_flux = 500
+    min_well_flux = 750
     for kper in w_par.kper.unique():
         kper_par = w_par.loc[w_par.kper==kper,:]
         eq = ""
@@ -759,34 +763,134 @@ def run_opt_demo():
     pst.control_data.noptmax = 1
     pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
     m_d = "master_opt_neutral"
-    #pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
+    pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
     oe_pt = os.path.join("master_ies","freyberg6_run_ies.3.obs.csv")
     if not os.path.exists(oe_pt):
         raise Exception("couldnt find existing oe_pt:"+oe_pt)
     shutil.copy(oe_pt,os.path.join(t_d,"obs_stack.csv"))
-    pst.pestpp_options["opt_obs_stack"] = "obs_stack.csv"
+    pe_pt = os.path.join("master_ies","freyberg6_run_ies.3.par.csv")
+    if not os.path.exists(pe_pt):
+        raise Exception("couldnt find existing pe_pt:"+pe_pt)
+    shutil.copy(pe_pt,os.path.join(t_d,"par_stack.csv"))
+
+    #pst.pestpp_options["opt_obs_stack"] = "obs_stack.csv"
+    pst.pestpp_options["opt_par_stack"] = "par_stack.csv"
     pst.pestpp_options["opt_recalc_chance_every"] = 100
     pst.pestpp_options["opt_risk"] = 0.95
     pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
     m_d = "master_opt_averse"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
+def make_opt_figs():
 
+    n_m_d = "master_opt_neutral"
+    a_m_d = "master_opt_averse"
+    assert os.path.exists(n_m_d)
+    assert os.path.exists(a_m_d)
+    sim = flopy.mf6.MFSimulation.load(sim_ws=a_m_d)
+    m = sim.get_model("freyberg6")
+    perlen = sim.tdis.perioddata.array["perlen"]
+    totim = np.cumsum(perlen).astype(int)
+    sp_start = pd.to_datetime("12-31-2015") + pd.to_timedelta(totim,unit='d')
+    
+    pst_file = "freyberg6_run_opt.pst"
+    pst = pyemu.Pst(os.path.join(a_m_d,pst_file))
+    w_par = pst.parameter_data.loc[pst.parameter_data.pargp=="welflux",:]
+    w_par.loc[:,"well"] = w_par.parnme.apply(lambda x: "_".join(x.split("_")[:-1]))
+    w_par.loc[:,"kper"] = w_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+    w_par.loc[:,"i"] = w_par.parnme.apply(lambda x: int(x.split('_')[-3]))
+    w_par.loc[:,"j"] = w_par.parnme.apply(lambda x: int(x.split('_')[-2]))
+    w_par.loc[:,"datetime"] = w_par.kper.apply(lambda x: sp_start[x])
+    a_par = pyemu.pst_utils.read_parfile(os.path.join(a_m_d,pst_file.replace(".pst",".1.par")))
+    n_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d,pst_file.replace(".pst",".1.par")))
+    
+    con = pst.observation_data.loc[pst.nnz_obs_names,:]
+    con.loc[:,"obgnme"] = con.obsnme.apply(lambda x: x.split('_')[0])
+    con_groups = con.obgnme.unique()
+    con_groups.sort()
+    con.loc[:,"datetime"] = pd.to_datetime(con.obsnme.apply(lambda x: x.split('_')[-1]))
+
+    a_res = pyemu.pst_utils.read_resfile(os.path.join(a_m_d,pst_file.replace(".pst",".1.sim.rei")))
+    n_res = pyemu.pst_utils.read_resfile(os.path.join(n_m_d,pst_file.replace(".pst",".1.sim.rei")))
+
+    wel_names = w_par.well.unique()
+    wel_names.sort()
+    #fig,axes = plt.subplots(2,1,figsize=(8,4))
+    fig = plt.figure(figsize=(8,4))
+    axes = [plt.subplot2grid((2,3),(i,0),colspan=2) for i in range(2)]
+    x = np.arange(w_par.kper.max())
+    cmap = plt.get_cmap('plasma')
+    axes_t = []
+    for ax,pvals,label,res in zip(axes,[n_par,a_par],["A) risk neutral","B) risk averse"],[n_res,a_res]):
+        offset = -0.2
+        step = 0.1
+        for i,w in enumerate(wel_names):
+            ww_par = w_par.loc[w_par.well==w,:].copy()
+            ww_par.sort_values(by="kper",inplace=True)
+            ax.bar(x+offset,pvals.loc[ww_par.parnme,"parval1"],width=step,facecolor=cmap(i/len(wel_names)),edgecolor="none")
+            offset += step
+            
+        ax.set_xticks(x)
+        ax.set_xticklabels(sp_start,rotation=90)
+        ax.set_ylabel("well extraction rate $\\frac{m^3}{d}$")
+        ax.set_title(label,loc="left")
+        ylim = ax.get_ylim()
+        ax.set_ylim(ylim[0],ylim[1]*1.5)
+        axt = plt.twinx(ax)
+        for g,c in zip(con_groups,["g","c"]):
+            g_con = con.loc[con.obgnme==g]
+            g_con.sort_values(by="datetime",inplace=True)
+            
+            axt.plot(res.loc[g_con.obsnme,"modelled"].values,c,label=g)
+            axt.legend(loc="upper left")
+        axes_t.append(axt)
+    axes[0].set_xticklabels([])
+    axes[1].set_xticklabels(sp_start.map(lambda x: x.strftime("%d-%m-%Y")))
+    mx = max([ax.get_ylim()[1] for ax in axes_t])
+    mn = max([ax.get_ylim()[0] for ax in axes_t])
+    for ax in axes_t:
+        ax.set_ylim(mn*2,mx)
+        ax.set_ylabel("simulated sw-gw exchange $\\frac{m^3}{d}$")
+
+    
+
+
+    ax = plt.subplot2grid((2,3),(0,2),rowspan=2)
+    ib = m.dis.idomain.array[0,:,:]
+    icmap = plt.get_cmap("Greys_r")
+    icmap.set_bad(alpha=0.0)
+    ib = np.ma.masked_where(ib!=0,ib)
+    ax.imshow(ib,cmap=icmap,extent=m.modelgrid.extent)
+    for ii,w in enumerate(wel_names):
+        ww_par = w_par.loc[w_par.well == w,:]
+        i = ww_par.i[0]
+        j = ww_par.j[0]
+        verts = m.modelgrid.get_cell_vertices(i,j)
+        p = Polygon(verts,facecolor=cmap(ii/len(wel_names)))
+        ax.add_patch(p)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_title("C) location of extraction wells",loc="left")
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(plt_dir,"opt.pdf"))
 
 if __name__ == "__main__":
-    # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
-    #set_truth_obs()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
     
-    #run_ies_demo()
-    #run_glm_demo()
-    #run_sen_demo()
+    run_ies_demo()
+    run_glm_demo()
+    run_sen_demo()
     run_opt_demo()
-    #make_ies_figs()
-    #make_glm_figs()
-    #make_sen_figs()
+    
+    make_ies_figs()
+    make_glm_figs()
+    make_sen_figs()
+    make_opt_figs()
     #invest()
     #start()
