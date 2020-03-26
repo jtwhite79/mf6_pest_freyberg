@@ -14,6 +14,12 @@ plt_dir = "plots"
 if not os.path.exists(plt_dir):
     os.mkdir(plt_dir)
 
+test_dict = {"master_ies":["freyberg6_run_ies.3.par.csv","freyberg6_run_ies.3.obs.csv","freyberg6_run_ies.phi.group.csv"],
+                 "master_glm":["freyberg6_run_glm.ipar","freyberg6_run_glm.iobj"],
+                 "master_sen_morris":["freyberg6_run_sen.sen.par.csv","freyberg6_run_sen.mio"],
+                 "master_opt_neutral":["freyberg6_run_opt.1.est.rei","freyberg6_run_opt.1.sim.rei"],
+                 "master_opt_averse":["freyberg6_run_opt.1.sim+chance.rei","freyberg6_run_opt.1.est+chance.rei"]}
+
 abet = string.ascii_uppercase
 def prep_mf6_model():
     org_ws = "temp_history"
@@ -662,10 +668,10 @@ def run_sen_demo():
     pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
     m_d = "master_sen_morris"
     pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
-    pst.pestpp_options['gsa_method'] = "sobol"
-    pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
-    m_d = "master_sen_sobol"
-    pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
+    # pst.pestpp_options['gsa_method'] = "sobol"
+    # pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
+    # m_d = "master_sen_sobol"
+    # pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
 
 def start():
     pyemu.os_utils.start_workers("template", "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15)
@@ -876,21 +882,83 @@ def make_opt_figs():
     plt.tight_layout()
     plt.savefig(os.path.join(plt_dir,"opt.pdf"))
 
+def _rebase_results():
+    raise Exception("you better be sure!")
+    b_d = "baseline_results"
+    if os.path.exists(b_d):
+        shutil.rmtree(b_d)
+    os.mkdir(b_d)
+    for m_d,files in test_dict.items():
+        assert os.path.exists(m_d),"master dir {0} missing".format(m_d)
+        b_m_d = os.path.join(b_d,m_d)
+        os.makedirs(b_m_d)
+        for f in files:
+            assert os.path.exists(os.path.join(m_d,f)),"file {0} missing from master dir {1}".format(f,m_d)
+            shutil.copy2(os.path.join(m_d,f),os.path.join(b_m_d,f))
+
+def compare_to_baseline():
+    b_d = "baseline_results"
+    assert os.path.exists(b_d)
+    errors = []
+    for m_d,files in test_dict.items():
+        if not os.path.exists(m_d):
+            errors.append("master dir {0} missing".format(m_d))
+            continue
+        b_m_d = os.path.join(b_d,m_d)
+        if not os.path.exists(b_m_d):
+            errors.append("base master dir {0} missing".format(b_m_d))
+            continue
+        for f in files:
+
+            if not os.path.exists(os.path.join(m_d,f)):
+                errors.append("file {0} missing from master dir {1}".format(f,m_d))
+                continue
+            if not os.path.exists(os.path.join(b_m_d,f)):
+                errors.append("file {0} missing from base master dir {1}".format(f,b_m_d))
+                continue
+            if f.lower().endswith(".par"):
+                df1 = pyemu.pst_utils.read_parfile(os.path.join(m_d,f))
+                df2 = pyemu.pst_utils.read_parfile(os.path.join(b_m_d,f))
+            elif f.lower().endswith(".rei"):
+                df1 = pyemu.pst_utils.read_resfile(os.path.join(m_d,f))
+                df2 = pyemu.pst_utils.read_resfile(os.path.join(b_m_d,f))
+            else:
+                df1 = pd.read_csv(os.path.join(m_d,f))
+                df2 = pd.read_csv(os.path.join(b_m_d,f))
+
+            if df1.shape != df2.shape:
+                errors.append("shape {0} vs {1} mismatch for {2}".format(str(df1.shape),str(df2.shape),f))
+                continue
+            for col in df1.columns:
+
+                if df1.dtypes[col] == object:
+                    continue
+                d = (df1.loc[:,col] - df2.loc[:,col]).apply(np.abs).sum()
+                print(f,col,d)
+                if d > 1.0e-5:
+                    errors.append("col {0} in file {1} too different: {2}".format(col,f,d))
+    if len(errors) > 0:
+        raise Exception("errors in compare: {0}".format("\n".join(errors)))
+
+
 if __name__ == "__main__":
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    # set_truth_obs()
     
-    run_ies_demo()
-    run_glm_demo()
-    run_sen_demo()
-    run_opt_demo()
+    # run_ies_demo()
+    # run_glm_demo()
+    # run_sen_demo()
+    # run_opt_demo()
     
-    make_ies_figs()
-    make_glm_figs()
-    make_sen_figs()
-    make_opt_figs()
+    # make_ies_figs()
+    # make_glm_figs()
+    # make_sen_figs()
+    # make_opt_figs()
+
     #invest()
     #start()
+    #_rebase_results()
+    compare_to_baseline()
