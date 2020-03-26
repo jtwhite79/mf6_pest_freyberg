@@ -940,6 +940,13 @@ def compare_to_baseline():
     if len(errors) > 0:
         raise Exception("errors in compare: {0}".format("\n".join(errors)))
 
+def test():
+    run_ies_demo()
+    run_glm_demo()
+    run_sen_demo()
+    run_opt_demo()
+    compare_to_baseline()
+
 
 if __name__ == "__main__":
     # prep_mf6_model()
@@ -961,4 +968,5 @@ if __name__ == "__main__":
     #invest()
     #start()
     #_rebase_results()
-    compare_to_baseline()
+    #compare_to_baseline()
+    test()
