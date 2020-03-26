@@ -2,7 +2,7 @@
                 U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
                             VERSION 6.1.0 12/12/2019
 
-   MODFLOW 6 compiled Dec 12 2019 13:30:12 with IFORT compiler (ver. 19.0.5)
+   MODFLOW 6 compiled Dec 13 2019 09:25:31 with IFORT compiler (ver. 19.0.5)
 
 This software has been approved for release by the U.S. Geological 
 Survey (USGS). Although the software has been subjected to rigorous 
@@ -795,7 +795,7 @@ Integer Variables
  Allocated memory in megabytes:     1.77600    
  
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2020/03/26 13:15:08
- Elapsed run time:  0.266 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2020/03/26 14:08:15
+ Elapsed run time:  0.282 Seconds
 
  Normal termination of simulation.

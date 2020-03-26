@@ -949,11 +949,11 @@ def test():
 
 
 if __name__ == "__main__":
-    # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
-    # set_truth_obs()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
     
     # run_ies_demo()
     # run_glm_demo()
@@ -969,4 +969,4 @@ if __name__ == "__main__":
     #start()
     #_rebase_results()
     #compare_to_baseline()
-    test()
+    #test()
