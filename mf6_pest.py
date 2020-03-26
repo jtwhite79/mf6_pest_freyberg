@@ -706,6 +706,62 @@ def make_sen_figs():
     plt.tight_layout()
     plt.savefig(os.path.join(m_d,"morris.pdf"))
 
+
+def run_opt_demo():
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d,pst_file))
+    pst = pyemu.Pst(os.path.join(t_d,pst_file))
+    # process the wel flux pars into dec  vars
+    par = pst.parameter_data
+    w_par = par.loc[par.parnme.str.startswith("wel"),:]
+    w_par.loc[:,"parval1"] = 0.0
+    w_par.loc[:,"partrans"] = "none"
+    w_par.loc[:,"parubnd"] = 500.0
+    w_par.loc[:,"parlbnd"] = 0.0
+    w_par.loc[:,"kper"] = w_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+    w_par.loc[:,"pargp"] = "welflux" #w_par.parnme.apply(lambda x: "_".join(x.split('_')[:-1]))
+    for col in pst.parameter_data.columns:
+        pst.parameter_data.loc[w_par.parnme,col] = w_par.loc[:,col]
+    pst.rectify_pgroups()
+    pst.parameter_groups.loc["welflux","derinc"] = 100.0
+    pst.parameter_groups.loc["welflux","inctyp"] = "absolute"
+    print(pst.parameter_groups)
+
+    # mod the headwater and tailwater obs
+    min_swgw_flux = -500
+    obs = pst.observation_data
+    obs.loc[:,"weight"] = 0.0
+    constraints = obs.loc[obs.obsnme.apply(lambda x: "headwater" in x or "tailwater" in x),"obsnme"]
+    pst.observation_data.loc[constraints,"obgnme"] = "less_than_flux"
+    pst.observation_data.loc[constraints,"obsval"] = min_swgw_flux
+    pst.observation_data.loc[constraints,"weight"] = 1.0
+
+    # build up pi constraints
+    equations,pilbl = [],[]
+    min_well_flux = 500
+    for kper in w_par.kper.unique():
+        kper_par = w_par.loc[w_par.kper==kper,:]
+        eq = ""
+        for name in kper_par.parnme:
+            eq += " 1.0 * {0} +".format(name)
+        eq = eq[:-1] + "= {0}".format(min_well_flux)
+        equations.append(eq)
+        pilbl.append("pi_flx_{0}".format(kper))
+
+    pi_df = pd.DataFrame({"equation":equations,"weight":1.0,"pilbl":pilbl,"obgnme":"greater_than_flux"},index=pilbl)
+    pst.prior_information = pi_df
+    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.pestpp_options["opt_dec_var_groups"] = "welflux"
+    pst.pestpp_options["opt_direction"] = "max"
+    pst.control_data.noptmax = 1
+    pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
+    m_d = "master_opt"
+    pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
+
+
 if __name__ == "__main__":
     # prep_mf6_model()
     # setup_pest_interface()
@@ -716,8 +772,9 @@ if __name__ == "__main__":
     #run_ies_demo()
     #run_glm_demo()
     #run_sen_demo()
+    run_opt_demo()
     #make_ies_figs()
     #make_glm_figs()
-    make_sen_figs()
+    #make_sen_figs()
     #invest()
     #start()
