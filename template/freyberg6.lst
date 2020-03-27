@@ -3,7 +3,7 @@
                           GROUNDWATER FLOW MODEL (GWF)
                             VERSION 6.1.0 12/12/2019
 
-   MODFLOW 6 compiled Dec 13 2019 12:29:49 with IFORT compiler (ver. 19.0.5)
+   MODFLOW 6 compiled Dec 13 2019 09:25:31 with IFORT compiler (ver. 19.0.5)
 
 This software has been approved for release by the U.S. Geological 
 Survey (USGS). Although the software has been subjected to rigorous 
@@ -840,9 +840,9 @@ No options block found in OBS input. Defaults will be used.
 
     BINARY GRID INFORMATION WILL BE WRITTEN TO:
       UNIT NUMBER: 1030
-      FILE NAME: /Users/jwhite/Dev/mf6_pest_freyberg/template/freyberg6.dis.grb
+      FILE NAME: C:\Dev\mf6_pest_freyberg\template\freyberg6.dis.grb
 
- OPENED /Users/jwhite/Dev/mf6_pest_freyberg/template/freyberg6.dis.grb
+ OPENED C:\Dev\mf6_pest_freyberg\template\freyberg6.dis.grb
  FILE TYPE:DATA(BINARY)   UNIT 1030   STATUS:REPLACE             
  FORMAT:UNFORMATTED            ACCESS:STREAM              
  ACTION:READWRITE           

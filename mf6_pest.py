@@ -941,7 +941,7 @@ def compare_to_baseline():
                 if df1.dtypes[col] == object:
                     continue
                 d = (df1.loc[:,col] - df2.loc[:,col]).apply(np.abs).sum()
-                print(f,col,d)
+                #print(f,col,d)
                 if d > 1.0e-5:
                     errors.append("col {0} in file {1} too different: {2}".format(col,f,d))
     if len(errors) > 0:
