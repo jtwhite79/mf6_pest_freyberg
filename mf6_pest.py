@@ -948,6 +948,7 @@ def compare_to_baseline():
         raise Exception("errors in compare: {0}".format("\n".join(errors)))
 
 def test():
+    print(os.listdir("."))
     pyemu.os_utils.run("mf6",cwd="template")
     
     run_ies_demo()
