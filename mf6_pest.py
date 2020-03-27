@@ -407,7 +407,7 @@ def set_truth_obs():
     #idx = pv.index[int(pv.shape[0]/2)]
     #idx = pv.index[int(pv.shape[0]/2)]
     oe.sort_values(by=pst.forecast_names[0],inplace=True)
-    idx = oe.index[-int(oe.shape[0]/10)]
+    idx = oe.index[-int(oe.shape[0]/20)]
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -903,7 +903,7 @@ def _rebase_results():
             assert os.path.exists(os.path.join(m_d,f)),"file {0} missing from master dir {1}".format(f,m_d)
             shutil.copy2(os.path.join(m_d,f),os.path.join(b_m_d,f))
 
-def compare_to_baseline():
+def compare_to_baseline(should_raise=True,tol=0.1):
     b_d = "baseline_results"
     assert os.path.exists(b_d)
     errors = []
@@ -940,14 +940,17 @@ def compare_to_baseline():
 
                 if df1.dtypes[col] == object:
                     continue
-                d = (df1.loc[:,col] - df2.loc[:,col]).apply(np.abs).sum()
+                d = ((df1.loc[:,col] - df2.loc[:,col])/df1.loc[:,col]).apply(np.abs).sum()
                 #print(f,col,d)
-                if d > 1.0e-5:
+                if d > tol:
                     errors.append("col {0} in file {1} too different: {2}".format(col,f,d))
     if len(errors) > 0:
-        raise Exception("errors in compare: {0}".format("\n".join(errors)))
+        if should_raise:
+            raise Exception("errors in compare: {0}".format("\n".join(errors)))
+        else:
+            print("differences found: \n"++'\n'.join(errors))
 
-def test():
+def test(should_raise=False):
     print(os.listdir("."))
     pyemu.os_utils.run("mf6",cwd="template")
     
@@ -955,7 +958,7 @@ def test():
     run_glm_demo()
     run_sen_demo()
     run_opt_demo()
-    compare_to_baseline()
+    compare_to_baseline(should_raise=should_raise)
 
 
 if __name__ == "__main__":
@@ -963,20 +966,20 @@ if __name__ == "__main__":
     #setup_pest_interface()
     #build_and_draw_prior()
     #run_prior_sweep()
-    #set_truth_obs()
+    set_truth_obs()
     
-    #run_ies_demo()
-    #run_glm_demo()
-    #run_sen_demo()
-    #run_opt_demo()
+    run_ies_demo()
+    run_glm_demo()
+    run_sen_demo()
+    run_opt_demo()
     
-    #make_ies_figs()
-    #make_glm_figs()
-    #make_sen_figs()
-    #make_opt_figs()
+    make_ies_figs()
+    make_glm_figs()
+    make_sen_figs()
+    make_opt_figs()
 
     #invest()
     #start()
-    #_rebase_results()
+    _rebase_results()
     #compare_to_baseline()
-    test()
+    test(True)
