@@ -43,7 +43,7 @@ before_install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - export PATH="$HOME/bin/linux:$PATH"
-  - export PATH="$HOME/jtwhite79/mf6_pest_freyberg/bin/linux:$PATH"
+  - 
   - conda update --yes conda
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
@@ -55,6 +55,7 @@ install:
   - pip install nose-timer
   - pip install nbsphinx
 script:
+  - export PATH="$HOME/build/jtwhite79/mf6_pest_freyberg/bin/linux:$PATH"
   - export PYTHONPATH=$PYTHONPATH:.
   - nosetests -v --with-id --nocapture --with-timer mf6_pest.py
 
