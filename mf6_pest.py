@@ -948,7 +948,7 @@ def compare_to_baseline(should_raise=True,tol=0.1):
         if should_raise:
             raise Exception("errors in compare: {0}".format("\n".join(errors)))
         else:
-            print("differences found: \n"++'\n'.join(errors))
+            print("differences found: \n"+'\n'.join(errors))
 
 def test(should_raise=False):
     print(os.listdir("."))
