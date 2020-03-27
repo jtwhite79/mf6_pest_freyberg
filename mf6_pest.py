@@ -948,6 +948,8 @@ def compare_to_baseline():
         raise Exception("errors in compare: {0}".format("\n".join(errors)))
 
 def test():
+    pyemu.os_utils.run("mf6",cwd="template")
+    
     run_ies_demo()
     run_glm_demo()
     run_sen_demo()
@@ -956,24 +958,24 @@ def test():
 
 
 if __name__ == "__main__":
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
+    #prep_mf6_model()
+    #setup_pest_interface()
+    #build_and_draw_prior()
+    #run_prior_sweep()
+    #set_truth_obs()
     
-    run_ies_demo()
-    run_glm_demo()
-    run_sen_demo()
-    run_opt_demo()
+    #run_ies_demo()
+    #run_glm_demo()
+    #run_sen_demo()
+    #run_opt_demo()
     
-    make_ies_figs()
-    make_glm_figs()
-    make_sen_figs()
-    make_opt_figs()
+    #make_ies_figs()
+    #make_glm_figs()
+    #make_sen_figs()
+    #make_opt_figs()
 
     #invest()
     #start()
-    _rebase_results()
+    #_rebase_results()
     #compare_to_baseline()
     test()
