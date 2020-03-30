@@ -33,7 +33,9 @@ def prep_mf6_model():
         print(cell_bot,last_reach_bot)
         if last_reach_bot <= cell_bot:
             m.sfr.reach_data["strtop"][-1] += 0.001
+        m.wel.stress_period_data[7]["flux"] = m.wel.stress_period_data[8]["flux"] * 1.01
         m.external_path = "."
+
         m.write_input()
         lines = open(os.path.join(org_ws,"freyberg.nam"),'r').readlines()
         with open(os.path.join(org_ws,"freyberg_mod.nam"),'w') as f:
@@ -42,6 +44,7 @@ def prep_mf6_model():
                     line = line.strip() + " REPLACE\n"
                 f.write(line)
         pyemu.os_utils.run("mf5to6 freyberg_mod.nam freyberg6",cwd=org_ws)
+
 
     new_ws = "test"
     if os.path.exists(new_ws):
@@ -135,7 +138,7 @@ def prep_mf6_model():
         f.write("BEGIN CONTINUOUS FILEOUT sfr.csv\nheadwater sfr headwater\n")
         f.write("tailwater sfr tailwater\ngage_1 inflow 40\nEND CONTINUOUS")
 
-    shutil.copy2(os.path.join(org_ws,"mf6.exe"),os.path.join(new_ws,"mf6.exe"))
+    #shutil.copy2(os.path.join(org_ws,"mf6.exe"),os.path.join(new_ws,"mf6.exe"))
     pyemu.os_utils.run("mf6",cwd=new_ws)
     #ext_dict = {""}
 
@@ -320,8 +323,8 @@ def _write_templates(ws):
     df = pd.DataFrame({"parnme":names,"parval1":vals},index=names)
     df.loc[:,"pargp"] = df.parnme.apply(lambda x : "welflux_{0}".format(x.split('_')[-1]))
     df.loc[:,"scale"] = -1
-    df.loc[:,"parubnd"] = df.parval1 + (df.parval1.apply(np.abs) * 0.5)
-    df.loc[:, "parlbnd"] = df.parval1 - (df.parval1.apply(np.abs) * 0.5)
+    df.loc[:,"parubnd"] = df.parval1 + (df.parval1.apply(np.abs) * 0.75)
+    df.loc[:, "parlbnd"] = df.parval1 - (df.parval1.apply(np.abs) * 0.75)
     dfs = [df]
 
     # write a recharge template
@@ -345,8 +348,8 @@ def _write_templates(ws):
                 vals.append(val)
     df = pd.DataFrame({"parnme":names,"parval1":vals},index=names)
     df.loc[:,"pargp"] = "rch"
-    df.loc[:,"parubnd"] = df.parval1 * 1.2
-    df.loc[:,"parlbnd"] = df.parval1 * 0.8
+    df.loc[:,"parubnd"] = df.parval1 * 1.5
+    df.loc[:,"parlbnd"] = df.parval1 * 0.5
     df.loc[:, "scale"] = 1.0
     dfs.append(df)
 
@@ -402,12 +405,15 @@ def set_truth_obs():
     pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
     pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231","trgw_0_9_1_20171231"]
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
+    pe = pyemu.ParameterEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.par.csv"))
+
     pv = oe.phi_vector
     #pv.sort_values(inplace=True)
     #idx = pv.index[int(pv.shape[0]/2)]
     #idx = pv.index[int(pv.shape[0]/2)]
     oe.sort_values(by=pst.forecast_names[0],inplace=True)
     idx = oe.index[-int(oe.shape[0]/20)]
+    plot_par_vector(pe.loc[int(idx),pst.par_names],"truth.pdf")
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -653,6 +659,7 @@ def run_glm_demo():
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 50
+    pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
@@ -832,7 +839,7 @@ def make_opt_figs():
     #fig,axes = plt.subplots(2,1,figsize=(8,4))
     fig = plt.figure(figsize=(8,4))
     axes = [plt.subplot2grid((2,3),(i,0),colspan=2) for i in range(2)]
-    x = np.arange(w_par.kper.max())
+    x = np.arange(w_par.kper.max()+1)
     cmap = plt.get_cmap('plasma')
     axes_t = []
     for ax,pvals,label,res in zip(axes,[n_par,a_par],["A) risk neutral","B) risk averse"],[n_res,a_res]):
@@ -841,6 +848,7 @@ def make_opt_figs():
         for i,w in enumerate(wel_names):
             ww_par = w_par.loc[w_par.well==w,:].copy()
             ww_par.sort_values(by="kper",inplace=True)
+            print(x.shape,pvals.loc[ww_par.parnme,"parval1"].shape)
             ax.bar(x+offset,pvals.loc[ww_par.parnme,"parval1"],width=step,facecolor=cmap(i/len(wel_names)),edgecolor="none")
             offset += step
             
@@ -865,9 +873,6 @@ def make_opt_figs():
     for ax in axes_t:
         ax.set_ylim(mn*2,mx)
         ax.set_ylabel("simulated sw-gw exchange $\\frac{m^3}{d}$")
-
-    
-
 
     ax = plt.subplot2grid((2,3),(0,2),rowspan=2)
     ib = m.dis.idomain.array[0,:,:]
@@ -960,26 +965,118 @@ def test(should_raise=False):
     run_opt_demo()
     compare_to_baseline(should_raise=should_raise)
 
+def plot_par_vector(pval_series=None,plt_name="par.pdf"):
+
+    sim = flopy.mf6.MFSimulation.load(sim_ws="template")
+    m = sim.get_model("freyberg6")
+    ib = m.dis.idomain.array[0,:,:]
+    pst = pyemu.Pst(os.path.join("template","freyberg6.pst"))
+    par = pst.parameter_data
+    par.loc[:,"i"] = -999
+    par.loc[:,"j"] = -999
+    par.loc[:,"k"] = -999
+    par.loc[:,"kper"] = -999
+
+    names = par.loc[par.parnme.apply(lambda x: "npf" in x or "sto" in x),"parnme"]
+    par.loc[names,"i"] = names.apply(lambda x: int(x.split('_')[-2]))
+    par.loc[names,"j"] = names.apply(lambda x: int(x.split('_')[-1]))
+    par.loc[names,"k"] = names.apply(lambda x: int(x.split('_')[-3]))
+    
+    names = par.loc[par.parnme.apply(lambda x: "wel" in x or "rch" in x),"parnme"]
+    par.loc[names,"kper"] = names.apply(lambda x: int(x.split('_')[-1]))
+
+    if pval_series is None:
+        print("using parval1")
+        pval_series = par.parval1.copy()
+
+
+    fig = plt.figure(figsize=(8,10))
+    ax_count = 0
+    arr_cmap = "plasma"
+    ib_cmap = plt.get_cmap("Greys_r")
+    ib_cmap.set_bad(alpha=0.0)
+    ib = np.ma.masked_where(ib!=0,ib)
+    axes = []
+    tags = ["npf_k_","npf_k33_","sto_ss_","sto_sy_"]
+    prefixes = ["HK","VK","SS","SY"]
+    cb_labels = ["HK $\\log_{10} frac{ft}{d}$","VK $log_{10} \\frac{ft}{d}$","SS $log_{10} \\frac{1}{ft}$","SY $log_{10} \\frac{ft}{ft}$"]
+    for irow,(tag,prefix,cb_label) in enumerate(zip(tags,prefixes,cb_labels)):
+        ppar = par.loc[par.parnme.str.startswith(tag),:]
+        # prefix = "HK"
+        # cb_label = "HK $\\frac{ft}{d}$"
+        vmin,vmax = pval_series.loc[ppar.parnme].apply(np.log10).min(),pval_series.loc[ppar.parnme].apply(np.log10).max()
+        for k in range(ppar.k.max()+1):
+            print(k)
+            ax = plt.subplot2grid((8,3),(irow*2,k),rowspan=2)
+            arr = np.zeros_like(ib,dtype=np.float32)
+            kppar = ppar.loc[ppar.k==k,:]
+
+            arr[kppar.i,kppar.j] = pval_series.loc[kppar.parnme].values
+            arr = np.log10(arr)
+            cb = ax.imshow(arr,cmap=arr_cmap,vmin=vmin,vmax=vmax)
+            cb = plt.colorbar(cb)
+            cb.set_label(cb_label)
+            ax.imshow(ib,cmap=ib_cmap)
+            ax.set_title("{0}) Layer {1} {2}".format(abet[ax_count],k+1,prefix),loc="left")
+
+            axes.append(ax)
+            ax_count += 1
+            
+    
+
+    #rch
+    ax = plt.subplot2grid((8,3),(irow*2,1),colspan=2)
+    ppar = par.loc[par.parnme.str.startswith("rch"),:]
+    print(pval_series.loc[ppar.parnme].values)
+    ppar.sort_values(by="kper",ascending=True,inplace=True)
+    ax.bar(ppar.kper+1,pval_series.loc[ppar.parnme].values)
+    ax.set_title("{0}) Recharge".format(abet[ax_count]),loc="left")
+    ax.set_ylabel("Recharge $\\frac{ft}{d}$")
+    ax.set_xlabel("stress period")
+    axes.append(ax)
+    ax_count += 1
+    #wel flux
+    ax = plt.subplot2grid((8,3),(irow*2+1,1),colspan=2)
+    ppar = par.loc[par.parnme.str.startswith("wel"),:].copy()
+    print(ppar.parval1)
+    ppar.loc[:,"parval1"] = pval_series.loc[ppar.parnme]
+    print(ppar.parval1)
+    cumflux = ppar.groupby("kper").sum().loc[:,"parval1"]
+    print(cumflux)
+    ax.bar(cumflux.index+1,cumflux.values)
+    ax.set_title("{0}) Cumulative well extraction".format(abet[ax_count]),loc="left")
+    ax.set_ylabel("extraction $\\frac{ft^3}{d}$")
+    ax.set_xlabel("stress period")
+    axes.append(ax)
+    ax_count += 1
+
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(plt_dir,plt_name))
+    plt.close(fig)
+
 
 if __name__ == "__main__":
-    #prep_mf6_model()
-    #setup_pest_interface()
-    #build_and_draw_prior()
-    #run_prior_sweep()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
     set_truth_obs()
     
-    run_ies_demo()
-    run_glm_demo()
-    run_sen_demo()
-    run_opt_demo()
+    # run_ies_demo()
+    # run_glm_demo()
+    # run_sen_demo()
+    # run_opt_demo()
     
-    make_ies_figs()
-    make_glm_figs()
-    make_sen_figs()
-    make_opt_figs()
+    # make_ies_figs()
+    # make_glm_figs()
+    # make_sen_figs()
+    # make_opt_figs()
+
+    #plot_par_vector()
 
     #invest()
     #start()
-    _rebase_results()
+    #_rebase_results()
     #compare_to_baseline()
-    test(True)
+    #test(True)

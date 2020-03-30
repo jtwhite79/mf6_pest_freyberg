@@ -72,6 +72,15 @@ BEGIN PERIOD  7
 3 35 13 ~  welflx_2_34_12_6   ~
 END PERIOD  7
 
+BEGIN PERIOD  8
+3 10 17 ~  welflx_2_9_16_7   ~
+3 12 14 ~  welflx_2_11_13_7   ~
+3 21 15 ~  welflx_2_20_14_7   ~
+3 27 11 ~  welflx_2_26_10_7   ~
+3 30 7 ~  welflx_2_29_6_7   ~
+3 35 13 ~  welflx_2_34_12_7   ~
+END PERIOD  8
+
 BEGIN PERIOD  9
 3 10 17 ~  welflx_2_9_16_8   ~
 3 12 14 ~  welflx_2_11_13_8   ~
