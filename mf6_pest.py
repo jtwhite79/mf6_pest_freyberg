@@ -59,8 +59,8 @@ def prep_mf6_model():
     obs_df = pd.read_csv("obs_loc.csv")
     obs_df.loc[:,"row"] = (obs_df.row * redis_fac).apply(np.int)
     obs_df.loc[:, "col"] = (obs_df.col * redis_fac).apply(np.int)
-    
-    
+
+
     obs_df.loc[:,"layer"] = 3
     obs_df.loc[:,"name"] = obs_df.apply(lambda x: "trgw_{0}_{1}_{2}".\
         format(x.layer-1,x.row-1,x.col-1),axis=1)
@@ -70,9 +70,9 @@ def prep_mf6_model():
     obs_df2.loc[:,"layer"] = 1
     obs_df2.loc[:,"name"] = obs_df2.apply(lambda x: "trgw_{0}_{1}_{2}".\
         format(x.layer-1,x.row-1,x.col-1),axis=1)
-    
+
     obs_df = pd.concat([obs_df,obs_df2])
-    
+
     #head_obs = {"head_obs.csv":[("trgw_{0}_{1}".format(r,c),"NPF",(2,r-1,c-1)) for r,c in zip(obs_df.row,obs_df.col)]}
     with open(os.path.join(new_ws,"head.obs"),'w') as f:
         f.write("BEGIN CONTINUOUS FILEOUT heads.csv\n")
@@ -85,7 +85,7 @@ def prep_mf6_model():
     #print(dir(m.dis.nlay))
     #print(m.dis.nlay.data)
     print(type(m.rch.recharge))
-    
+
     for pack,attr in props_3d:
         #print(m.get_package(pack).__getattribute__(attr))
         for k in range(m.dis.nlay.data):
@@ -420,7 +420,7 @@ def set_truth_obs():
     obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_33_7" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
     obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
-    
+
     pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
 
     pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
@@ -510,7 +510,7 @@ def make_ies_figs():
     ax_count = 0
     unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
                 "tail": "sw-gw flux $\\frac{ft}{d}$",
-                "trgw" : "gw level $m$",
+                "trgw" : "gw level $ft$",
                 "gage" : "sw flux $\\frac{ft}{d}$"}
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
@@ -530,7 +530,7 @@ def make_ies_figs():
 
         ax_count += 1
 
-    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
+    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
     ax.hist(pr_pv.apply(np.log10),alpha=0.5,facecolor="0.5",edgecolor="none")
     ax.hist(pt_pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) ensemble $\phi$ distributions".format(abet[ax_count]), loc="left")
@@ -555,7 +555,7 @@ def make_ies_figs():
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
         ax.grid(False)
-        ax_count +=1 
+        ax_count +=1
 
 
     plt.tight_layout()
@@ -593,7 +593,7 @@ def make_glm_figs():
     ax_count = 0
     unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
                 "tail": "sw-gw flux $\\frac{ft}{d}$",
-                "trgw" : "gw level $m$",
+                "trgw" : "gw level $ft$",
                 "gage" : "sw flux $\\frac{ft}{d}$"}
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
@@ -613,14 +613,14 @@ def make_glm_figs():
 
         ax_count += 1
 
-    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
+    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
     ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) posterior ensemble $\phi$ distribution".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
     ax.set_xlabel("$log_{10}\phi$")
     ax.set_ylabel("number of realizations")
     ax_count += 1
-    
+
     for i,forecast in enumerate(pst.forecast_names):
         ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
         axt = plt.twinx()
@@ -644,7 +644,7 @@ def make_glm_figs():
         ax.grid(False)
         ylim = axt.get_ylim()
         axt.set_ylim(0,ylim[1])
-        
+
 
         ax_count += 1
 
@@ -677,7 +677,7 @@ def invest():
     print(diff.sum())
 
 
-    
+
 
 def run_glm_demo():
 
@@ -694,7 +694,7 @@ def run_glm_demo():
     gr_par.loc[:,"k"] = gr_par.parnme.apply(lambda x: int(x.split('_')[2]))
     gr_par.loc[:,"i"] = gr_par.parnme.apply(lambda x: int(x.split('_')[3]))
     gr_par.loc[:,"j"] = gr_par.parnme.apply(lambda x: int(x.split('_')[4]))
-    
+
     for i in range(tie_step,gr_par.i.max()+tie_step,tie_step):
         for j in range(tie_step,gr_par.j.max()+tie_step,tie_step):
             ir = [ii for ii in range(i-tie_step,i)]
@@ -755,7 +755,7 @@ def make_sen_figs():
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
     mio_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".mio")),index_col=0)
     phi_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".msn")),skipinitialspace=True).loc[:,["parameter_name","sen_mean_abs", "sen_std_dev"]]
-    
+
     df = mio_df.loc[mio_df.index.map(lambda x: x in pst.forecast_names),["parameter_name","sen_mean_abs", "sen_std_dev"]].copy()
     phi_df.index = ["phi" for _ in range(phi_df.shape[0])]
     df = pd.concat([df,phi_df])
@@ -871,7 +871,7 @@ def make_opt_figs():
     perlen = sim.tdis.perioddata.array["perlen"]
     totim = np.cumsum(perlen).astype(int)
     sp_start = pd.to_datetime("12-31-2015") + pd.to_timedelta(totim,unit='d')
-    
+
     pst_file = "freyberg6_run_opt.pst"
     pst = pyemu.Pst(os.path.join(a_m_d,pst_file))
     w_par = pst.parameter_data.loc[pst.parameter_data.pargp=="welflux",:]
@@ -1136,7 +1136,7 @@ def plot_domain():
 
     pst = pyemu.Pst(os.path.join("template","freyberg6_run.pst"))
 
-    fig,ax = plt.subplots(1,1,figsize=(4,6))
+    fig,ax = plt.subplots(1,1,figsize=(6,8))
 
     ib = np.ma.masked_where(ib!=0,ib)
 
@@ -1160,27 +1160,50 @@ def plot_domain():
             c = "c"
         p = Polygon(verts, facecolor=c)
         ax.add_patch(p)
-    x = m.modelgrid.xcellcenters[i,j]
-    y = m.modelgrid.ycellcenters[i,j]
-    ax.scatter([x],[y],marker="^",c='r',s=150,zorder=10)
+    ax.text(m.modelgrid.xcellcenters[10,j],m.modelgrid.ycellcenters[10,j],"headwater sw-gw exchange forecast reaches",rotation=90,ha="center",va="center")
+    ax.text(m.modelgrid.xcellcenters[30, j], m.modelgrid.ycellcenters[30, j], "tailwater sw-gw exchange forecast reaches", rotation=90, ha="center",
+            va="center")
+
+    x = m.modelgrid.xcellcenters[i, j]
+    y = m.modelgrid.ycellcenters[i, j]
+    ax.scatter([x],[y],marker="^",c='r',s=100,zorder=10)
+    ax.text(x + 150, y+150, "sw_1".format(1), zorder=11, bbox=dict(facecolor='w', alpha=1,edgecolor="none",pad=1))
     ylim = ax.get_ylim()
 
     nz_obs = pst.observation_data.loc[pst.nnz_obs_names,:].copy()
     nz_obs = nz_obs.loc[nz_obs.obsnme.str.startswith("trgw"),:]
     nz_obs.loc[:, "i"] = nz_obs.obsnme.apply(lambda x: int(x.split('_')[2]))
     nz_obs.loc[:, "j"] = nz_obs.obsnme.apply(lambda x: int(x.split('_')[3]))
-    for g in nz_obs.obgnme.unique():
+    for ii,g in enumerate(nz_obs.obgnme.unique()):
         i = nz_obs.loc[nz_obs.obgnme == g, "i"][0]
         j = nz_obs.loc[nz_obs.obgnme == g, "j"][0]
         x = m.modelgrid.xcellcenters[i, j]
         y = m.modelgrid.ycellcenters[i, j]
-        ax.scatter([x], [y], marker="^", c='k', s=150, zorder=10)
+        ax.scatter([x], [y], marker="^", c='r', s=100, zorder=10)
+        ax.text(x + 150, y+150,"gw_{0}".format(ii),zorder=11, bbox=dict(facecolor='w', alpha=1,edgecolor="none",pad=1))
 
+    gw_fore = [f for f in pst.forecast_names if "trgw" in f][0]
+    i = int(gw_fore.split('_')[2])
+    j = int(gw_fore.split('_')[3])
+    x = m.modelgrid.xcellcenters[i, j]
+    y = m.modelgrid.ycellcenters[i, j]
+    ax.scatter([x], [y], marker="^", c='r', s=100, zorder=10)
+    ax.text(x + 150, y + 150, "gw forecast\nlocation".format(ii), zorder=11,
+            bbox=dict(facecolor='w', alpha=1, edgecolor="none", pad=1))
 
+    top = m.dis.top.array.reshape(ib.shape)
+    top[top<0] = np.NaN
+    cb = ax.imshow(top,extent=m.modelgrid.extent,cmap="bone")
+    cb = plt.colorbar(cb)
+    cb.set_label("top $ft$")
+    ax.set_xlabel("x $ft$")
+    ax.set_ylabel("y $ft$")
 
 
     ax.set_ylim(0,ylim[1])
-    plt.show()
+    plt.tight_layout()
+    plt.savefig(os.path.join(plt_dir,"domain.pdf"))
+    plt.close("all")
 
 
 if __name__ == "__main__":
@@ -1194,13 +1217,12 @@ if __name__ == "__main__":
     # run_glm_demo()
     # run_sen_demo()
     # run_opt_demo()
-    #
-    make_ies_figs()
+    # #
+    # make_ies_figs()
     # make_glm_figs()
     # make_sen_figs()
     # make_opt_figs()
-
-    #plot_domain()
+    # plot_domain()
 
     #invest()
     #start()
