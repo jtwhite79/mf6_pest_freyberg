@@ -417,7 +417,7 @@ def set_truth_obs():
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
-    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_29_15" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
+    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_33_7" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
     obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
     
@@ -441,6 +441,41 @@ def run_ies_demo():
     pst.pestpp_options["ies_num_reals"] = 50
     pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
     pst.pestpp_options["additional_ins_delimiters"] = ","
+
+    sim = flopy.mf6.MFSimulation.load(sim_ws="template")
+    m = sim.get_model("freyberg6")
+    par = pst.parameter_data
+    tpar = par.loc[par.parnme.apply(lambda x: x.startswith("wel") or x.startswith("rch")),:].copy()
+    tpar.loc[:,"kper"] = tpar.parnme.apply(lambda x: int(x.split('_')[-1]))
+    perlen = sim.tdis.perioddata.array["perlen"]
+    totim = np.cumsum(perlen).astype(int)
+    sp_start = pd.to_datetime("12-31-2015") + pd.to_timedelta(totim, unit='d')
+    tpar.loc[:, "datetime"] = tpar.kper.apply(lambda x: sp_start[x])
+    tgrps = set(tpar.pargp.unique())
+    obs = pst.observation_data.loc[pst.nnz_obs_names,:].copy()
+    obs.loc[:,"datetime"] = pd.to_datetime(obs.obsnme.apply(lambda x: x.split('_')[-1]))
+    ogrps = [g for g in pst.par_groups if g not in tgrps]
+    cols = tpar.parnme.tolist()
+    cols.extend(ogrps)
+    print(cols)
+    rows = pst.nnz_obs_names
+    loc = pd.DataFrame(index=rows,columns=cols)
+    loc.loc[:,:] = 1.0
+    tdelt_min = pd.to_timedelta(-90,unit='d')
+    tdelt_max = pd.to_timedelta(2,unit='d')
+    for oname in pst.nnz_obs_names[:5]:
+        odt = obs.loc[oname,"datetime"]
+        tdelt = (tpar.datetime - odt)
+        too_back = tdelt.loc[tdelt < tdelt_min]
+        too_forward = tdelt.loc[tdelt > tdelt_max]
+        print(oname,too_back,too_forward)
+        loc.loc[oname,too_back.index] = 0.0
+        loc.loc[oname,too_forward.index] = 0.0
+       #break
+    pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
+    pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
+    pst.pestpp_options["ies_num_threads"] = 3
+
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
     m_d = "master_ies"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
@@ -457,17 +492,26 @@ def make_ies_figs():
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
     pr_pv = pr_oe.phi_vector
     pt_pv = pt_oe.phi_vector
+    keep = pt_pv.loc[pt_pv<50].index
+    pt_oe = pt_oe.loc[keep,:]
+    pt_pv = pt_oe.phi_vector
+    pr_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".0.par.csv")),index_col=0)
+    pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
 
+    for real in ["base",pt_pe.index[0],pt_pe.index[1]]:
+
+        plot_par_vector(pr_pe.loc[real],"ies_pr_{0}.pdf".format(real))
+        plot_par_vector(pt_pe.loc[real], "ies_pt_{0}.pdf".format(real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
-    unit_dict = {"head":"sw-gw flux $\\frac{m}{d}$",
-                "tail": "sw-gw flux $\\frac{m}{d}$",
+    unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
+                "tail": "sw-gw flux $\\frac{ft}{d}$",
                 "trgw" : "gw level $m$",
-                "gage" : "sw flux $\\frac{m}{d}$"}
+                "gage" : "sw flux $\\frac{ft}{d}$"}
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
@@ -487,11 +531,11 @@ def make_ies_figs():
         ax_count += 1
 
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
-    ax.hist(pr_pv,alpha=0.5,facecolor="0.5",edgecolor="none")
-    ax.hist(pt_pv,alpha=0.5,facecolor="b",edgecolor="none")
+    ax.hist(pr_pv.apply(np.log10),alpha=0.5,facecolor="0.5",edgecolor="none")
+    ax.hist(pt_pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) ensemble $\phi$ distributions".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
-    ax.set_xlabel("$\phi$")
+    ax.set_xlabel("$log_{10}\phi$")
     ax.set_ylabel("number of realizations")
     ax_count += 1
 
@@ -523,20 +567,34 @@ def make_glm_figs():
     assert os.path.join(m_d)
     pst_file = "freyberg6_run_glm.pst"
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
+    pst.parrep(os.path.join(m_d,pst_file.replace(".pst",".par{0}".format(pst.control_data.noptmax))))
+    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+
     pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+
+
+
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
+    keep = pv.loc[pv<50].index
+    pt_oe = pt_oe.loc[keep,:]
+    #pv = pt_oe.phi_vector
+    pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
+    pt_pe = pt_pe.loc[keep,:]
+    for real in [pt_pe.index[0], pt_pe.index[1]]:
+        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
-    unit_dict = {"head":"sw-gw flux $\\frac{m}{d}$",
-                "tail": "sw-gw flux $\\frac{m}{d}$",
+    unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
+                "tail": "sw-gw flux $\\frac{ft}{d}$",
                 "trgw" : "gw level $m$",
-                "gage" : "sw flux $\\frac{m}{d}$"}
+                "gage" : "sw flux $\\frac{ft}{d}$"}
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
@@ -556,10 +614,10 @@ def make_glm_figs():
         ax_count += 1
 
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)   
-    ax.hist(pv,alpha=0.5,facecolor="b",edgecolor="none")
+    ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) posterior ensemble $\phi$ distribution".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
-    ax.set_xlabel("$\phi$")
+    ax.set_xlabel("$log_{10}\phi$")
     ax.set_ylabel("number of realizations")
     ax_count += 1
     
@@ -658,7 +716,7 @@ def run_glm_demo():
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["glm_num_reals"] = 50
+    pst.pestpp_options["glm_num_reals"] = 100
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
@@ -841,6 +899,7 @@ def make_opt_figs():
     axes = [plt.subplot2grid((2,3),(i,0),colspan=2) for i in range(2)]
     x = np.arange(w_par.kper.max()+1)
     cmap = plt.get_cmap('plasma')
+
     axes_t = []
     for ax,pvals,label,res in zip(axes,[n_par,a_par],["A) risk neutral","B) risk averse"],[n_res,a_res]):
         offset = -0.2
@@ -853,26 +912,33 @@ def make_opt_figs():
             offset += step
             
         ax.set_xticks(x)
-        ax.set_xticklabels(sp_start,rotation=90)
-        ax.set_ylabel("well extraction rate $\\frac{m^3}{d}$")
+        ax.set_xticklabels(np.arange(1,26))
+        #ax.set_xticklabels(sp_start,rotation=90)
+        ax.set_xlabel("stress period")
+        ax.set_ylabel("well extraction rate $\\frac{ft^3}{d}$")
         ax.set_title(label,loc="left")
         ylim = ax.get_ylim()
-        ax.set_ylim(ylim[0],ylim[1]*1.5)
+        ax.set_ylim(ylim[0],ylim[1]*2)
         axt = plt.twinx(ax)
         for g,c in zip(con_groups,["g","c"]):
             g_con = con.loc[con.obgnme==g]
             g_con.sort_values(by="datetime",inplace=True)
-            
-            axt.plot(res.loc[g_con.obsnme,"modelled"].values,c,label=g)
-            axt.legend(loc="upper left")
+            cval = g_con.obsval[0]
+            axt.plot(res.loc[g_con.obsnme,"modelled"].values,c,label=g + " sw-gw flux")
+            xlim = axt.get_xlim()
+
+
+        axt.legend(loc="upper left")
+        axt.plot(xlim, [cval, cval], "r--")
+        ax.set_xlim(xlim)
         axes_t.append(axt)
-    axes[0].set_xticklabels([])
-    axes[1].set_xticklabels(sp_start.map(lambda x: x.strftime("%d-%m-%Y")))
+    #axes[0].set_xticklabels([])
+    #axes[1].set_xticklabels(sp_start.map(lambda x: x.strftime("%d-%m-%Y")))
     mx = max([ax.get_ylim()[1] for ax in axes_t])
     mn = max([ax.get_ylim()[0] for ax in axes_t])
     for ax in axes_t:
-        ax.set_ylim(mn*2,mx)
-        ax.set_ylabel("simulated sw-gw exchange $\\frac{m^3}{d}$")
+        ax.set_ylim(mn*1.5,mx)
+        ax.set_ylabel("simulated sw-gw flux $\\frac{ft^3}{d}$")
 
     ax = plt.subplot2grid((2,3),(0,2),rowspan=2)
     ib = m.dis.idomain.array[0,:,:]
@@ -887,8 +953,10 @@ def make_opt_figs():
         verts = m.modelgrid.get_cell_vertices(i,j)
         p = Polygon(verts,facecolor=cmap(ii/len(wel_names)))
         ax.add_patch(p)
-    ax.set_xticks([])
-    ax.set_yticks([])
+    #ax.set_xticks([])
+    #ax.set_yticks([])
+    ax.set_ylabel("x $ft$")
+    ax.set_xlabel("y $ft$")
     ax.set_title("C) location of extraction wells",loc="left")
 
     plt.tight_layout()
@@ -1056,24 +1124,83 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
     plt.close(fig)
 
 
+def plot_domain():
+    sim = flopy.mf6.MFSimulation.load(sim_ws="template")
+    m = sim.get_model("freyberg6")
+    wel_data = m.wel.stress_period_data.array[0]
+    sfr_data = m.sfr.packagedata.array
+    ghb_data = m.ghb.stress_period_data.array[0]
+    ib = m.dis.idomain.array[0, :, :]
+    ib_cmap = plt.get_cmap("Greys_r")
+    ib_cmap.set_bad(alpha=0.0)
+
+    pst = pyemu.Pst(os.path.join("template","freyberg6_run.pst"))
+
+    fig,ax = plt.subplots(1,1,figsize=(4,6))
+
+    ib = np.ma.masked_where(ib!=0,ib)
+
+    ax.imshow(ib,cmap=ib_cmap,extent=m.modelgrid.extent)
+    for cid in wel_data.cellid:
+        i,j = cid[1],cid[2]
+        verts = m.modelgrid.get_cell_vertices(i, j)
+        p = Polygon(verts, facecolor='b')
+        ax.add_patch(p)
+    for cid in ghb_data.cellid:
+        i,j = cid[1],cid[2]
+        verts = m.modelgrid.get_cell_vertices(i, j)
+        p = Polygon(verts, facecolor='m')
+        ax.add_patch(p)
+    for cid in sfr_data.cellid:
+        i, j = cid[1], cid[2]
+        verts = m.modelgrid.get_cell_vertices(i, j)
+        if i < 20:
+            c = "g"
+        else:
+            c = "c"
+        p = Polygon(verts, facecolor=c)
+        ax.add_patch(p)
+    x = m.modelgrid.xcellcenters[i,j]
+    y = m.modelgrid.ycellcenters[i,j]
+    ax.scatter([x],[y],marker="^",c='r',s=150,zorder=10)
+    ylim = ax.get_ylim()
+
+    nz_obs = pst.observation_data.loc[pst.nnz_obs_names,:].copy()
+    nz_obs = nz_obs.loc[nz_obs.obsnme.str.startswith("trgw"),:]
+    nz_obs.loc[:, "i"] = nz_obs.obsnme.apply(lambda x: int(x.split('_')[2]))
+    nz_obs.loc[:, "j"] = nz_obs.obsnme.apply(lambda x: int(x.split('_')[3]))
+    for g in nz_obs.obgnme.unique():
+        i = nz_obs.loc[nz_obs.obgnme == g, "i"][0]
+        j = nz_obs.loc[nz_obs.obgnme == g, "j"][0]
+        x = m.modelgrid.xcellcenters[i, j]
+        y = m.modelgrid.ycellcenters[i, j]
+        ax.scatter([x], [y], marker="^", c='k', s=150, zorder=10)
+
+
+
+
+    ax.set_ylim(0,ylim[1])
+    plt.show()
+
+
 if __name__ == "__main__":
     # prep_mf6_model()
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
-    set_truth_obs()
-    
+    # set_truth_obs()
+    #
     # run_ies_demo()
     # run_glm_demo()
     # run_sen_demo()
     # run_opt_demo()
-    
-    # make_ies_figs()
+    #
+    make_ies_figs()
     # make_glm_figs()
     # make_sen_figs()
     # make_opt_figs()
 
-    #plot_par_vector()
+    #plot_domain()
 
     #invest()
     #start()
