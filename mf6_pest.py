@@ -947,9 +947,6 @@ def make_opt_figs():
             axt.plot(res.loc[g_con.obsnme,"modelled"].values,c,label=g + " sw-gw flux")
             xlim = axt.get_xlim()
 
-
-
-
         axt.plot(xlim, [cval, cval], "r--",label="required minimum sw-gw flux")
         ax.set_xlim(xlim)
         axes_t.append(axt)
@@ -1081,7 +1078,7 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
         pval_series = par.parval1.copy()
 
 
-    fig = plt.figure(figsize=(8,10))
+    fig = plt.figure(figsize=(6,8))
     ax_count = 0
     arr_cmap = "plasma"
     ib_cmap = plt.get_cmap("Greys_r")
@@ -1104,15 +1101,16 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
 
             arr[kppar.i,kppar.j] = pval_series.loc[kppar.parnme].values
             arr = np.log10(arr)
-            cb = ax.imshow(arr,cmap=arr_cmap,vmin=vmin,vmax=vmax)
+            cb = ax.imshow(arr,cmap=arr_cmap,extent=m.modelgrid.extent,vmin=vmin,vmax=vmax,)
             cb = plt.colorbar(cb)
             cb.set_label(cb_label)
-            ax.imshow(ib,cmap=ib_cmap)
+            ax.imshow(ib,cmap=ib_cmap,extent=m.modelgrid.extent)
             ax.set_title("{0}) Layer {1} {2}".format(abet[ax_count],k+1,prefix),loc="left")
+            ax.set_xlabel("x $ft$")
+            ax.set_ylabel("y $ft$")
 
             axes.append(ax)
             ax_count += 1
-            
     
 
     #rch
@@ -1256,11 +1254,12 @@ if __name__ == "__main__":
     # run_sen_demo()
     # run_opt_demo()
     # #
-    # make_ies_figs()
-    #make_glm_figs()
-    # make_sen_figs()
+    make_ies_figs()
+    make_glm_figs()
+    make_sen_figs()
     make_opt_figs()
-    # plot_domain()
+    plot_domain()
+    # plot_par_vector()
 
     #invest()
     #start()
