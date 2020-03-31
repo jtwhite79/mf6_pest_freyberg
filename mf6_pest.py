@@ -696,9 +696,6 @@ def invest():
     diff = pe1 - pe2
     print(diff.sum())
 
-
-
-
 def run_glm_demo():
 
     t_d = "template"
@@ -730,15 +727,15 @@ def run_glm_demo():
         par.loc[ww_par.parnme[1:],"partrans"] = "tied"
         par.loc[ww_par.parnme[1:],"partied"] = ww_par.parnme[0]
 
-
     pst.control_data.noptmax = 3
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["glm_num_reals"] = 100
+    pst.pestpp_options["glm_num_reals"] = 200
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
+    pst.pestpp_options["glm_normal_form"] = "prior"
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
@@ -1234,11 +1231,11 @@ if __name__ == "__main__":
     # set_truth_obs()
     #
     # run_ies_demo()
-    # run_glm_demo()
+    run_glm_demo()
     # run_sen_demo()
     # run_opt_demo()
     # #
-    make_ies_figs()
+    #make_ies_figs()
     make_glm_figs()
     # make_sen_figs()
     # make_opt_figs()
