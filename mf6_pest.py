@@ -19,6 +19,16 @@ test_dict = {"master_ies":["freyberg6_run_ies.3.par.csv","freyberg6_run_ies.3.ob
                  "master_sen_morris":["freyberg6_run_sen.sen.par.csv","freyberg6_run_sen.mio"],
                  "master_opt_neutral":["freyberg6_run_opt.1.est.rei","freyberg6_run_opt.1.sim.rei"],
                  "master_opt_averse":["freyberg6_run_opt.1.sim+chance.rei","freyberg6_run_opt.1.est+chance.rei"]}
+unit_dict = {"head":"sw-gw flux $\\frac{ft^3}{d}$",
+                "tail": "sw-gw flux $\\frac{ft^3}{d}$",
+                "trgw" : "gw level $ft$",
+                "gage" : "sw flux $\\frac{ft^3}{d}$"}
+label_dict = {"head": "headwater",
+             "tail": "tailwater",
+             "trgw_0_2_9": "gw_1",
+              "trgw_0_33_7": "gw_2",
+              "trgw_0_9_1" : "gw",
+             "gage": "sw_1"}
 
 abet = string.ascii_uppercase
 def prep_mf6_model():
@@ -508,10 +518,7 @@ def make_ies_figs():
     print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
-    unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
-                "tail": "sw-gw flux $\\frac{ft}{d}$",
-                "trgw" : "gw level $ft$",
-                "gage" : "sw flux $\\frac{ft}{d}$"}
+
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
@@ -521,11 +528,16 @@ def make_ies_figs():
         [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
         [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
+
         unit = None
+        label = None
         for tag,u in unit_dict.items():
             if tag in nz_grp:
                 unit = u
+        for tag,l in label_dict.items():
+            if tag in nz_grp:
+                label = l + " observed vs simulated"
+        ax.set_title("{0}) {1}".format(abet[ax_count], label), loc="left")
         ax.set_ylabel(unit)
 
         ax_count += 1
@@ -546,11 +558,15 @@ def make_ies_figs():
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
         ax.plot([oval,oval],ylim,'r')
-        ax.set_title("{0}) {1}".format(abet[ax_count],forecast),loc="left")
-        unit = None
+
+        unit,label = None,None
         for tag,u in unit_dict.items():
             if tag in forecast:
                 unit = u
+        for tag,l in label_dict.items():
+            if tag in forecast:
+                label = l + " forecast"
+        ax.set_title("{0}) {1}".format(abet[ax_count], label), loc="left")
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
@@ -591,10 +607,6 @@ def make_glm_figs():
     print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
-    unit_dict = {"head":"sw-gw flux $\\frac{ft}{d}$",
-                "tail": "sw-gw flux $\\frac{ft}{d}$",
-                "trgw" : "gw level $ft$",
-                "gage" : "sw flux $\\frac{ft}{d}$"}
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         print(grp_obs)
@@ -603,11 +615,16 @@ def make_glm_figs():
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
         ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        ax.set_title("{0}) {1}".format(abet[ax_count],nz_grp),loc="left")
+
         unit = None
-        for tag,u in unit_dict.items():
+        label = None
+        for tag, u in unit_dict.items():
             if tag in nz_grp:
                 unit = u
+        for tag, l in label_dict.items():
+            if tag in nz_grp:
+                label = l + " observed vs simulated"
+        ax.set_title("{0}) {1}".format(abet[ax_count], label), loc="left")
         ax.set_ylabel(unit)
         ax.grid(False)
 
@@ -615,7 +632,7 @@ def make_glm_figs():
 
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
     ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
-    ax.set_title("{0}) posterior ensemble $\phi$ distribution".format(abet[ax_count]), loc="left")
+    ax.set_title("{0}) posterior ensemble\n$\phi$ distribution".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
     ax.set_xlabel("$log_{10}\phi$")
     ax.set_ylabel("number of realizations")
@@ -633,11 +650,14 @@ def make_glm_figs():
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
         ax.plot([oval,oval],ylim,'r')
-        ax.set_title("{0}) {1}".format(abet[ax_count],forecast),loc="left")
-        unit = None
-        for tag,u in unit_dict.items():
+        unit, label = None, None
+        for tag, u in unit_dict.items():
             if tag in forecast:
                 unit = u
+        for tag, l in label_dict.items():
+            if tag in forecast:
+                label = l + " forecast"
+        ax.set_title("{0}) {1}".format(abet[ax_count], label), loc="left")
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
@@ -1218,8 +1238,8 @@ if __name__ == "__main__":
     # run_sen_demo()
     # run_opt_demo()
     # #
-    # make_ies_figs()
-    # make_glm_figs()
+    make_ies_figs()
+    make_glm_figs()
     # make_sen_figs()
     # make_opt_figs()
     # plot_domain()
