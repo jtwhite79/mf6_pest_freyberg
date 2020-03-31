@@ -11,6 +11,7 @@ ies_par_en                     prior.jcb
 ies_num_reals                  50
 ies_bad_phi_sigma              1.5
 additional_ins_delimiters      ,
+ies_csv_by_reals               True
 ies_localizer                  temporal_loc.jcb
 ies_num_threads                3
 * parameter groups external

@@ -27,8 +27,8 @@ unit_dict = {"head":"sw-gw flux $\\frac{ft^3}{d}$",
                 "gage" : "sw flux $\\frac{ft^3}{d}$"}
 label_dict = {"head": "headwater",
              "tail": "tailwater",
-             "trgw_0_2_9": "gw_1",
-              "trgw_0_33_7": "gw_2",
+             "trgw_2_2_9": "gw_1",
+              "trgw_2_33_7": "gw_2",
               "trgw_0_9_1" : "gw",
              "gage": "sw_1"}
 
@@ -429,7 +429,7 @@ def set_truth_obs():
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
-    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_0_33_7" in x or "trgw_0_2_9" in x)),"weight"] = 5.0
+    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_2_33_7" in x or "trgw_2_2_9" in x)),"weight"] = 5.0
     obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
     pst.control_data.noptmax = 0
 
@@ -591,8 +591,6 @@ def make_glm_figs():
     pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
 
-
-
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
@@ -609,14 +607,18 @@ def make_glm_figs():
     print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
+
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
+        x = np.arange(1, grp_obs.shape[0]+1)
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
-        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.5) for i in pt_oe.index]
-        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        #ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+        grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
+        grp_oe.values[grp_oe.values<20] = np.NaN
+        [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
+        ax.plot(x,grp_obs.obsval.values, 'r')
 
         unit = None
         label = None
@@ -728,7 +730,9 @@ def run_glm_demo():
         ww_par = w_par.loc[w_par.pargp==grp,:]
         par.loc[ww_par.parnme[1:],"partrans"] = "tied"
         par.loc[ww_par.parnme[1:],"partied"] = ww_par.parnme[0]
-
+    spars = [n for n in pst.adj_par_names if not "rch" in n and not "wel" in n]
+    print(spars)
+    return
     pst.control_data.noptmax = 3
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
@@ -1245,15 +1249,15 @@ def plot_domain():
 if __name__ == "__main__":
     # prep_mf6_model()
     # setup_pest_interface()
-    # build_and_draw_prior()
+    #build_and_draw_prior()
     # run_prior_sweep()
     # set_truth_obs()
     #
-    # run_ies_demo()
-    # run_glm_demo()
-    # run_sen_demo()
-    # run_opt_demo()
-    # #
+    run_ies_demo()
+    run_glm_demo()
+    run_sen_demo()
+    run_opt_demo()
+    #
     make_ies_figs()
     make_glm_figs()
     make_sen_figs()
