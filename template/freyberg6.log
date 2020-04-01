@@ -1,14 +1,14 @@
 time,elapsed_seconds,message
-09:46:59,8.85e-05,PEST++ performance logger started
-09:46:59,0.0016667,starting to process control file
-09:46:59,0.178051,finished processing control file
-09:46:59,0.064844,starting basic model IO error checking
-09:46:59,0.023105,finished basic model IO error checking
-09:46:59,0.0104093,initializing
-09:46:59,0.0022791,'noptmax'=0, running control file parameter values and quitting
-09:46:59,0.0170123,running control file parameter values
-09:46:59,4.09e-05,queuing 1 runs
-09:46:59,0.0152873,making runs
-09:47:01,1.20068,processing runs
-09:47:01,0.0041427,saving results from control file parameter value run to  freyberg6.obs.csv
-09:47:01,0.0123881,control file parameter phi report:
+10:24:02,0.0001595,PEST++ performance logger started
+10:24:02,0.000284,starting to process control file
+10:24:02,0.179014,finished processing control file
+10:24:03,0.064844,starting basic model IO error checking
+10:24:03,0.0186717,finished basic model IO error checking
+10:24:03,0.0112379,initializing
+10:24:03,0.0024181,'noptmax'=0, running control file parameter values and quitting
+10:24:03,0.0173015,running control file parameter values
+10:24:03,3.56e-05,queuing 1 runs
+10:24:03,0.0146407,making runs
+10:24:04,1.17724,processing runs
+10:24:04,0.0039111,saving results from control file parameter value run to  freyberg6.obs.csv
+10:24:04,0.0119322,control file parameter phi report:

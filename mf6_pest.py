@@ -208,7 +208,7 @@ def build_and_draw_prior():
     rch_par.loc[:,"y"] = 0.0
 
     spatial_v = pyemu.geostats.ExpVario(contribution=1.0,a=1000.0)
-    temporal_v = pyemu.geostats.ExpVario(contribution=1.0,a=60)
+    temporal_v = pyemu.geostats.ExpVario(contribution=1.0,a=3)
     spatial_gs = pyemu.geostats.GeoStruct(variograms=spatial_v)
     temporal_gs = pyemu.geostats.GeoStruct(variograms=temporal_v)
 
@@ -750,7 +750,20 @@ def run_glm_demo():
         dfs.append(dist_df.loc[dist_df.layer_group==lg,:].copy())
     v = pyemu.geostats.ExpVario(contribution=1.0,a=1000)
     gs = pyemu.geostats.GeoStruct(variograms=v)
-    cov = pyemu.helpers.geostatistical_prior_builder(pst=pst,struct_dict={gs:dfs})
+    tpars = [n for n in pst.adj_par_names if "rch" in n or "wel" in n]
+    tpar = par.loc[tpars,:].copy()
+    tpar.loc[:,"x"] = tpar.parnme.apply(lambda x: int(x.split('_')[-1]))
+    tpar.loc[:,"y"] = 0.0
+    tpar.loc[:,"group"] = tpar.parnme.apply(lambda x: x.split('_')[0])
+    print(tpar.group.unique())
+    tdfs = []
+    for g in tpar.group.unique():
+        tdfs.append(tpar.loc[tpar.group==g,:].copy())
+
+    tv = pyemu.geostats.ExpVario(contribution=1.0, a=3)
+    tgs = pyemu.geostats.GeoStruct(variograms=v)
+
+    cov = pyemu.helpers.geostatistical_prior_builder(pst=pst,struct_dict={gs:dfs,tgs:tdfs})
     cov.to_ascii(os.path.join(t_d,"glm_prior.cov"))
     pst.control_data.noptmax = 3
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
@@ -760,7 +773,7 @@ def run_glm_demo():
     pst.pestpp_options["glm_num_reals"] = 100
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
-    pst.pestpp_options["glm_normal_form"] = "prior"
+    #pst.pestpp_options["glm_normal_form"] = "prior"
     pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["max_n_super"] = 40
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
@@ -1303,7 +1316,7 @@ if __name__ == "__main__":
     run_glm_demo()
     run_sen_demo()
     run_opt_demo()
-    #
+
     make_ies_figs()
     make_glm_figs()
     make_sen_figs()
