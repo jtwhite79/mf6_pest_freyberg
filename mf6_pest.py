@@ -773,9 +773,9 @@ def run_glm_demo():
     pst.pestpp_options["glm_num_reals"] = 100
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
-    #pst.pestpp_options["glm_normal_form"] = "prior"
+    pst.pestpp_options["glm_normal_form"] = "prior"
     pst.pestpp_options["parcov"] = "glm_prior.cov"
-    pst.pestpp_options["max_n_super"] = 40
+    pst.pestpp_options["max_n_super"] = 50
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
@@ -833,11 +833,11 @@ def make_sen_figs():
     for o in df.index.unique():
         print(o)
         odf = df.loc[o,:].copy()
-        odf.loc[:,"sen_mean_abs"] /= odf.sen_mean_abs.sum()
-        odf.loc[:,"sen_mean_abs"] *= 100.0
+        odf.loc[:,"scaled"] = odf.sen_mean_abs / odf.sen_mean_abs.sum()
+        odf.loc[:,"scaled"] *= 100.0
         odf.sort_values(by="parameter_name",inplace=True)
 
-        ax.bar(x+offset,odf.sen_mean_abs,width=step,label=o)
+        ax.bar(x+offset,odf.scaled,width=step,label=o)
         offset += step
     ax.set_xticks(x)
     ax.set_xticklabels(odf.parameter_name.values,rotation=90)
@@ -851,7 +851,7 @@ def make_sen_figs():
     for o in df.index.unique():
         print(o)
         odf = df.loc[o,:].copy()
-        odf.loc[:, "sen_std_dev"] /= odf.sen_std_dev.max()
+        odf.loc[:, "sen_std_dev"] /= odf.sen_mean_abs
         odf.sort_values(by="parameter_name",inplace=True)
 
         ax.bar(x+offset,odf.sen_std_dev,width=step,label=o)
@@ -859,9 +859,10 @@ def make_sen_figs():
     ax.set_xticks(x)
     ax.set_xticklabels(odf.parameter_name.values,rotation=90)
     #spnspecs.graph_legend(ax=ax,loc="upper left")#bbox_to_anchor=(0.5,-0.75))
-    ax.set_ylabel("normalized standard deviation")
+    #ax.set_ylabel("normalized standard deviation")
+    ax.set_ylabel("coefficient of variation")
     ax.set_xlabel("parameter")
-    ax.set_title("B) summary of sensitivity standard deviation",loc="left")
+    ax.set_title("B) summary of sensitivity variability",loc="left")
 
     # ax = axes[2]
     # ax.set_frame_on(False)
@@ -1306,22 +1307,22 @@ def plot_domain():
 
 
 if __name__ == "__main__":
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    # set_truth_obs()
 
-    run_ies_demo()
-    run_glm_demo()
-    run_sen_demo()
-    run_opt_demo()
+    # run_ies_demo()
+    #run_glm_demo()
+    # run_sen_demo()
+    # run_opt_demo()
 
-    make_ies_figs()
-    make_glm_figs()
+    #make_ies_figs()
+    #make_glm_figs()
     make_sen_figs()
-    make_opt_figs()
-    plot_domain()
+    #make_opt_figs()
+    #plot_domain()
 
 
     # plot_par_vector()
