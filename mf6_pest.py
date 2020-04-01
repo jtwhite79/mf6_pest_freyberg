@@ -707,6 +707,12 @@ def run_glm_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
+
+    sim = flopy.mf6.MFSimulation.load(sim_ws=t_d)
+    m = sim.get_model("freyberg6")
+    xgrid = m.modelgrid.xcellcenters
+    ygrid = m.modelgrid.ycellcenters
+
     # fix/tie to reduce adj par numbers
     tie_step = 6
     par = pst.parameter_data
@@ -731,17 +737,32 @@ def run_glm_demo():
         par.loc[ww_par.parnme[1:],"partrans"] = "tied"
         par.loc[ww_par.parnme[1:],"partied"] = ww_par.parnme[0]
     spars = [n for n in pst.adj_par_names if not "rch" in n and not "wel" in n]
-    print(spars)
-    return
+    dist_df = pd.DataFrame({"parnme":spars,"x":np.nan,"y":np.nan},index=spars)
+    dist_df.loc[:,"i"] = gr_par.loc[dist_df.parnme,"i"]
+    dist_df.loc[:, "j"] = gr_par.loc[dist_df.parnme, "j"]
+
+    dist_df.loc[:, "x"] = dist_df.apply(lambda x: xgrid[x.i,x.j], axis=1)
+    dist_df.loc[:, "y"] = dist_df.apply(lambda x: ygrid[x.i, x.j], axis=1)
+    dist_df.loc[:,"layer_group"] = dist_df.parnme.apply(lambda x: "_".join(x.split('_')[:3]))
+    print(dist_df.layer_group.unique())
+    dfs = []
+    for lg in dist_df.layer_group.unique():
+        dfs.append(dist_df.loc[dist_df.layer_group==lg,:].copy())
+    v = pyemu.geostats.ExpVario(contribution=1.0,a=1000)
+    gs = pyemu.geostats.GeoStruct(variograms=v)
+    cov = pyemu.helpers.geostatistical_prior_builder(pst=pst,struct_dict={gs:dfs})
+    cov.to_ascii(os.path.join(t_d,"glm_prior.cov"))
     pst.control_data.noptmax = 3
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["glm_num_reals"] = 200
+    pst.pestpp_options["glm_num_reals"] = 100
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
     pst.pestpp_options["glm_normal_form"] = "prior"
+    pst.pestpp_options["parcov"] = "glm_prior.cov"
+    pst.pestpp_options["max_n_super"] = 40
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
@@ -1289,7 +1310,7 @@ if __name__ == "__main__":
     make_opt_figs()
     plot_domain()
 
-    
+
     # plot_par_vector()
 
     #invest()
