@@ -29,7 +29,7 @@ label_dict = {"head": "headwater",
              "tail": "tailwater",
              "trgw_2_2_9": "gw_1",
               "trgw_2_33_7": "gw_2",
-              "trgw_0_9_1" : "gw",
+              "trgw_0_9_1" : "gw_3",
              "gage": "sw_1"}
 
 abet = string.ascii_uppercase
@@ -785,7 +785,7 @@ def make_sen_figs():
     #print(df)
     #print(phi_df.columns)
     #print(df.columns)
-    fig,ax = plt.subplots(1,1,figsize=(5,4))
+    fig,axes = plt.subplots(2,1,figsize=(5,6))
     x = np.arange(df.parameter_name.unique().shape[0])
     offset = -0.2
     step = 0.1
@@ -795,6 +795,7 @@ def make_sen_figs():
     "sy":"Layer 1 SY","rch":"Recharge","wel":"Well extraction","k_0":"Layer 1 HK","k_1":"Layer 2 HK","k_2":"Layer 3 HK"}
     df.index = df.index.map(lambda x: name_dict[x.split('_')[0]])
     df.loc[:,"parameter_name"] = df.parameter_name.apply(lambda x: [v for k,v in par_dict.items() if k in x][0])
+    ax = axes[0]
     for o in df.index.unique():
         print(o)
         odf = df.loc[o,:].copy()
@@ -808,7 +809,31 @@ def make_sen_figs():
     ax.set_xticklabels(odf.parameter_name.values,rotation=90)
     spnspecs.graph_legend(ax=ax,loc="upper left")
     ax.set_ylabel("percent of total mean\nabsolute sensitivity")
+    #ax.set_xlabel("parameter")
+    ax.set_title("A) summary of mean absolute sensitivity",loc="left")
+
+    ax = axes[1]
+    offset = -0.2
+    for o in df.index.unique():
+        print(o)
+        odf = df.loc[o,:].copy()
+        odf.loc[:, "sen_std_dev"] /= odf.sen_std_dev.max()
+        odf.sort_values(by="parameter_name",inplace=True)
+
+        ax.bar(x+offset,odf.sen_std_dev,width=step,label=o)
+        offset += step
+    ax.set_xticks(x)
+    ax.set_xticklabels(odf.parameter_name.values,rotation=90)
+    #spnspecs.graph_legend(ax=ax,loc="upper left")#bbox_to_anchor=(0.5,-0.75))
+    ax.set_ylabel("normalized standard deviation")
     ax.set_xlabel("parameter")
+    ax.set_title("B) summary of sensitivity standard deviation",loc="left")
+
+    # ax = axes[2]
+    # ax.set_frame_on(False)
+    # ax.set_xticks([])
+    # ax.set_yticks([])
+
     plt.tight_layout()
     plt.savefig(os.path.join(plt_dir,"morris.pdf"))
 
@@ -1220,7 +1245,7 @@ def plot_domain():
         x = m.modelgrid.xcellcenters[i, j]
         y = m.modelgrid.ycellcenters[i, j]
         ax.scatter([x], [y], marker="^", c='r', s=100, zorder=10)
-        ax.text(x + 150, y+150,"gw_{0}".format(ii),zorder=11, bbox=dict(facecolor='w', alpha=1,edgecolor="none",pad=1))
+        ax.text(x + 150, y+150,"gw_{0}".format(ii+1),zorder=11, bbox=dict(facecolor='w', alpha=1,edgecolor="none",pad=1))
 
     gw_fore = [f for f in pst.forecast_names if "trgw" in f][0]
     i = int(gw_fore.split('_')[2])
@@ -1228,7 +1253,7 @@ def plot_domain():
     x = m.modelgrid.xcellcenters[i, j]
     y = m.modelgrid.ycellcenters[i, j]
     ax.scatter([x], [y], marker="^", c='r', s=100, zorder=10)
-    ax.text(x + 150, y + 150, "gw forecast\nlocation".format(ii), zorder=11,
+    ax.text(x + 150, y + 150, "gw_3", zorder=11,
             bbox=dict(facecolor='w', alpha=1, edgecolor="none", pad=1))
 
     top = m.dis.top.array.reshape(ib.shape)
@@ -1247,12 +1272,12 @@ def plot_domain():
 
 
 if __name__ == "__main__":
-    # prep_mf6_model()
-    # setup_pest_interface()
-    #build_and_draw_prior()
-    # run_prior_sweep()
-    # set_truth_obs()
-    #
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
+    set_truth_obs()
+
     run_ies_demo()
     run_glm_demo()
     run_sen_demo()
@@ -1263,6 +1288,8 @@ if __name__ == "__main__":
     make_sen_figs()
     make_opt_figs()
     plot_domain()
+
+    
     # plot_par_vector()
 
     #invest()
