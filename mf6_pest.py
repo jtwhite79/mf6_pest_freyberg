@@ -523,13 +523,14 @@ def make_ies_figs():
 
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
+        x = np.arange(1, grp_obs.shape[0] + 1)
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
-        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        [ax.plot(grp_obs.datetime,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
-        [ax.plot(grp_obs.datetime,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
-        ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
+
+        [ax.plot(x,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
+        [ax.plot(x,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
+        ax.plot(x,grp_obs.obsval, 'r')
 
         unit = None
         label = None
@@ -594,11 +595,11 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    keep = pv.loc[pv<50].index
-    pt_oe = pt_oe.loc[keep,:]
+    #keep = pv.loc[pv<50].index
+    #pt_oe = pt_oe.loc[keep,:]
     #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
-    pt_pe = pt_pe.loc[keep,:]
+    #pt_pe = pt_pe.loc[keep,:]
     for real in [pt_pe.index[0], pt_pe.index[1]]:
         plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
 
@@ -1312,17 +1313,17 @@ if __name__ == "__main__":
     # build_and_draw_prior()
     # run_prior_sweep()
     # set_truth_obs()
-
+    #
     # run_ies_demo()
-    #run_glm_demo()
+    # run_glm_demo()
     # run_sen_demo()
     # run_opt_demo()
 
-    #make_ies_figs()
-    #make_glm_figs()
-    make_sen_figs()
-    #make_opt_figs()
-    #plot_domain()
+    make_ies_figs()
+    # make_glm_figs()
+    # make_sen_figs()
+    # make_opt_figs()
+    # plot_domain()
 
 
     # plot_par_vector()
