@@ -425,6 +425,7 @@ def set_truth_obs():
     #idx = pv.index[int(pv.shape[0]/2)]
     oe.sort_values(by=pst.forecast_names[0],inplace=True)
     idx = oe.index[-int(oe.shape[0]/20)]
+    #idx = oe.index[-1]
     plot_par_vector(pe.loc[int(idx),pst.par_names],"truth.pdf")
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
@@ -587,7 +588,6 @@ def make_glm_figs():
     pst_file = "freyberg6_run_glm.pst"
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
     pst.parrep(os.path.join(m_d,pst_file.replace(".pst",".par{0}".format(pst.control_data.noptmax))))
-    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
 
     pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
@@ -595,29 +595,33 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    #keep = pv.loc[pv<50].index
-    #pt_oe = pt_oe.loc[keep,:]
-    #pv = pt_oe.phi_vector
+    keep = pv.loc[pv<pst.phi*1.25].index
+    pt_oe = pt_oe.loc[keep,:]
+    pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
-    #pt_pe = pt_pe.loc[keep,:]
-    for real in [pt_pe.index[0], pt_pe.index[1]]:
-        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+    pt_pe = pt_pe.loc[keep,:]
+    # plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+
+    # for real in [pt_pe.index[0]]:
+    #     plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     print(pst.forecast_names)
+    print(pt_oe.shape,pst.phi,pst.phi*1.25)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
 
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         x = np.arange(1, grp_obs.shape[0]+1)
-        print(grp_obs)
+        #print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
+        grp_obs.sort_values(by="datetime")
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
         #ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
-        grp_oe.values[grp_oe.values<20] = np.NaN
+        #grp_oe.values[grp_oe.values<20] = np.NaN
         [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
         ax.plot(x,grp_obs.obsval.values, 'r')
 
@@ -1319,8 +1323,8 @@ if __name__ == "__main__":
     # run_sen_demo()
     # run_opt_demo()
 
-    make_ies_figs()
-    # make_glm_figs()
+    # make_ies_figs()
+    make_glm_figs()
     # make_sen_figs()
     # make_opt_figs()
     # plot_domain()
