@@ -8,7 +8,7 @@ eigthresh                           1e-06
 eigwrite                                1
 additional_ins_delimiters      ,
 ies_par_en                     prior.jcb
-forecasts                      headwater_20171231,tailwater_20171231,trgw_0_9_1_20171231
+forecasts                      headwater_20171231,tailwater_20161130,trgw_0_9_1_20171130
 * parameter groups external
 freyberg6_run.pargrp_data.csv
 * parameter data external

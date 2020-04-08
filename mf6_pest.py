@@ -415,7 +415,7 @@ def set_truth_obs():
     m_d = "master_prior"
     assert os.path.exists(m_d)
     pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
-    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20171231","trgw_0_9_1_20171231"]
+    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
     pe = pyemu.ParameterEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.par.csv"))
 
@@ -423,10 +423,14 @@ def set_truth_obs():
     #pv.sort_values(inplace=True)
     #idx = pv.index[int(pv.shape[0]/2)]
     #idx = pv.index[int(pv.shape[0]/2)]
-    oe.sort_values(by=pst.forecast_names[0],inplace=True)
-    idx = oe.index[-int(oe.shape[0]/20)]
+    oe.sort_values(by=pst.forecast_names[1],inplace=True)
+    idx = oe.index[-int(oe.shape[0]/10)]
     #idx = oe.index[-1]
-    plot_par_vector(pe.loc[int(idx),pst.par_names],"truth.pdf")
+    try:
+
+        plot_par_vector(pe.loc[idx,pst.par_names],"truth.pdf")
+    except:
+        plot_par_vector(pe.loc[int(idx), pst.par_names], "truth.pdf")
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -448,11 +452,12 @@ def run_ies_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
-    pst.control_data.noptmax = 3
+    pst.control_data.noptmax = 4
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options["ies_num_reals"] = 50
-    pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
+    #pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
+    pst.pestpp_options["ies_no_noise"] = True
     pst.pestpp_options["additional_ins_delimiters"] = ","
 
     sim = flopy.mf6.MFSimulation.load(sim_ws="template")
@@ -511,7 +516,7 @@ def make_ies_figs():
     pr_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".0.par.csv")),index_col=0)
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
 
-    for real in ["base",pt_pe.index[0],pt_pe.index[1]]:
+    for real in ["base",pt_pe.index[0]]:
 
         plot_par_vector(pr_pe.loc[real],"ies_pr_{0}.pdf".format(real))
         plot_par_vector(pt_pe.loc[real], "ies_pt_{0}.pdf".format(real))
@@ -595,15 +600,15 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    keep = pv.loc[pv<pst.phi*1.25].index
+    keep = pv.loc[pv<max(20,pst.phi*1.25)].index
     pt_oe = pt_oe.loc[keep,:]
-    pv = pt_oe.phi_vector
+    #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
     pt_pe = pt_pe.loc[keep,:]
-    # plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
 
-    # for real in [pt_pe.index[0]]:
-    #     plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+    for real in [pt_pe.index[0]]:
+        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -1312,22 +1317,27 @@ def plot_domain():
 
 
 if __name__ == "__main__":
+
     # prep_mf6_model()
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
-    # set_truth_obs()
-    #
-    # run_ies_demo()
-    # run_glm_demo()
-    # run_sen_demo()
-    # run_opt_demo()
 
-    # make_ies_figs()
+    set_truth_obs()
+
+    run_ies_demo()
+    make_ies_figs()
+
+    run_glm_demo()
     make_glm_figs()
-    # make_sen_figs()
-    # make_opt_figs()
-    # plot_domain()
+
+    run_sen_demo()
+    make_sen_figs()
+
+    run_opt_demo()
+    make_opt_figs()
+
+    plot_domain()
 
 
     # plot_par_vector()
