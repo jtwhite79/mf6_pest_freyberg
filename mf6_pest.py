@@ -452,7 +452,7 @@ def run_ies_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
-    pst.control_data.noptmax = 4
+    pst.control_data.noptmax = 3
     pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options["ies_num_reals"] = 50
@@ -600,7 +600,7 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    keep = pv.loc[pv<max(20,pst.phi*1.25)].index
+    keep = pv.loc[pv<max(10,pst.phi*2.0)].index
     pt_oe = pt_oe.loc[keep,:]
     #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
@@ -1318,10 +1318,10 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
 
     set_truth_obs()
 
@@ -1343,7 +1343,7 @@ if __name__ == "__main__":
     # plot_par_vector()
 
     #invest()
-    #start()
+    # start()
     #_rebase_results()
     #compare_to_baseline()
     #test(True)
