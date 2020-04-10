@@ -510,14 +510,13 @@ def make_ies_figs():
     pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
     pr_pv = pr_oe.phi_vector
     pt_pv = pt_oe.phi_vector
-    keep = pt_pv.loc[pt_pv<50].index
-    pt_oe = pt_oe.loc[keep,:]
+    #keep = pt_pv.loc[pt_pv<50].index
+    #pt_oe = pt_oe.loc[keep,:]
     pt_pv = pt_oe.phi_vector
     pr_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".0.par.csv")),index_col=0)
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
 
     for real in ["base",pt_pe.index[0]]:
-
         plot_par_vector(pr_pe.loc[real],"ies_pr_{0}.pdf".format(real))
         plot_par_vector(pt_pe.loc[real], "ies_pt_{0}.pdf".format(real))
 
@@ -536,7 +535,9 @@ def make_ies_figs():
 
         [ax.plot(x,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
         [ax.plot(x,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
-        ax.plot(x,grp_obs.obsval, 'r')
+        grp_obs = grp_obs.loc[grp_obs.weight > 0,:]
+        x = np.arange(2, grp_obs.shape[0]+2)
+        ax.plot(x,grp_obs.obsval, 'r',lw=1.5)
 
         unit = None
         label = None
@@ -566,7 +567,7 @@ def make_ies_figs():
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
-        ax.plot([oval,oval],ylim,'r')
+        ax.plot([oval,oval],ylim,'r', lw=1.5)
 
         unit,label = None,None
         for tag,u in unit_dict.items():
@@ -600,15 +601,14 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    keep = pv.loc[pv<max(10,pst.phi*2.0)].index
-    pt_oe = pt_oe.loc[keep,:]
+    #keep = pv.loc[pv<max(10,pst.phi*2.0)].index
+    #pt_oe = pt_oe.loc[keep,:]
     #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
-    pt_pe = pt_pe.loc[keep,:]
-    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
-
-    for real in [pt_pe.index[0]]:
-        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+    #pt_pe = pt_pe.loc[keep,:]
+    # plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+    # for real in [pt_pe.index[0]]:
+    #     plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -628,7 +628,9 @@ def make_glm_figs():
         grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
         #grp_oe.values[grp_oe.values<20] = np.NaN
         [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
-        ax.plot(x,grp_obs.obsval.values, 'r')
+        grp_obs = grp_obs.loc[grp_obs.weight >0,:]
+        x = np.arange(2, grp_obs.shape[0] + 2)
+        ax.plot(x,grp_obs.obsval.values, 'r',lw=1.5)
 
         unit = None
         label = None
@@ -663,7 +665,8 @@ def make_glm_figs():
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
-        ax.plot([oval,oval],ylim,'r')
+        ax.plot([oval,oval],ylim,'r',lw=1.5)
+        #ax.set_ylim(ylim)
         unit, label = None, None
         for tag, u in unit_dict.items():
             if tag in forecast:
@@ -675,9 +678,11 @@ def make_glm_figs():
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
+
         ax.grid(False)
         ylim = axt.get_ylim()
         axt.set_ylim(0,ylim[1])
+        axt.set_yticks([])
 
 
         ax_count += 1
@@ -1318,26 +1323,26 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    #
+    # set_truth_obs()
+    #
+    # run_ies_demo()
+    # make_ies_figs()
 
-    set_truth_obs()
-
-    run_ies_demo()
-    make_ies_figs()
-
-    run_glm_demo()
+    # run_glm_demo()
     make_glm_figs()
 
-    run_sen_demo()
-    make_sen_figs()
-
-    run_opt_demo()
-    make_opt_figs()
-
-    plot_domain()
+    # run_sen_demo()
+    # make_sen_figs()
+    #
+    # run_opt_demo()
+    # make_opt_figs()
+    #
+    # plot_domain()
 
 
     # plot_par_vector()
