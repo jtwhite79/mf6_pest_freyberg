@@ -12,6 +12,7 @@ ies_num_reals                  50
 ies_no_noise                   True
 additional_ins_delimiters      ,
 ies_localizer                  temporal_loc.jcb
+ies_autoadaloc                 True
 ies_num_threads                3
 * parameter groups external
 freyberg6_run_ies.pargrp_data.csv

@@ -492,6 +492,7 @@ def run_ies_demo():
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
     pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
+    pst.pestpp_options["ies_autoadaloc"] = True
     pst.pestpp_options["ies_num_threads"] = 3
 
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
@@ -606,9 +607,9 @@ def make_glm_figs():
     #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
     #pt_pe = pt_pe.loc[keep,:]
-    # plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
-    # for real in [pt_pe.index[0]]:
-    #     plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+    for real in [pt_pe.index[0]]:
+        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -794,6 +795,14 @@ def run_glm_demo():
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
+
+    # pst.pestpp_options["n_iter_base"] = pst.control_data.noptmax
+    # pst.pestpp_options.pop("n_iter_super")
+    # pst.pestpp_options["glm_iter_mc"] = True
+    # pst.pestpp_options["glm_accept_mc_phi"] = True
+    # pst.write(os.path.join(t_d, "freyberg6_run_glm.pst"), version=2)
+    # m_d = "master_glm_base_iters"
+    # pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
 
 
 def run_sen_demo():
