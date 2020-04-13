@@ -66,6 +66,7 @@ def prep_mf6_model():
     sim.simulation_data.mfpath.set_sim_path("test")
     sim.name_file.continue_ = True
     m = sim.get_model("freyberg6")
+
     redis_fac = m.dis.nrow.data / 40 #in case this is a finely discret version
 
     obs_df = pd.read_csv("obs_loc.csv")
@@ -602,11 +603,11 @@ def make_glm_figs():
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
     pv = pt_oe.phi_vector
-    #keep = pv.loc[pv<max(10,pst.phi*2.0)].index
-    #pt_oe = pt_oe.loc[keep,:]
+    keep = pv.loc[pv<max(10,pst.phi*2.0)].index
+    pt_oe = pt_oe.loc[keep,:]
     #pv = pt_oe.phi_vector
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
-    #pt_pe = pt_pe.loc[keep,:]
+    pt_pe = pt_pe.loc[keep,:]
     plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
     for real in [pt_pe.index[0]]:
         plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
@@ -627,7 +628,8 @@ def make_glm_figs():
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
         #ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
         grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
-        #grp_oe.values[grp_oe.values<20] = np.NaN
+        if "trgw" in nz_grp:
+            grp_oe.values[grp_oe.values<20] = np.NaN
         [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
         grp_obs = grp_obs.loc[grp_obs.weight >0,:]
         x = np.arange(2, grp_obs.shape[0] + 2)
@@ -786,7 +788,7 @@ def run_glm_demo():
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["glm_num_reals"] = 100
+    pst.pestpp_options["glm_num_reals"] = 200
     pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     pst.pestpp_options["glm_accept_mc_phi"] = True
     pst.pestpp_options["glm_normal_form"] = "prior"
@@ -1342,21 +1344,21 @@ if __name__ == "__main__":
     # run_ies_demo()
     # make_ies_figs()
 
-    # run_glm_demo()
-    make_glm_figs()
+    #run_glm_demo()
+    #make_glm_figs()
 
     # run_sen_demo()
     # make_sen_figs()
     #
-    # run_opt_demo()
-    # make_opt_figs()
+    #run_opt_demo()
+    #make_opt_figs()
     #
     # plot_domain()
 
 
     # plot_par_vector()
 
-    #invest()
+    invest()
     # start()
     #_rebase_results()
     #compare_to_baseline()
