@@ -64,6 +64,7 @@ def prep_mf6_model():
     os.mkdir(new_ws)
     sim = flopy.mf6.MFSimulation.load(sim_ws=org_ws)
     sim.simulation_data.mfpath.set_sim_path("test")
+    #sim.set_all_data_external()
     sim.name_file.continue_ = True
     m = sim.get_model("freyberg6")
 
@@ -557,9 +558,9 @@ def make_ies_figs():
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
     ax.hist(pr_pv.apply(np.log10),alpha=0.5,facecolor="0.5",edgecolor="none")
     ax.hist(pt_pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
-    ax.set_title("{0}) ensemble $\phi$ distributions".format(abet[ax_count]), loc="left")
+    ax.set_title("{0}) objective function".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
-    ax.set_xlabel("$log_{10}\phi$")
+    ax.set_xlabel("$log_{10}$ objective function")
     ax.set_ylabel("number of realizations")
     ax_count += 1
 
@@ -651,9 +652,9 @@ def make_glm_figs():
 
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
     ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
-    ax.set_title("{0}) posterior ensemble\n$\phi$ distribution".format(abet[ax_count]), loc="left")
+    ax.set_title("{0}) objective function".format(abet[ax_count]), loc="left")
     #ax.set_yticks([])
-    ax.set_xlabel("$log_{10}\phi$")
+    ax.set_xlabel("$log_{10}$ objective function")
     ax.set_ylabel("number of realizations")
     ax_count += 1
 
@@ -849,7 +850,7 @@ def make_sen_figs():
     x = np.arange(df.parameter_name.unique().shape[0])
     offset = -0.2
     step = 0.1
-    name_dict = {"headwater":"headwater forecast","tailwater":"tailwater forecast","trgw":"groundwater forecast","phi":"$\phi$"}
+    name_dict = {"headwater":"headwater forecast","tailwater":"tailwater forecast","trgw":"groundwater forecast","phi":"objective function"}
     par_dict = {"k33_0":"Layer 1 VK","k33_1":"Layer 2 VK","k33_2":"Layer 3 VK",
     "ss_0":"Layer 1 SS","ss_1":"Layer 2 SS","ss_2":"Layer 3 SS",
     "sy":"Layer 1 SY","rch":"Recharge","wel":"Well extraction","k_0":"Layer 1 HK","k_1":"Layer 2 HK","k_2":"Layer 3 HK"}
@@ -1334,31 +1335,31 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
-    #
-    # set_truth_obs()
-    #
-    # run_ies_demo()
-    # make_ies_figs()
+    #prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
 
-    #run_glm_demo()
-    #make_glm_figs()
+    set_truth_obs()
 
-    # run_sen_demo()
-    # make_sen_figs()
+    run_ies_demo()
+    make_ies_figs()
+
+    run_glm_demo()
+    make_glm_figs()
+
+    run_sen_demo()
+    make_sen_figs()
     #
-    #run_opt_demo()
-    #make_opt_figs()
+    run_opt_demo()
+    make_opt_figs()
     #
     # plot_domain()
 
 
     # plot_par_vector()
 
-    invest()
+    #invest()
     # start()
     #_rebase_results()
     #compare_to_baseline()
