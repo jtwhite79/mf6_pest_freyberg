@@ -14,15 +14,15 @@ pcf
 1
 * parameter groups
  welflux                 absolute              1.0000000000E+02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_ss_2                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- npf_k_1                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- npf_k33_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_ss_1                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k_2                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_sy_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_ss_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- npf_k_0                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k33_1               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_ss_1                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k_1                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_ss_2                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k_0                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_sy_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k33_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_ss_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k33_2               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  rch                     relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
 * parameter data
@@ -9315,8 +9315,8 @@ pi_flx_6               1.0 * welflx_2_11_13_6 + 1.0 * welflx_2_20_14_6 + 1.0 * w
 pi_flx_7               1.0 * welflx_2_11_13_7 + 1.0 * welflx_2_20_14_7 + 1.0 * welflx_2_26_10_7 + 1.0 * welflx_2_29_6_7 + 1.0 * welflx_2_34_12_7 + 1.0 * welflx_2_9_16_7 = 750       1.0000000000E+00     greater_than_flux    
 pi_flx_8               1.0 * welflx_2_11_13_8 + 1.0 * welflx_2_20_14_8 + 1.0 * welflx_2_26_10_8 + 1.0 * welflx_2_29_6_8 + 1.0 * welflx_2_34_12_8 + 1.0 * welflx_2_9_16_8 = 750       1.0000000000E+00     greater_than_flux    
 pi_flx_9               1.0 * welflx_2_11_13_9 + 1.0 * welflx_2_20_14_9 + 1.0 * welflx_2_26_10_9 + 1.0 * welflx_2_29_6_9 + 1.0 * welflx_2_34_12_9 + 1.0 * welflx_2_9_16_9 = 750       1.0000000000E+00     greater_than_flux    
-++forecasts(headwater_20171231,tailwater_20161130,trgw_0_9_1_20171130)
 ++additional_ins_delimiters(,)
+++ies_par_en(prior.jcb)
 ++opt_dec_var_groups(welflux)
 ++opt_direction(max)
 ++opt_par_stack(par_stack.csv)

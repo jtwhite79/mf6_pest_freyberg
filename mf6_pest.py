@@ -32,6 +32,8 @@ label_dict = {"head": "headwater",
               "trgw_0_9_1" : "gw_3",
              "gage": "sw_1"}
 
+forecasts = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
+
 abet = string.ascii_uppercase
 def prep_mf6_model():
     org_ws = "temp_history"
@@ -417,7 +419,7 @@ def set_truth_obs():
     m_d = "master_prior"
     assert os.path.exists(m_d)
     pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
-    pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
+    #pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
     pe = pyemu.ParameterEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.par.csv"))
 
@@ -425,7 +427,7 @@ def set_truth_obs():
     #pv.sort_values(inplace=True)
     #idx = pv.index[int(pv.shape[0]/2)]
     #idx = pv.index[int(pv.shape[0]/2)]
-    oe.sort_values(by=pst.forecast_names[1],inplace=True)
+    oe.sort_values(by=forecasts[1],inplace=True)
     idx = oe.index[-int(oe.shape[0]/10)]
     #idx = oe.index[-1]
     try:
@@ -455,7 +457,7 @@ def run_ies_demo():
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
-    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
     pst.pestpp_options["ies_num_reals"] = 50
     #pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
@@ -525,7 +527,7 @@ def make_ies_figs():
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
-    print(pst.forecast_names)
+    #print(pst.forecast_names)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
 
@@ -564,7 +566,7 @@ def make_ies_figs():
     ax.set_ylabel("number of realizations")
     ax_count += 1
 
-    for i,forecast in enumerate(pst.forecast_names):
+    for i,forecast in enumerate(forecasts):
         ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
         pr_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='0.5',edgecolor="none",alpha=0.5)
         pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
@@ -615,7 +617,7 @@ def make_glm_figs():
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
-    print(pst.forecast_names)
+    #print(pst.forecast_names)
     print(pt_oe.shape,pst.phi,pst.phi*1.25)
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
@@ -658,7 +660,7 @@ def make_glm_figs():
     ax.set_ylabel("number of realizations")
     ax_count += 1
 
-    for i,forecast in enumerate(pst.forecast_names):
+    for i,forecast in enumerate(forecasts):
         ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
         axt = plt.twinx()
         x,y = pyemu.plot_utils.gaussian_distribution(f_df.loc[forecast,"prior_mean"],f_df.loc[forecast,"prior_stdev"])
@@ -785,13 +787,13 @@ def run_glm_demo():
     cov = pyemu.helpers.geostatistical_prior_builder(pst=pst,struct_dict={gs:dfs,tgs:tdfs})
     cov.to_ascii(os.path.join(t_d,"glm_prior.cov"))
     pst.control_data.noptmax = 3
-    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 200
-    pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
-    pst.pestpp_options["glm_accept_mc_phi"] = True
+    #pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
+    #pst.pestpp_options["glm_accept_mc_phi"] = True
     pst.pestpp_options["glm_normal_form"] = "prior"
     pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["max_n_super"] = 50
@@ -818,7 +820,7 @@ def run_sen_demo():
     w_names = par.loc[par.parnme.str.startswith("wel"),"parnme"]
     par.loc[w_names,"pargp"] = "welflux"
 
-    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["tie_by_group"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
@@ -840,7 +842,7 @@ def make_sen_figs():
     mio_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".mio")),index_col=0)
     phi_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".msn")),skipinitialspace=True).loc[:,["parameter_name","sen_mean_abs", "sen_std_dev"]]
 
-    df = mio_df.loc[mio_df.index.map(lambda x: x in pst.forecast_names),["parameter_name","sen_mean_abs", "sen_std_dev"]].copy()
+    df = mio_df.loc[mio_df.index.map(lambda x: x in forecasts),["parameter_name","sen_mean_abs", "sen_std_dev"]].copy()
     phi_df.index = ["phi" for _ in range(phi_df.shape[0])]
     df = pd.concat([df,phi_df])
     #print(df)
@@ -945,7 +947,7 @@ def run_opt_demo():
 
     pi_df = pd.DataFrame({"equation":equations,"weight":1.0,"pilbl":pilbl,"obgnme":"greater_than_flux"},index=pilbl)
     pst.prior_information = pi_df
-    pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
+    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["opt_dec_var_groups"] = "welflux"
     pst.pestpp_options["opt_direction"] = "max"
@@ -965,7 +967,7 @@ def run_opt_demo():
 
     #pst.pestpp_options["opt_obs_stack"] = "obs_stack.csv"
     pst.pestpp_options["opt_par_stack"] = "par_stack.csv"
-    pst.pestpp_options["opt_recalc_chance_every"] = 100
+    #pst.pestpp_options["opt_recalc_chance_every"] = 100
     pst.pestpp_options["opt_risk"] = 0.95
     pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
     m_d = "master_opt_averse"
@@ -1309,7 +1311,7 @@ def plot_domain():
         ax.scatter([x], [y], marker="^", c='r', s=100, zorder=10)
         ax.text(x + 150, y+150,"gw_{0}".format(ii+1),zorder=11, bbox=dict(facecolor='w', alpha=1,edgecolor="none",pad=1))
 
-    gw_fore = [f for f in pst.forecast_names if "trgw" in f][0]
+    gw_fore = [f for f in forecasts if "trgw" in f][0]
     i = int(gw_fore.split('_')[2])
     j = int(gw_fore.split('_')[3])
     x = m.modelgrid.xcellcenters[i, j]
@@ -1335,7 +1337,7 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    #prep_mf6_model()
+    prep_mf6_model()
     setup_pest_interface()
     build_and_draw_prior()
     run_prior_sweep()

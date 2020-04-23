@@ -6,13 +6,11 @@ svdmode                                 1
 maxsing                          10000000
 eigthresh                           1e-06
 eigwrite                                1
-forecasts                      headwater_20171231,tailwater_20161130,trgw_0_9_1_20171130
 additional_ins_delimiters      ,
+ies_par_en                     prior.jcb
 n_iter_super                   999
 n_iter_base                    -1
 glm_num_reals                  200
-lambda_scale_vec               0.5,0.75,1.0
-glm_accept_mc_phi              True
 glm_normal_form                prior
 parcov                         glm_prior.cov
 max_n_super                    50

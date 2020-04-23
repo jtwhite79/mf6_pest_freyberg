@@ -6,8 +6,8 @@ svdmode                                 1
 maxsing                          10000000
 eigthresh                           1e-06
 eigwrite                                1
-forecasts                      headwater_20171231,tailwater_20161130,trgw_0_9_1_20171130
 additional_ins_delimiters      ,
+ies_par_en                     prior.jcb
 tie_by_group                   True
 * parameter groups external
 freyberg6_run_sen.pargrp_data.csv

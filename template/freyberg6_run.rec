@@ -7,8 +7,8 @@ for PEST(++) datasets
 
 
 
-version: 4.3.10
-binary compiled on Apr  9 2020 at 15:19:42
+version: 4.3.11
+binary compiled on Apr 17 2020 at 15:13:45
 
 using control file: "freyberg6_run.pst"
 in directory: "C:\Dev\mf6_pest_freyberg\template"
@@ -77,7 +77,7 @@ lambdas: 0.1,1,10,100,1000,
 iteration_summary: 0
 der_forgive: 1
 uncertainty: 1
-forecasts: HEADWATER_20171231,TAILWATER_20161130,TRGW_0_9_1_20171130,
+forecasts: 
 base_jacobian: 
 glm_num_reals: 0
 jac_scale: 1
@@ -86,7 +86,7 @@ glm_debug_der_fail: 0
 glm_debug_lamb_fail: 0
 glm_debug_real_fail: 0
 glm_accept_mc_phi: 0
-glm_rebase_super: 0
+glm_rebase_super: 0glm_iter_mc: 0
 ...pestpp-swp options:
 sweep_parameter_csv_file: 
 sweep_output_csv_file: sweep_out.csv
@@ -219,42 +219,42 @@ Model interface files:-
 
 Parameter group information
 NAME            INCREMENT TYPE     DERIVATIVE INCREMENT    INCREMENT LOWER BOUND  FORCE CENTRAL     INCREMENT MULTIPLIER
-sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
-npf_k33_0             RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
 npf_k_2               RELATIVE                     0.01                        0         SWITCH                        2
-sto_sy_0              RELATIVE                     0.01                        0         SWITCH                        2
-sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
-npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
 npf_k33_1             RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_1              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_1               RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_2              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k_0               RELATIVE                     0.01                        0         SWITCH                        2
+sto_sy_0              RELATIVE                     0.01                        0         SWITCH                        2
+npf_k33_0             RELATIVE                     0.01                        0         SWITCH                        2
+sto_ss_0              RELATIVE                     0.01                        0         SWITCH                        2
 npf_k33_2             RELATIVE                     0.01                        0         SWITCH                        2
 rch                   RELATIVE                     0.01                        0         SWITCH                        2
 welflux_4             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_13            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_3             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_16            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_0             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_15            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_18            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_7             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_6             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
-welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
-welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_14            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_12            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_3             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_17            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_15            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_10            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_6             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_19            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_9             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_21            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_18            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_13            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_22            RELATIVE                     0.01                        0         SWITCH                        2
 welflux_1             RELATIVE                     0.01                        0         SWITCH                        2
 welflux_24            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_2             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_20            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_7             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_5             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_0             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_16            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_8             RELATIVE                     0.01                        0         SWITCH                        2
+welflux_11            RELATIVE                     0.01                        0         SWITCH                        2
+welflux_23            RELATIVE                     0.01                        0         SWITCH                        2
 
 
 
