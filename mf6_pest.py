@@ -3,7 +3,9 @@ import shutil
 import string
 import numpy as np
 import pandas as pd
+import platform
 import spnspecs
+
 from matplotlib.patches import Polygon
 from matplotlib.backends.backend_pdf import PdfPages as pdf
 import matplotlib.pyplot as plt
@@ -175,7 +177,15 @@ def setup_pest_interface():
         pst.parameter_data.loc[par_df.parnme,col] = par_df.loc[:,col]
     for col in obs_df.columns:
         pst.observation_data.loc[obs_df.obsnme,col] = obs_df.loc[:,col]
-    pst.model_command = "mf6"
+    if "window" in platform.platform().lower():
+        pst.model_command = "mf6"
+        shutil.copy2(os.path.join("bin","win","mf6.exe"),os.path.join(t_d,"mf6.exe"))
+    elif "linux" in platform.platform().lower():
+        pst.model_command = "./mf6"
+        shutil.copy2(os.path.join("bin", "linux", "mf6"), os.path.join(t_d, "mf6"))
+    else:
+        pst.model_command = "./mf6"
+        shutil.copy2(os.path.join("bin", "mac", "mf6"), os.path.join(t_d, "mf6"))
     pst.control_data.noptmax = 0
     pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["ies_num_reals"] = 50
