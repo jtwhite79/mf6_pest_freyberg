@@ -187,14 +187,8 @@ def setup_pest_interface():
         pst.model_command = "./mf6"
         shutil.copy2(os.path.join("bin", "mac", "mf6"), os.path.join(ws, "mf6"))
     pst.control_data.noptmax = 0
-    #pst.pestpp_options["additional_ins_delimiters"] = ","
-    #pst.pestpp_options["ies_num_reals"] = 50
     pst.write(os.path.join(ws,"freyberg6.pst"),version=2)
     pyemu.os_utils.run("pestpp-ies freyberg6.pst",cwd=ws)
-
-    #pst.control_data.noptmax = -1
-    #pst.write(os.path.join(ws, "freyberg6.pst"))
-    #pyemu.os_utils.start_workers(ws,"pestpp-ies","freyberg6.pst",num_workers=10,master_dir="master_ies")
 
 
 def build_and_draw_prior():
@@ -236,9 +230,7 @@ def build_and_draw_prior():
     wgrps.sort()
     for pargp in wgrps:
         temporal_struct_dict[temporal_gs].append(wel_par.loc[wel_par.pargp == pargp, ["parnme", "x", "y"]])
-    #ss = pyemu.geostats.SpecSim2d(m.modelgrid.delr,m.modelgrid.delc,spatial_gs)
-    #pe = ss.grid_par_ensemble_helper(pst,static_par,num_reals=300,sigma_range=4.0)
-    #temporal_pe = pyemu.helpers.geostatistical_draws(pst,struct_dict=temporal_struct_dict,num_reals=300)
+
     struct_dict = static_struct_dict
     for k,v in temporal_struct_dict.items():
         struct_dict[k] = v
@@ -429,17 +421,12 @@ def set_truth_obs():
     m_d = "master_prior"
     assert os.path.exists(m_d)
     pst = pyemu.Pst(os.path.join(m_d,"freyberg6_sweep.pst"))
-    #pst.pestpp_options["forecasts"] = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
     oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.obs.csv"))
     pe = pyemu.ParameterEnsemble.from_csv(pst=pst,filename=os.path.join(m_d,"freyberg6_sweep.0.par.csv"))
 
     pv = oe.phi_vector
-    #pv.sort_values(inplace=True)
-    #idx = pv.index[int(pv.shape[0]/2)]
-    #idx = pv.index[int(pv.shape[0]/2)]
     oe.sort_values(by=forecasts[1],inplace=True)
-    idx = oe.index[-int(oe.shape[0]/10)]
-    #idx = oe.index[-1]
+    idx = oe.index[-int(oe.shape[0]/20)]
     try:
         plot_par_vector(pe.loc[idx,pst.par_names],"truth.pdf")
     except:
@@ -471,12 +458,9 @@ def run_ies_demo():
     pe = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join(t_d,"prior.jcb"))
     pe = pe.iloc[:50,:]
     pe.to_binary(os.path.join(t_d,"ies_prior.jcb"))
-    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    pst.pestpp_options["ies_par_en"] = "prior.jcb"
-    #pst.pestpp_options["ies_num_reals"] = 50
-    #pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
-    pst.pestpp_options["ies_no_noise"] = True
-    #pst.pestpp_options["additional_ins_delimiters"] = ","
+    pst.pestpp_options = {}
+    pst.pestpp_options["ies_par_en"] = "ies_prior.jcb"
+    #pst.pestpp_options["ies_no_noise"] = True
 
     sim = flopy.mf6.MFSimulation.load(sim_ws="template")
     m = sim.get_model("freyberg6")
@@ -509,17 +493,21 @@ def run_ies_demo():
         loc.loc[oname,too_forward.index] = 0.0
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
-    #pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
-    #pst.pestpp_options["ies_autoadaloc"] = True
-    #pst.pestpp_options["ies_num_threads"] = 3
 
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
+    m_d = "master_ies_default"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+
+    pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
+    pst.pestpp_options["ies_autoadaloc"] = True
+    pst.pestpp_options["ies_num_threads"] = 3
+    pst.pestpp_options["ies_no_noise"] = True
+    pst.write(os.path.join(t_d, "freyberg6_run_ies.pst"), version=2)
     m_d = "master_ies"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
 
-def make_ies_figs():
-    m_d = "master_ies"
+def make_ies_figs(m_d="master_ies",plt_case="ies"):
     assert os.path.join(m_d)
     pst_file = "freyberg6_run_ies.pst"
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
@@ -536,8 +524,8 @@ def make_ies_figs():
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
 
     for real in ["base",pt_pe.index[0]]:
-        plot_par_vector(pr_pe.loc[real],"ies_pr_{0}.pdf".format(real))
-        plot_par_vector(pt_pe.loc[real], "ies_pt_{0}.pdf".format(real))
+        plot_par_vector(pr_pe.loc[real],"{0}_pr_{1}.pdf".format(plt_case,real))
+        plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}.pdf".format(plt_case,real))
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -551,9 +539,12 @@ def make_ies_figs():
         print(grp_obs)
         grp_obs.loc[:,"datetime"] = pd.to_datetime(grp_obs.obsnme.apply(lambda x: x.split('_')[-1]))
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
-
         [ax.plot(x,pr_oe.loc[i,grp_obs.obsnme],'0.5',lw=0.1, alpha=0.25) for i in pr_oe.index]
-        [ax.plot(x,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
+        for i in pt_oe.index:
+            vals = pt_oe.loc[i,grp_obs.obsnme].values
+            vals[vals<20] = np.NaN
+            ax.plot(x, vals, 'b', lw=0.1, alpha=0.35)
+        #[ax.plot(x,pt_oe.loc[i,grp_obs.obsnme],'b',lw=0.1,alpha=0.35) for i in pt_oe.index]
         grp_obs = grp_obs.loc[grp_obs.weight > 0,:]
         x = np.arange(2, grp_obs.shape[0]+2)
         ax.plot(x,grp_obs.obsval, 'r',lw=1.5)
@@ -572,6 +563,9 @@ def make_ies_figs():
         ax_count += 1
 
     ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
+    pr_pv.loc[pr_pv <= 0.0] = np.NaN
+    pt_pv.loc[pt_pv <= 0.0] = np.NaN
+
     ax.hist(pr_pv.apply(np.log10),alpha=0.5,facecolor="0.5",edgecolor="none")
     ax.hist(pt_pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
     ax.set_title("{0}) objective function".format(abet[ax_count]), loc="left")
@@ -604,35 +598,41 @@ def make_ies_figs():
 
 
     plt.tight_layout()
-    plt.savefig(os.path.join(plt_dir,"ies.pdf"))
+    plt.savefig(os.path.join(plt_dir,"{0}.pdf".format(plt_case)))
 
 
-def make_glm_figs():
-    m_d = "master_glm"
+def make_glm_figs(m_d="master_glm",plt_case = "glm"):
     assert os.path.join(m_d)
     pst_file = "freyberg6_run_glm.pst"
     pst = pyemu.Pst(os.path.join(m_d,pst_file))
     pst.parrep(os.path.join(m_d,pst_file.replace(".pst",".par{0}".format(pst.control_data.noptmax))))
 
-    pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
-    pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+    pt_oe = None
+    try:
+        pt_oe = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".post.obsen.csv")))
+        pt_oe = pyemu.ObservationEnsemble(pst=pst,df=pt_oe)
+    except:
+        pass
 
     f_df = pd.read_csv(os.path.join(m_d,pst_file.replace(".pst",".pred.usum.csv")),index_col=0)
     f_df.index = f_df.index.map(str.lower)
-    pv = pt_oe.phi_vector
-    keep = pv.loc[pv<max(10,pst.phi*2.0)].index
-    pt_oe = pt_oe.loc[keep,:]
-    #pv = pt_oe.phi_vector
-    pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
-    pt_pe = pt_pe.loc[keep,:]
-    plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
-    for real in [pt_pe.index[0]]:
-        plot_par_vector(pt_pe.loc[real], "glm_pt_{0}.pdf".format(real))
+
+
+    if pt_oe is not None:
+        pv = pt_oe.phi_vector
+        keep = pv.loc[pv < max(15, pst.phi * 2.0)].index
+        pt_oe = pt_oe.loc[keep, :]
+        pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
+        pt_pe = pt_pe.loc[keep,:]
+        plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+        for real in [pt_pe.index[0]]:
+            plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}.pdf".format(plt_case,real))
+        print(pt_oe.shape,pst.phi,pst.phi*1.25)
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     #print(pst.forecast_names)
-    print(pt_oe.shape,pst.phi,pst.phi*1.25)
+
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
 
@@ -644,10 +644,13 @@ def make_glm_figs():
         grp_obs.sort_values(by="datetime")
         ax = plt.subplot2grid((5,4),(i,0),colspan=4)
         #ax.plot(grp_obs.datetime,grp_obs.obsval, 'r')
-        grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
-        if "trgw" in nz_grp:
-            grp_oe.values[grp_oe.values<20] = np.NaN
-        [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
+        if pt_oe is not None:
+            grp_oe = pt_oe.loc[:,grp_obs.obsnme].copy()
+            if "trgw" in nz_grp:
+                grp_oe.values[grp_oe.values<20] = np.NaN
+            [ax.plot(x,grp_oe.loc[i,grp_obs.obsnme].values,'b',lw=0.1,alpha=0.5) for i in grp_oe.index]
+        else:
+            ax.plot(x,pst.res.loc[grp_obs.obsnme,"modelled"],'b',lw=1.5)
         grp_obs = grp_obs.loc[grp_obs.weight >0,:]
         x = np.arange(2, grp_obs.shape[0] + 2)
         ax.plot(x,grp_obs.obsval.values, 'r',lw=1.5)
@@ -666,13 +669,14 @@ def make_glm_figs():
 
         ax_count += 1
 
-    ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
-    ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
-    ax.set_title("{0}) objective function".format(abet[ax_count]), loc="left")
-    #ax.set_yticks([])
-    ax.set_xlabel("$log_{10}$ objective function")
-    ax.set_ylabel("number of realizations")
-    ax_count += 1
+    if pt_oe is not None:
+        ax = plt.subplot2grid((5,4),(3,0),rowspan=2)
+        ax.hist(pv.apply(np.log10),alpha=0.5,facecolor="b",edgecolor="none")
+        ax.set_title("{0}) objective function".format(abet[ax_count]), loc="left")
+        #ax.set_yticks([])
+        ax.set_xlabel("$log_{10}$ objective function")
+        ax.set_ylabel("number of realizations")
+        ax_count += 1
 
     for i,forecast in enumerate(forecasts):
         ax = plt.subplot2grid((5,4),(3,i+1),rowspan=2)
@@ -681,12 +685,13 @@ def make_glm_figs():
         axt.fill_between(x,0,y,facecolor="0.5",alpha=0.25)
         x,y = pyemu.plot_utils.gaussian_distribution(f_df.loc[forecast,"post_mean"],f_df.loc[forecast,"post_stdev"])
         axt.fill_between(x,0,y,facecolor="b",alpha=0.25)
-
-        pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
+        if pt_oe is not None:
+            pt_oe.loc[:,forecast].hist(ax=ax,density=True,facecolor='b',edgecolor="none",alpha=0.5)
         ylim = ax.get_ylim()
         oval = obs.loc[forecast,"obsval"]
         ax.plot([oval,oval],ylim,'r',lw=1.5)
-        #ax.set_ylim(ylim)
+
+        ax.set_ylim(ylim)
         unit, label = None, None
         for tag, u in unit_dict.items():
             if tag in forecast:
@@ -709,7 +714,7 @@ def make_glm_figs():
 
 
     plt.tight_layout()
-    plt.savefig(os.path.join(plt_dir,"glm.pdf"))
+    plt.savefig(os.path.join(plt_dir,"{0}.pdf".format(plt_case)))
 
 def invest():
     pst = pyemu.Pst(os.path.join("template","freyberg6_run.pst"))
@@ -719,14 +724,7 @@ def invest():
     obs.loc[:,"cv"] = (1./ obs.weight) / obs.obsval
     print(obs)
 
-def run_glm_demo():
-
-    t_d = "template"
-    assert os.path.exists(t_d)
-    pst_file = "freyberg6_run.pst"
-    assert os.path.exists(os.path.join(t_d,pst_file))
-    pst = pyemu.Pst(os.path.join(t_d,pst_file))
-
+def _block_tie(pst,t_d="template"):
     sim = flopy.mf6.MFSimulation.load(sim_ws=t_d)
     m = sim.get_model("freyberg6")
     xgrid = m.modelgrid.xcellcenters
@@ -735,77 +733,82 @@ def run_glm_demo():
     # fix/tie to reduce adj par numbers
     tie_step = 6
     par = pst.parameter_data
-    par.loc[:,"partied"] = np.NaN
-    gr_par = par.loc[par.pargp.apply(lambda x: "npf" in x or "sto" in x),:].copy()
-    gr_par.loc[:,"k"] = gr_par.parnme.apply(lambda x: int(x.split('_')[2]))
-    gr_par.loc[:,"i"] = gr_par.parnme.apply(lambda x: int(x.split('_')[3]))
-    gr_par.loc[:,"j"] = gr_par.parnme.apply(lambda x: int(x.split('_')[4]))
+    par.loc[:, "partied"] = np.NaN
+    gr_par = par.loc[par.pargp.apply(lambda x: "npf" in x or "sto" in x), :].copy()
+    gr_par.loc[:, "k"] = gr_par.parnme.apply(lambda x: int(x.split('_')[2]))
+    gr_par.loc[:, "i"] = gr_par.parnme.apply(lambda x: int(x.split('_')[3]))
+    gr_par.loc[:, "j"] = gr_par.parnme.apply(lambda x: int(x.split('_')[4]))
 
-    for i in range(tie_step,gr_par.i.max()+tie_step,tie_step):
-        for j in range(tie_step,gr_par.j.max()+tie_step,tie_step):
-            ir = [ii for ii in range(i-tie_step,i)]
-            jr = [jj for jj in range(j-tie_step,j)]
-            t_par = gr_par.loc[gr_par.apply(lambda x:x.i in ir and x.j in jr, axis=1),:]
+    for i in range(tie_step, gr_par.i.max() + tie_step, tie_step):
+        for j in range(tie_step, gr_par.j.max() + tie_step, tie_step):
+            ir = [ii for ii in range(i - tie_step, i)]
+            jr = [jj for jj in range(j - tie_step, j)]
+            t_par = gr_par.loc[gr_par.apply(lambda x: x.i in ir and x.j in jr, axis=1), :]
             for grp in t_par.pargp.unique():
-                tt_par = t_par.loc[t_par.pargp==grp,:]
-                par.loc[tt_par.parnme[1:],"partrans"] = "tied"
-                par.loc[tt_par.parnme[1:],"partied"] = tt_par.parnme[0]
-    w_par = par.loc[par.parnme.str.startswith("wel"),:]
+                tt_par = t_par.loc[t_par.pargp == grp, :]
+                par.loc[tt_par.parnme[1:], "partrans"] = "tied"
+                par.loc[tt_par.parnme[1:], "partied"] = tt_par.parnme[0]
+    w_par = par.loc[par.parnme.str.startswith("wel"), :]
     for grp in w_par.pargp.unique():
-        ww_par = w_par.loc[w_par.pargp==grp,:]
-        par.loc[ww_par.parnme[1:],"partrans"] = "tied"
-        par.loc[ww_par.parnme[1:],"partied"] = ww_par.parnme[0]
+        ww_par = w_par.loc[w_par.pargp == grp, :]
+        par.loc[ww_par.parnme[1:], "partrans"] = "tied"
+        par.loc[ww_par.parnme[1:], "partied"] = ww_par.parnme[0]
     spars = [n for n in pst.adj_par_names if not "rch" in n and not "wel" in n]
-    dist_df = pd.DataFrame({"parnme":spars,"x":np.nan,"y":np.nan},index=spars)
-    dist_df.loc[:,"i"] = gr_par.loc[dist_df.parnme,"i"]
+    dist_df = pd.DataFrame({"parnme": spars, "x": np.nan, "y": np.nan}, index=spars)
+    dist_df.loc[:, "i"] = gr_par.loc[dist_df.parnme, "i"]
     dist_df.loc[:, "j"] = gr_par.loc[dist_df.parnme, "j"]
 
-    dist_df.loc[:, "x"] = dist_df.apply(lambda x: xgrid[x.i,x.j], axis=1)
+    dist_df.loc[:, "x"] = dist_df.apply(lambda x: xgrid[x.i, x.j], axis=1)
     dist_df.loc[:, "y"] = dist_df.apply(lambda x: ygrid[x.i, x.j], axis=1)
-    dist_df.loc[:,"layer_group"] = dist_df.parnme.apply(lambda x: "_".join(x.split('_')[:3]))
+    dist_df.loc[:, "layer_group"] = dist_df.parnme.apply(lambda x: "_".join(x.split('_')[:3]))
     print(dist_df.layer_group.unique())
     dfs = []
     for lg in dist_df.layer_group.unique():
-        dfs.append(dist_df.loc[dist_df.layer_group==lg,:].copy())
-    v = pyemu.geostats.ExpVario(contribution=1.0,a=1000)
+        dfs.append(dist_df.loc[dist_df.layer_group == lg, :].copy())
+    v = pyemu.geostats.ExpVario(contribution=1.0, a=1000)
     gs = pyemu.geostats.GeoStruct(variograms=v)
     tpars = [n for n in pst.adj_par_names if "rch" in n or "wel" in n]
-    tpar = par.loc[tpars,:].copy()
-    tpar.loc[:,"x"] = tpar.parnme.apply(lambda x: int(x.split('_')[-1]))
-    tpar.loc[:,"y"] = 0.0
-    tpar.loc[:,"group"] = tpar.parnme.apply(lambda x: x.split('_')[0])
+    tpar = par.loc[tpars, :].copy()
+    tpar.loc[:, "x"] = tpar.parnme.apply(lambda x: int(x.split('_')[-1]))
+    tpar.loc[:, "y"] = 0.0
+    tpar.loc[:, "group"] = tpar.parnme.apply(lambda x: x.split('_')[0])
     print(tpar.group.unique())
     tdfs = []
     for g in tpar.group.unique():
-        tdfs.append(tpar.loc[tpar.group==g,:].copy())
+        tdfs.append(tpar.loc[tpar.group == g, :].copy())
 
     tv = pyemu.geostats.ExpVario(contribution=1.0, a=3)
     tgs = pyemu.geostats.GeoStruct(variograms=v)
 
-    cov = pyemu.helpers.geostatistical_prior_builder(pst=pst,struct_dict={gs:dfs,tgs:tdfs})
-    cov.to_ascii(os.path.join(t_d,"glm_prior.cov"))
+    cov = pyemu.helpers.geostatistical_prior_builder(pst=pst, struct_dict={gs: dfs, tgs: tdfs})
+    cov.to_ascii(os.path.join(t_d, "glm_prior.cov"))
+
+
+def run_glm_demo():
+
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+    assert os.path.exists(os.path.join(t_d,pst_file))
+    pst = pyemu.Pst(os.path.join(t_d,pst_file))
+
+    _block_tie(pst)
     pst.control_data.noptmax = 3
-    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    #pst.pestpp_options["additional_ins_delimiters"] = ","
-    pst.pestpp_options["n_iter_super"] = 999
+    pst.pestpp_options["n_iter_super"] = pst.control_data.noptmax
     pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["glm_num_reals"] = 200
-    #pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
-    #pst.pestpp_options["glm_accept_mc_phi"] = True
-    #pst.pestpp_options["glm_normal_form"] = "prior"
-    pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["max_n_super"] = 50
+
+
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
-    m_d = "master_glm"
+    m_d = "master_glm_default"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
 
-    # pst.pestpp_options["n_iter_base"] = pst.control_data.noptmax
-    # pst.pestpp_options.pop("n_iter_super")
-    # pst.pestpp_options["glm_iter_mc"] = True
-    # pst.pestpp_options["glm_accept_mc_phi"] = True
-    # pst.write(os.path.join(t_d, "freyberg6_run_glm.pst"), version=2)
-    # m_d = "master_glm_base_iters"
-    # pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
+    pst.pestpp_options["glm_num_reals"] = 200
+    pst.pestpp_options["parcov"] = "glm_prior.cov"
+    pst.pestpp_options["glm_normal_form"] = "prior"
+    pst.write(os.path.join(t_d, "freyberg6_run_glm.pst"), version=2)
+    m_d = "master_glm"
+    pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
 
 
 def run_sen_demo():
@@ -818,19 +821,13 @@ def run_sen_demo():
     w_names = par.loc[par.parnme.str.startswith("wel"),"parnme"]
     par.loc[w_names,"pargp"] = "welflux"
 
-    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    #pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["tie_by_group"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
     m_d = "master_sen_morris"
     pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
-    # pst.pestpp_options['gsa_method'] = "sobol"
-    # pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
-    # m_d = "master_sen_sobol"
-    # pyemu.os_utils.start_workers(t_d, "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15, master_dir=m_d)
 
 def start():
-    pyemu.os_utils.start_workers("template", "pestpp-sen", "freyberg6_run_sen.pst", num_workers=15)
+    pyemu.os_utils.start_workers("template", "pestpp-opt", "freyberg6_run_opt.pst", num_workers=25)
 
 def make_sen_figs():
     m_d = "master_sen_morris"
@@ -906,6 +903,7 @@ def run_opt_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
+    _block_tie(pst)
     # process the wel flux pars into dec  vars
     par = pst.parameter_data
     w_par = par.loc[par.parnme.str.startswith("wel"),:]
@@ -925,7 +923,7 @@ def run_opt_demo():
     # mod the headwater and tailwater obs
     min_swgw_flux = -250
     obs = pst.observation_data
-    obs.loc[:,"weight"] = 0.0
+    #obs.loc[:,"weight"] = 0.0
     constraints = obs.loc[obs.obsnme.apply(lambda x: "headwater" in x or "tailwater" in x),"obsnme"]
     pst.observation_data.loc[constraints,"obgnme"] = "less_than_flux"
     pst.observation_data.loc[constraints,"obsval"] = min_swgw_flux
@@ -945,13 +943,16 @@ def run_opt_demo():
 
     pi_df = pd.DataFrame({"equation":equations,"weight":1.0,"pilbl":pilbl,"obgnme":"greater_than_flux"},index=pilbl)
     pst.prior_information = pi_df
-    #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    #pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["opt_dec_var_groups"] = "welflux"
     pst.pestpp_options["opt_direction"] = "max"
     pst.control_data.noptmax = 1
-    pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
+    pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"),version=2)
     m_d = "master_opt_neutral"
+    pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
+
+    pst.pestpp_options["opt_risk"] = 0.75
+    pst.write(os.path.join(t_d, "freyberg6_run_opt.pst"))
+    m_d = "master_opt_averse_fosm"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
     oe_pt = os.path.join("master_ies","freyberg6_run_ies.3.obs.csv")
@@ -964,6 +965,8 @@ def run_opt_demo():
     shutil.copy(pe_pt,os.path.join(t_d,"par_stack.csv"))
 
     #pst.pestpp_options["opt_obs_stack"] = "obs_stack.csv"
+    par = pst.parameter_data
+    par.loc[par.partrans=="tied","partrans"] = "log"
     pst.pestpp_options["opt_par_stack"] = "par_stack.csv"
     #pst.pestpp_options["opt_recalc_chance_every"] = 100
     pst.pestpp_options["opt_risk"] = 0.95
@@ -1335,21 +1338,23 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    #
-    set_truth_obs()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
+    # # #
+    # set_truth_obs()
+    # #
+    #run_ies_demo()
+    #make_ies_figs()
+    #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
 
-    run_ies_demo()
-    make_ies_figs()
+    #run_glm_demo()
+    #make_glm_figs()
+    #make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
 
-    run_glm_demo()
-    make_glm_figs()
-
-    run_sen_demo()
-    make_sen_figs()
+    #run_sen_demo()
+    #make_sen_figs()
     #
     run_opt_demo()
     make_opt_figs()
@@ -1358,7 +1363,7 @@ if __name__ == "__main__":
 
 
     # plot_par_vector()
-
+    #start()
     #invest()
     # start()
     # _rebase_results()
