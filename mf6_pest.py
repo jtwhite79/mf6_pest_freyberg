@@ -179,16 +179,16 @@ def setup_pest_interface():
         pst.observation_data.loc[obs_df.obsnme,col] = obs_df.loc[:,col]
     if "window" in platform.platform().lower():
         pst.model_command = "mf6"
-        shutil.copy2(os.path.join("bin","win","mf6.exe"),os.path.join(t_d,"mf6.exe"))
+        shutil.copy2(os.path.join("bin","win","mf6.exe"),os.path.join(ws,"mf6.exe"))
     elif "linux" in platform.platform().lower():
         pst.model_command = "./mf6"
-        shutil.copy2(os.path.join("bin", "linux", "mf6"), os.path.join(t_d, "mf6"))
+        shutil.copy2(os.path.join("bin", "linux", "mf6"), os.path.join(ws, "mf6"))
     else:
         pst.model_command = "./mf6"
-        shutil.copy2(os.path.join("bin", "mac", "mf6"), os.path.join(t_d, "mf6"))
+        shutil.copy2(os.path.join("bin", "mac", "mf6"), os.path.join(ws, "mf6"))
     pst.control_data.noptmax = 0
-    pst.pestpp_options["additional_ins_delimiters"] = ","
-    pst.pestpp_options["ies_num_reals"] = 50
+    #pst.pestpp_options["additional_ins_delimiters"] = ","
+    #pst.pestpp_options["ies_num_reals"] = 50
     pst.write(os.path.join(ws,"freyberg6.pst"),version=2)
     pyemu.os_utils.run("pestpp-ies freyberg6.pst",cwd=ws)
 
@@ -261,10 +261,10 @@ def _write_instuctions(ws):
     with open(os.path.join(ws, "sfr.csv.ins"), 'w') as f:
         f.write("pif ~\nl1\n")
         for i in sfr_obs_df.index:
-            f.write("l1 w")
+            f.write("l1 ")
             for c in sfr_obs_df.columns:
                 name = "{0}_{1}".format(c.lower(), totim_dict[int(i)])
-                f.write(" !{0}! ".format(name))
+                f.write(" ~,~ !{0}! ".format(name))
                 names.append(name)
                 vals.append(sfr_obs_df.loc[i, c])
             f.write("\n")
@@ -276,10 +276,10 @@ def _write_instuctions(ws):
     with open(os.path.join(ws,"heads.csv.ins"),'w') as f:
         f.write("pif ~\nl1\n")
         for i in obs_df.index:
-            f.write("l1 w")
+            f.write("l1 ")
             for c in obs_df.columns:
                 name = "{0}_{1}".format(c.lower(), totim_dict[int(i)])
-                f.write(" !{0}! ".format(name))
+                f.write("~,~ !{0}! ".format(name))
                 names.append(name)
                 vals.append(obs_df.loc[i,c])
             f.write("\n")
@@ -441,7 +441,6 @@ def set_truth_obs():
     idx = oe.index[-int(oe.shape[0]/10)]
     #idx = oe.index[-1]
     try:
-
         plot_par_vector(pe.loc[idx,pst.par_names],"truth.pdf")
     except:
         plot_par_vector(pe.loc[int(idx), pst.par_names], "truth.pdf")
@@ -449,7 +448,9 @@ def set_truth_obs():
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
     obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_2_33_7" in x or "trgw_2_2_9" in x)),"weight"] = 5.0
-    obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x), "weight"] = 0.005
+    # set sw weights so that the CV is 0.1
+    g_obs = obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x),"obsnme"]
+    obs.loc[g_obs, "weight"] = 1.0 / (obs.loc[g_obs,"obsval"] * 0.3)
     pst.control_data.noptmax = 0
 
     pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
@@ -467,12 +468,15 @@ def run_ies_demo():
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
     pst.control_data.noptmax = 3
+    pe = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join(t_d,"prior.jcb"))
+    pe = pe.iloc[:50,:]
+    pe.to_binary(os.path.join(t_d,"ies_prior.jcb"))
     #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
     pst.pestpp_options["ies_par_en"] = "prior.jcb"
-    pst.pestpp_options["ies_num_reals"] = 50
+    #pst.pestpp_options["ies_num_reals"] = 50
     #pst.pestpp_options["ies_bad_phi_sigma"] = 1.5
     pst.pestpp_options["ies_no_noise"] = True
-    pst.pestpp_options["additional_ins_delimiters"] = ","
+    #pst.pestpp_options["additional_ins_delimiters"] = ","
 
     sim = flopy.mf6.MFSimulation.load(sim_ws="template")
     m = sim.get_model("freyberg6")
@@ -505,9 +509,9 @@ def run_ies_demo():
         loc.loc[oname,too_forward.index] = 0.0
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
-    pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
-    pst.pestpp_options["ies_autoadaloc"] = True
-    pst.pestpp_options["ies_num_threads"] = 3
+    #pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
+    #pst.pestpp_options["ies_autoadaloc"] = True
+    #pst.pestpp_options["ies_num_threads"] = 3
 
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
     m_d = "master_ies"
@@ -708,28 +712,12 @@ def make_glm_figs():
     plt.savefig(os.path.join(plt_dir,"glm.pdf"))
 
 def invest():
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
-    if os.path.exists("template1"):
-        shutil.rmtree("template1")
-    shutil.copytree("template","template1")
-    if os.path.exists("master_prior1"):
-        shutil.rmtree("master_prior1")
-    shutil.copytree("master_prior","master_prior1")
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    set_truth_obs()
-    pst = pyemu.Pst(os.path.join("template","freyberg6.pst"))
-    pe1 = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join("template","prior.jcb"))
-    pe2 = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join("template1","prior.jcb"))
-
-    diff = pe1 - pe2
-    print(diff.sum())
+    pst = pyemu.Pst(os.path.join("template","freyberg6_run.pst"))
+    obs = pst.observation_data.loc[pst.nnz_obs_names,:].copy()
+    obs = obs.loc[obs.obgnme=="gage",:]
+    #obs.loc[:,"weight"] = 0.005
+    obs.loc[:,"cv"] = (1./ obs.weight) / obs.obsval
+    print(obs)
 
 def run_glm_demo():
 
@@ -798,13 +786,13 @@ def run_glm_demo():
     cov.to_ascii(os.path.join(t_d,"glm_prior.cov"))
     pst.control_data.noptmax = 3
     #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    pst.pestpp_options["additional_ins_delimiters"] = ","
+    #pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["n_iter_super"] = 999
     pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 200
     #pst.pestpp_options["lambda_scale_vec"] = [0.5,.75,1.0]
     #pst.pestpp_options["glm_accept_mc_phi"] = True
-    pst.pestpp_options["glm_normal_form"] = "prior"
+    #pst.pestpp_options["glm_normal_form"] = "prior"
     pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["max_n_super"] = 50
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
@@ -831,7 +819,7 @@ def run_sen_demo():
     par.loc[w_names,"pargp"] = "welflux"
 
     #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    pst.pestpp_options["additional_ins_delimiters"] = ","
+    #pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["tie_by_group"] = True
     pst.write(os.path.join(t_d,"freyberg6_run_sen.pst"),version=2)
     m_d = "master_sen_morris"
@@ -958,7 +946,7 @@ def run_opt_demo():
     pi_df = pd.DataFrame({"equation":equations,"weight":1.0,"pilbl":pilbl,"obgnme":"greater_than_flux"},index=pilbl)
     pst.prior_information = pi_df
     #pst.pestpp_options = {"forecasts":pst.pestpp_options["forecasts"]}
-    pst.pestpp_options["additional_ins_delimiters"] = ","
+    #pst.pestpp_options["additional_ins_delimiters"] = ","
     pst.pestpp_options["opt_dec_var_groups"] = "welflux"
     pst.pestpp_options["opt_direction"] = "max"
     pst.control_data.noptmax = 1
@@ -1347,11 +1335,11 @@ def plot_domain():
 
 if __name__ == "__main__":
 
-    # prep_mf6_model()
+    prep_mf6_model()
     setup_pest_interface()
     build_and_draw_prior()
     run_prior_sweep()
-
+    #
     set_truth_obs()
 
     run_ies_demo()
@@ -1373,6 +1361,6 @@ if __name__ == "__main__":
 
     #invest()
     # start()
-    _rebase_results()
-    compare_to_baseline()
-    test(True)
+    # _rebase_results()
+    # compare_to_baseline()
+    # test(True)
