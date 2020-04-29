@@ -434,10 +434,10 @@ def set_truth_obs():
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
-    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_2_33_7" in x or "trgw_2_2_9" in x)),"weight"] = 5.0
-    # set sw weights so that the CV is 0.1
+    obs.loc[obs.obsnme.apply(lambda x: "2016" in x and ("trgw_2_33_7" in x or "trgw_2_2_9" in x)),"weight"] = 15.0
+
     g_obs = obs.loc[obs.obsnme.apply(lambda x: "gage_1" in x and "2016" in x),"obsnme"]
-    obs.loc[g_obs, "weight"] = 1.0 / (obs.loc[g_obs,"obsval"] * 0.3)
+    obs.loc[g_obs, "weight"] = 1.0 / (obs.loc[g_obs,"obsval"] * 0.15)
     pst.control_data.noptmax = 0
 
     pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
@@ -632,11 +632,11 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
         pt_oe = pt_oe.loc[keep, :]
         pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
         pt_pe = pt_pe.loc[keep,:]
-        plot_par_vector(pst.parameter_data.parval1.copy(),"glm_pt_base.pdf")
+
         for real in [pt_pe.index[0]]:
             plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}.pdf".format(plt_case,real))
         print(pt_oe.shape,pst.phi,pst.phi*1.25)
-
+    plot_par_vector(pst.parameter_data.parval1.copy(), "{0}_pt_base.pdf".format(plt_case))
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
     #print(pst.forecast_names)
@@ -1505,21 +1505,21 @@ if __name__ == "__main__":
     # build_and_draw_prior()
     # run_prior_sweep()
     #
-    # set_truth_obs()
+    #set_truth_obs()
     #
-    # run_ies_demo()
-    # make_ies_figs()
-    # make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
-    # make_ies_figs(m_d="master_ies_default_block_tie", plt_case="ies_default_block_tie")
+    run_ies_demo()
+    make_ies_figs()
+    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    make_ies_figs(m_d="master_ies_default_block_tie", plt_case="ies_default_block_tie")
     #
-    # run_glm_demo()
-    # make_glm_figs()
-    # make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
+    run_glm_demo()
+    make_glm_figs()
+    make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
     #
-    # run_sen_demo()
-    # make_sen_figs()
+    run_sen_demo()
+    make_sen_figs()
 
-    #run_opt_demo()
+    run_opt_demo()
     make_opt_figs2()
 
     # plot_domain()
