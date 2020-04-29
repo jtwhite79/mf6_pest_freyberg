@@ -506,6 +506,14 @@ def run_ies_demo():
     m_d = "master_ies"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
+    pst = pyemu.Pst(os.path.join(t_d, pst_file))
+    pst.control_data.noptmax = 3
+    pst.pestpp_options = {}
+    _block_tie(pst)
+    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
+
+    m_d = "master_ies_default_block_tie"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
 def make_ies_figs(m_d="master_ies",plt_case="ies"):
     assert os.path.join(m_d)
@@ -997,7 +1005,9 @@ def make_opt_figs():
     a_par = pyemu.pst_utils.read_parfile(os.path.join(a_m_d,pst_file.replace(".pst",".1.par")))
     n_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d,pst_file.replace(".pst",".1.par")))
     
-    con = pst.observation_data.loc[pst.nnz_obs_names,:]
+    #con = pst.observation_data.loc[pst.nnz_obs_names,:]
+    obs = pst.observation_data
+    con = obs.loc[obs.obgnme.apply(lambda x: x.startswith("less_"))]
     con.loc[:,"obgnme"] = con.obsnme.apply(lambda x: x.split('_')[0])
     con_groups = con.obgnme.unique()
     con_groups.sort()
@@ -1336,29 +1346,177 @@ def plot_domain():
     plt.close("all")
 
 
+def make_opt_figs2():
+
+    n_m_d = "master_opt_neutral"
+    a_m_d = "master_opt_averse"
+    f_m_d = "master_opt_averse_fosm"
+    assert os.path.exists(n_m_d)
+    assert os.path.exists(a_m_d)
+    sim = flopy.mf6.MFSimulation.load(sim_ws=a_m_d)
+    m = sim.get_model("freyberg6")
+    perlen = sim.tdis.perioddata.array["perlen"]
+    totim = np.cumsum(perlen).astype(int)
+    sp_start = pd.to_datetime("12-31-2015") + pd.to_timedelta(totim, unit='d')
+
+    pst_file = "freyberg6_run_opt.pst"
+    pst = pyemu.Pst(os.path.join(a_m_d, pst_file))
+    w_par = pst.parameter_data.loc[pst.parameter_data.pargp == "welflux", :]
+    w_par.loc[:, "well"] = w_par.parnme.apply(lambda x: "_".join(x.split("_")[:-1]))
+    w_par.loc[:, "kper"] = w_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+    w_par.loc[:, "i"] = w_par.parnme.apply(lambda x: int(x.split('_')[-3]))
+    w_par.loc[:, "j"] = w_par.parnme.apply(lambda x: int(x.split('_')[-2]))
+    w_par.loc[:, "datetime"] = w_par.kper.apply(lambda x: sp_start[x])
+    a_par = pyemu.pst_utils.read_parfile(os.path.join(a_m_d, pst_file.replace(".pst", ".1.par")))
+    n_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.par")))
+    f_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.par")))
+
+    # con = pst.observation_data.loc[pst.nnz_obs_names,:]
+    obs = pst.observation_data
+    con = obs.loc[obs.obgnme.apply(lambda x: x.startswith("less_"))]
+    con.loc[:, "obgnme"] = con.obsnme.apply(lambda x: x.split('_')[0])
+    con_groups = con.obgnme.unique()
+    con_groups.sort()
+    con.loc[:, "datetime"] = pd.to_datetime(con.obsnme.apply(lambda x: x.split('_')[-1]))
+
+    a_res = pyemu.pst_utils.read_resfile(os.path.join(a_m_d, pst_file.replace(".pst", ".1.est.rei")))
+    n_res = pyemu.pst_utils.read_resfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.est.rei")))
+    f_res = pyemu.pst_utils.read_resfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.est.rei")))
+
+    wel_names = w_par.well.unique()
+    wel_names.sort()
+    # fig,axes = plt.subplots(2,1,figsize=(8,4))
+    fig = plt.figure(figsize=(8, 5))
+    axes = [plt.subplot2grid((3, 3), (i, 0), colspan=2) for i in range(3)]
+    x = np.arange(w_par.kper.max() + 1)
+    cmap = plt.get_cmap('terrain')
+
+    axes_t = []
+    cval = float(pst.prior_information.iloc[0].equation.split('=')[-1])
+
+    for ax, pvals, label, res in zip(axes, [n_par, f_par, a_par], ["A) risk neutral", "B) FOSM-based risk averse","C) stack-based risk-averse"], [n_res, f_res, a_res]):
+        offset = -0.2
+        step = 0.1
+
+        for i, w in enumerate(wel_names):
+            ww_par = w_par.loc[w_par.well == w, :].copy()
+            ww_par.sort_values(by="kper", inplace=True)
+            print(x.shape, pvals.loc[ww_par.parnme, "parval1"].shape)
+            ax.bar(x + offset, pvals.loc[ww_par.parnme, "parval1"], width=step, facecolor=cmap(i / len(wel_names)),
+                   edgecolor="none")
+            offset += step
+
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(np.arange(1, 26))
+        # ax.set_xticklabels(sp_start,rotation=90)
+        ax.set_xlabel("stress period")
+        #ax.set_xticks([])
+        ax.set_ylabel("well extraction rate $\\frac{ft^3}{d}$")
+        ax.set_title(label, loc="left")
+        ylim = ax.get_ylim()
+        ax.set_ylim(ylim[0], ylim[1] * 2)
+        axt = plt.twinx(ax)
+        tot = []
+        for kper in range(w_par.kper.max()+1):
+            kw_par = w_par.loc[w_par.kper==kper,"parnme"]
+
+            tot.append(pvals.loc[kw_par,"parval1"].sum())
+        axt.plot(x,tot,"k",label="total extraction rate")
+        xlim = axt.get_xlim()
+        axt.plot(xlim, [cval, cval], "r--", label="required minimum total extraction rate")
+        #ylim = axt.get_ylim()
+        axt.set_ylim(0,max(tot)*1.2)
+        ax.set_xlim(xlim)
+        axes_t.append(axt)
+
+    spnspecs.graph_legend(ax=axes_t[0], loc="upper left", facecolor='w', framealpha=1.0, bbox_to_anchor=(1.2, 1.0))
+    # axes[0].set_xticklabels([])
+    # axes[1].set_xticklabels(sp_start.map(lambda x: x.strftime("%d-%m-%Y")))
+    #mx = max([ax.get_ylim()[1] for ax in axes_t])
+    #mn = max([ax.get_ylim()[0] for ax in axes_t])
+    #for ax in axes_t:
+    #    ax.set_ylim(mn * 1.5, mx)
+    #    ax.set_ylabel("simulated sw-gw flux $\\frac{ft^3}{d}$")
+    for ax in axes_t:
+        ax.set_ylabel("total extraction rate $\\frac{ft^3}{d}$")
+    # ax = plt.subplot2grid((2,3),(0,2),rowspan=2)
+    ax = plt.axes((.75, 0.1, 0.2, 0.6))
+    ib = m.dis.idomain.array[0, :, :]
+    icmap = plt.get_cmap("Greys_r")
+    icmap.set_bad(alpha=0.0)
+    ib = np.ma.masked_where(ib != 0, ib)
+    ax.imshow(ib, cmap=icmap, extent=m.modelgrid.extent)
+    for ii, w in enumerate(wel_names):
+        ww_par = w_par.loc[w_par.well == w, :]
+        i = ww_par.i[0]
+        j = ww_par.j[0]
+        verts = m.modelgrid.get_cell_vertices(i, j)
+        p = Polygon(verts, facecolor=cmap(ii / len(wel_names)))
+        ax.add_patch(p)
+    # ax.set_xticks([])
+    # ax.set_yticks([])
+    ax.set_ylabel("x $ft$")
+    ax.set_xlabel("y $ft$")
+    ax.set_title("D) location of extraction wells", loc="left")
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(plt_dir, "opt1.pdf"))
+
+    fig = plt.figure(figsize=(8, 6))
+    axes = [plt.subplot2grid((3, 1), (i, 0)) for i in range(3)]
+    x = np.arange(w_par.kper.max() + 1)
+    cmap = plt.get_cmap('plasma')
+
+    for axt, pvals, label, res in zip(axes, [n_par, f_par, a_par],
+                                     ["A) risk neutral", "B) FOSM-based risk averse", "C) stack-based risk-averse"],
+                                     [n_res, f_res, a_res]):
+
+        for g, c in zip(con_groups, ["g", "c"]):
+            g_con = con.loc[con.obgnme == g]
+            g_con.sort_values(by="datetime", inplace=True)
+            cval = -1* g_con.obsval[0]
+            axt.plot(-1*res.loc[g_con.obsnme, "modelled"].values, c, label=g + " sw-gw flux")
+            xlim = axt.get_xlim()
+
+
+        axt.plot(xlim, [cval, cval], "r--", label="required minimum sw-gw flux")
+        axt.set_xlim(xlim)
+        axt.set_xticks(x)
+        axt.set_xlabel("stress period")
+        axt.set_title(label,loc="left")
+
+    spnspecs.graph_legend(ax=axes[0], loc="upper right", facecolor='w', framealpha=1.0)#, bbox_to_anchor=(1.2, 1.0))
+    #axes[0].set_xticklabels([])
+
+    for ax in axes:
+       ax.set_ylabel("simulated sw-gw flux $\\frac{ft^3}{d}$")
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(plt_dir, "opt2.pdf"))
+
 if __name__ == "__main__":
 
-    # prep_mf6_model()
-    # setup_pest_interface()
-    # build_and_draw_prior()
-    # run_prior_sweep()
-    # # #
-    # set_truth_obs()
+    prep_mf6_model()
+    setup_pest_interface()
+    build_and_draw_prior()
+    run_prior_sweep()
     # #
-    #run_ies_demo()
-    #make_ies_figs()
-    #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
-
-    #run_glm_demo()
-    #make_glm_figs()
-    #make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-
-    #run_sen_demo()
-    #make_sen_figs()
+    set_truth_obs()
     #
-    run_opt_demo()
-    make_opt_figs()
+    run_ies_demo()
+    make_ies_figs()
+    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
 
+    run_glm_demo()
+    make_glm_figs()
+    make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
+
+    run_sen_demo()
+    make_sen_figs()
+
+    run_opt_demo()
+    make_opt_figs2()
     # plot_domain()
 
 
