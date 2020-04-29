@@ -8024,7 +8024,7 @@ sto_sy_0_039_016,tied,factor,0.01,0.001,0.1,sto_sy_0,1.0,0.0,1,sto_sy_0_036_012
 sto_sy_0_039_017,tied,factor,0.01,0.001,0.1,sto_sy_0,1.0,0.0,1,sto_sy_0_036_012
 sto_sy_0_039_018,tied,factor,0.01,0.001,0.1,sto_sy_0,1.0,0.0,1,sto_sy_0_036_018
 sto_sy_0_039_019,tied,factor,0.01,0.001,0.1,sto_sy_0,1.0,0.0,1,sto_sy_0_036_018
-welflx_2_11_13_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
+welflx_2_11_13_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,
 welflx_2_11_13_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
 welflx_2_11_13_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
 welflx_2_11_13_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
@@ -8049,7 +8049,7 @@ welflx_2_11_13_6,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
 welflx_2_11_13_7,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
 welflx_2_11_13_8,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
 welflx_2_11_13_9,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,
-welflx_2_20_14_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_0
+welflx_2_20_14_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,welflx_2_11_13_0
 welflx_2_20_14_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_1
 welflx_2_20_14_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_10
 welflx_2_20_14_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_11
@@ -8074,7 +8074,7 @@ welflx_2_20_14_6,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_6
 welflx_2_20_14_7,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_7
 welflx_2_20_14_8,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_8
 welflx_2_20_14_9,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_9
-welflx_2_26_10_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_0
+welflx_2_26_10_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,welflx_2_11_13_0
 welflx_2_26_10_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_1
 welflx_2_26_10_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_10
 welflx_2_26_10_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_11
@@ -8099,7 +8099,7 @@ welflx_2_26_10_6,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_6
 welflx_2_26_10_7,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_7
 welflx_2_26_10_8,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_8
 welflx_2_26_10_9,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_9
-welflx_2_29_6_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_0
+welflx_2_29_6_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,welflx_2_11_13_0
 welflx_2_29_6_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_1
 welflx_2_29_6_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_10
 welflx_2_29_6_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_11
@@ -8124,7 +8124,7 @@ welflx_2_29_6_6,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_6
 welflx_2_29_6_7,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_7
 welflx_2_29_6_8,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_8
 welflx_2_29_6_9,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_9
-welflx_2_34_12_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_0
+welflx_2_34_12_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,welflx_2_11_13_0
 welflx_2_34_12_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_1
 welflx_2_34_12_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_10
 welflx_2_34_12_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_11
@@ -8149,7 +8149,7 @@ welflx_2_34_12_6,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_6
 welflx_2_34_12_7,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_7
 welflx_2_34_12_8,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_8
 welflx_2_34_12_9,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_9
-welflx_2_9_16_0,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_0
+welflx_2_9_16_0,fixed,factor,175.0,0.0,500.0,fixed_welpar,-1.0,0.0,1,welflx_2_11_13_0
 welflx_2_9_16_1,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_1
 welflx_2_9_16_10,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_10
 welflx_2_9_16_11,none,factor,0.0,0.0,500.0,welflux,-1.0,0.0,1,welflx_2_11_13_11

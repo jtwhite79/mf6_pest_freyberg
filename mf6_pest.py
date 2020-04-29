@@ -802,15 +802,13 @@ def run_glm_demo():
 
     _block_tie(pst)
     pst.control_data.noptmax = 3
-    pst.pestpp_options["n_iter_super"] = pst.control_data.noptmax
-    pst.pestpp_options["n_iter_base"] = -1
-    pst.pestpp_options["max_n_super"] = 50
-
 
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm_default"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
 
+    pst.pestpp_options["n_iter_super"] = pst.control_data.noptmax
+    pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 200
     pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["glm_normal_form"] = "prior"
@@ -914,13 +912,18 @@ def run_opt_demo():
     _block_tie(pst)
     # process the wel flux pars into dec  vars
     par = pst.parameter_data
-    w_par = par.loc[par.parnme.str.startswith("wel"),:]
+    w_par = par.loc[par.parnme.str.startswith("wel"),:].copy()
     w_par.loc[:,"parval1"] = 0.0
     w_par.loc[:,"partrans"] = "none"
     w_par.loc[:,"parubnd"] = 500.0
     w_par.loc[:,"parlbnd"] = 0.0
     w_par.loc[:,"kper"] = w_par.parnme.apply(lambda x: int(x.split('_')[-1]))
+
+
     w_par.loc[:,"pargp"] = "welflux" #w_par.parnme.apply(lambda x: "_".join(x.split('_')[:-1]))
+    w_par.loc[w_par.kper == 0, "pargp"] = "fixed_welpar"
+    w_par.loc[w_par.kper == 0, "partrans"] = "fixed"
+    w_par.loc[w_par.kper==0,"parval1"] = par.loc[w_par.loc[w_par.kper==0,"parnme"],"parval1"]
     for col in pst.parameter_data.columns:
         pst.parameter_data.loc[w_par.parnme,col] = w_par.loc[:,col]
     pst.rectify_pgroups()
@@ -958,7 +961,7 @@ def run_opt_demo():
     m_d = "master_opt_neutral"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
-    pst.pestpp_options["opt_risk"] = 0.75
+    pst.pestpp_options["opt_risk"] = 0.05
     pst.write(os.path.join(t_d, "freyberg6_run_opt.pst"))
     m_d = "master_opt_averse_fosm"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
@@ -1369,7 +1372,7 @@ def make_opt_figs2():
     w_par.loc[:, "datetime"] = w_par.kper.apply(lambda x: sp_start[x])
     a_par = pyemu.pst_utils.read_parfile(os.path.join(a_m_d, pst_file.replace(".pst", ".1.par")))
     n_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.par")))
-    f_par = pyemu.pst_utils.read_parfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.par")))
+    f_par = pyemu.pst_utils.read_parfile(os.path.join(f_m_d, pst_file.replace(".pst", ".1.par")))
 
     # con = pst.observation_data.loc[pst.nnz_obs_names,:]
     obs = pst.observation_data
@@ -1381,14 +1384,14 @@ def make_opt_figs2():
 
     a_res = pyemu.pst_utils.read_resfile(os.path.join(a_m_d, pst_file.replace(".pst", ".1.est.rei")))
     n_res = pyemu.pst_utils.read_resfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.est.rei")))
-    f_res = pyemu.pst_utils.read_resfile(os.path.join(n_m_d, pst_file.replace(".pst", ".1.est.rei")))
+    f_res = pyemu.pst_utils.read_resfile(os.path.join(f_m_d, pst_file.replace(".pst", ".1.est.rei")))
 
     wel_names = w_par.well.unique()
     wel_names.sort()
     # fig,axes = plt.subplots(2,1,figsize=(8,4))
     fig = plt.figure(figsize=(8, 5))
     axes = [plt.subplot2grid((3, 3), (i, 0), colspan=2) for i in range(3)]
-    x = np.arange(w_par.kper.max() + 1)
+    x = np.arange(1,w_par.kper.max()+1)
     cmap = plt.get_cmap('terrain')
 
     axes_t = []
@@ -1418,7 +1421,7 @@ def make_opt_figs2():
         ax.set_ylim(ylim[0], ylim[1] * 2)
         axt = plt.twinx(ax)
         tot = []
-        for kper in range(w_par.kper.max()+1):
+        for kper in range(1,w_par.kper.max()+1):
             kw_par = w_par.loc[w_par.kper==kper,"parnme"]
 
             tot.append(pvals.loc[kw_par,"parval1"].sum())
@@ -1497,26 +1500,28 @@ def make_opt_figs2():
 
 if __name__ == "__main__":
 
-    prep_mf6_model()
-    setup_pest_interface()
-    build_and_draw_prior()
-    run_prior_sweep()
-    # #
-    set_truth_obs()
+    # prep_mf6_model()
+    # setup_pest_interface()
+    # build_and_draw_prior()
+    # run_prior_sweep()
     #
-    run_ies_demo()
-    make_ies_figs()
-    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    # set_truth_obs()
+    #
+    # run_ies_demo()
+    # make_ies_figs()
+    # make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    # make_ies_figs(m_d="master_ies_default_block_tie", plt_case="ies_default_block_tie")
+    #
+    # run_glm_demo()
+    # make_glm_figs()
+    # make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
+    #
+    # run_sen_demo()
+    # make_sen_figs()
 
-    run_glm_demo()
-    make_glm_figs()
-    make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-
-    run_sen_demo()
-    make_sen_figs()
-
-    run_opt_demo()
+    #run_opt_demo()
     make_opt_figs2()
+
     # plot_domain()
 
 

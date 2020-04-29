@@ -9,7 +9,6 @@ eigwrite                                1
 ies_par_en                     prior.jcb
 n_iter_super                   3
 n_iter_base                    -1
-max_n_super                    50
 glm_num_reals                  200
 parcov                         glm_prior.cov
 glm_normal_form                prior
