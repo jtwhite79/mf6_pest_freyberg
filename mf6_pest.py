@@ -34,7 +34,8 @@ label_dict = {"head": "headwater",
               "trgw_0_9_1" : "gw_3",
              "gage": "sw_1"}
 
-forecasts = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
+#forecasts = ["headwater_20171231","tailwater_20161130","trgw_0_9_1_20171130"]
+forecasts = ["headwater_20171130","tailwater_20161130","trgw_0_9_1_20161130"]
 
 abet = string.ascii_uppercase
 def prep_mf6_model():
@@ -494,14 +495,14 @@ def run_ies_demo():
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
 
-    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
-    m_d = "master_ies_default"
-    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+    #pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
+    #m_d = "master_ies_default"
+    #pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
     pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
     pst.pestpp_options["ies_autoadaloc"] = True
     pst.pestpp_options["ies_num_threads"] = 3
-    pst.pestpp_options["ies_no_noise"] = True
+    #pst.pestpp_options["ies_no_noise"] = True
     pst.write(os.path.join(t_d, "freyberg6_run_ies.pst"), version=2)
     m_d = "master_ies"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
@@ -512,7 +513,7 @@ def run_ies_demo():
     _block_tie(pst)
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
 
-    m_d = "master_ies_default_block_tie"
+    m_d = "master_ies_default"
     pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
 def make_ies_figs(m_d="master_ies",plt_case="ies"):
@@ -628,14 +629,16 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
 
     if pt_oe is not None:
         pv = pt_oe.phi_vector
-        keep = pv.loc[pv < max(15, pst.phi * 2.0)].index
+        pv.sort_values(inplace=True)
+        keep = pv.iloc[:50].index
+        #keep = pv.loc[pv < max(60, pst.phi * 2.0)].index
         pt_oe = pt_oe.loc[keep, :]
         pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".post.paren.csv")), index_col=0)
         pt_pe = pt_pe.loc[keep,:]
-
+        pv = pt_oe.phi_vector
         for real in [pt_pe.index[0]]:
             plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}.pdf".format(plt_case,real))
-        print(pt_oe.shape,pst.phi,pst.phi*1.25)
+        print(pt_oe.shape,pst.phi)
     plot_par_vector(pst.parameter_data.parval1.copy(), "{0}_pt_base.pdf".format(plt_case))
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -810,8 +813,10 @@ def run_glm_demo():
     pst.pestpp_options["n_iter_super"] = pst.control_data.noptmax
     pst.pestpp_options["n_iter_base"] = -1
     pst.pestpp_options["glm_num_reals"] = 200
-    pst.pestpp_options["parcov"] = "glm_prior.cov"
+    #pst.pestpp_options["parcov"] = "glm_prior.cov"
     pst.pestpp_options["glm_normal_form"] = "prior"
+    pst.pestpp_options["max_n_super"] = int(pst.nnz_obs)
+    #pst.svd_data.maxsing =  int(pst.nnz_obs)
     pst.write(os.path.join(t_d, "freyberg6_run_glm.pst"), version=2)
     m_d = "master_glm"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
@@ -909,9 +914,12 @@ def run_opt_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
-    _block_tie(pst)
+    #_block_tie(pst)
+
     # process the wel flux pars into dec  vars
     par = pst.parameter_data
+    par.loc[:,"partrans"] = "fixed"
+    par.loc[par.parnme.apply(lambda x: "rch" in x),"partrans"] = "log"
     w_par = par.loc[par.parnme.str.startswith("wel"),:].copy()
     w_par.loc[:,"parval1"] = 0.0
     w_par.loc[:,"partrans"] = "none"
@@ -961,9 +969,9 @@ def run_opt_demo():
     m_d = "master_opt_neutral"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
-    pst.pestpp_options["opt_risk"] = 0.05
+    pst.pestpp_options["opt_risk"] = 0.95
     pst.write(os.path.join(t_d, "freyberg6_run_opt.pst"))
-    m_d = "master_opt_averse_fosm"
+    m_d = "master_opt_fosm"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
     oe_pt = os.path.join("master_ies","freyberg6_run_ies.3.obs.csv")
@@ -982,7 +990,7 @@ def run_opt_demo():
     #pst.pestpp_options["opt_recalc_chance_every"] = 100
     pst.pestpp_options["opt_risk"] = 0.95
     pst.write(os.path.join(t_d,"freyberg6_run_opt.pst"))
-    m_d = "master_opt_averse"
+    m_d = "master_opt_stack"
     pyemu.os_utils.start_workers(t_d, "pestpp-opt", "freyberg6_run_opt.pst", num_workers=15, master_dir=m_d)
 
 def make_opt_figs():
@@ -1185,7 +1193,7 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
         pval_series = par.parval1.copy()
 
 
-    fig = plt.figure(figsize=(6,8))
+    fig = plt.figure(figsize=(6.75,8))
     ax_count = 0
     arr_cmap = "plasma"
     ib_cmap = plt.get_cmap("Greys_r")
@@ -1352,8 +1360,8 @@ def plot_domain():
 def make_opt_figs2():
 
     n_m_d = "master_opt_neutral"
-    a_m_d = "master_opt_averse"
-    f_m_d = "master_opt_averse_fosm"
+    a_m_d = "master_opt_stack"
+    f_m_d = "master_opt_fosm"
     assert os.path.exists(n_m_d)
     assert os.path.exists(a_m_d)
     sim = flopy.mf6.MFSimulation.load(sim_ws=a_m_d)
@@ -1504,23 +1512,22 @@ if __name__ == "__main__":
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
-    #
+
     #set_truth_obs()
-    #
-    run_ies_demo()
-    make_ies_figs()
-    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
-    make_ies_figs(m_d="master_ies_default_block_tie", plt_case="ies_default_block_tie")
-    #
+
+    #run_ies_demo()
+    # make_ies_figs()
+    # make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+
     run_glm_demo()
     make_glm_figs()
     make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-    #
-    run_sen_demo()
-    make_sen_figs()
+    # #
+    #run_sen_demo()
+    #make_sen_figs()
 
-    run_opt_demo()
-    make_opt_figs2()
+    #run_opt_demo()
+    #make_opt_figs2()
 
     # plot_domain()
 
