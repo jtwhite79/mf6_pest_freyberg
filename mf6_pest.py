@@ -428,10 +428,16 @@ def set_truth_obs():
     pv = oe.phi_vector
     oe.sort_values(by=forecasts[1],inplace=True)
     idx = oe.index[-int(oe.shape[0]/20)]
+    print(idx)
+    truth_name = os.path.join("template","truth.pst")
+    if os.path.exists(truth_name):
+        os.remove(truth_name)
     try:
-        plot_par_vector(pe.loc[idx,pst.par_names],"truth.pdf")
+        plot_par_vector(pe.loc[str(idx),pst.par_names],"truth.pdf")
     except:
         plot_par_vector(pe.loc[int(idx), pst.par_names], "truth.pdf")
+
+
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -445,6 +451,7 @@ def set_truth_obs():
 
     pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
     pst = pyemu.Pst(os.path.join(t_d,"freyberg6_run.pst"))
+
     print(pst.phi_components)
 
 def run_ies_demo():
@@ -1071,6 +1078,7 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
     sim = flopy.mf6.MFSimulation.load(sim_ws="template")
     m = sim.get_model("freyberg6")
     ib = m.dis.idomain.array[0,:,:]
+
     pst = pyemu.Pst(os.path.join("template","freyberg6.pst"))
     par = pst.parameter_data
     par.loc[:,"i"] = -999
@@ -1090,6 +1098,10 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
         print("using parval1")
         pval_series = par.parval1.copy()
 
+    pst.add_transform_columns()
+    ub = pst.parameter_data.parubnd_trans
+    lb = pst.parameter_data.parlbnd_trans
+
 
     fig = plt.figure(figsize=(6.75,8))
     ax_count = 0
@@ -1105,7 +1117,12 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
         ppar = par.loc[par.parnme.str.startswith(tag),:]
         # prefix = "HK"
         # cb_label = "HK $\\frac{ft}{d}$"
-        vmin,vmax = pval_series.loc[ppar.parnme].apply(np.log10).min(),pval_series.loc[ppar.parnme].apply(np.log10).max()
+        #vmin,vmax = pval_series.loc[ppar.parnme].apply(np.log10).min(),pval_series.loc[ppar.parnme].apply(np.log10).max()
+        #vmin = truth_pval_series.loc[ppar.parnme].apply(np.log10).min()
+        #vmax = truth_pval_series.loc[ppar.parnme].apply(np.log10).max()
+        vmin = lb.loc[ppar.parnme].min()
+        vmax = ub.loc[ppar.parnme].max()
+
         for k in range(ppar.k.max()+1):
             print(k)
             ax = plt.subplot2grid((8,3),(irow*2,k),rowspan=2)
@@ -1146,16 +1163,16 @@ def plot_par_vector(pval_series=None,plt_name="par.pdf"):
     cumflux = ppar.groupby("kper").sum().loc[:,"parval1"]
     print(cumflux)
     ax.bar(cumflux.index+1,cumflux.values)
-    ax.set_title("{0}) Cumulative well extraction".format(abet[ax_count]),loc="left")
+    ax.set_title("{0}) Total well extraction".format(abet[ax_count]),loc="left")
     ax.set_ylabel("extraction $\\frac{ft^3}{d}$")
     ax.set_xlabel("stress period")
     axes.append(ax)
     ax_count += 1
 
-
     plt.tight_layout()
     plt.savefig(os.path.join(plt_dir,plt_name))
     plt.close(fig)
+    pst.write(os.path.join("template",(plt_name.replace(".pdf",".pst"))),version=2)
 
 
 def plot_domain():
@@ -1414,8 +1431,8 @@ if __name__ == "__main__":
     #set_truth_obs()
 
     #run_ies_demo()
-    make_ies_figs()
-    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    #make_ies_figs()
+    #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
 
     #run_glm_demo()
     make_glm_figs()
