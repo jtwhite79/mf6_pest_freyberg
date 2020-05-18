@@ -540,9 +540,16 @@ def make_ies_figs(m_d="master_ies",plt_case="ies"):
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
 
     for real in ["base",pt_pe.index[0]]:
-        phi = pt_pv.loc[real]
+        try:
+            phi = pt_pv.loc[str(real)]
+        except:
+            phi = pt_pv.loc[int(real)]
         #plot_par_vector(pr_pe.loc[real],"{0}_pr_{1}_phi_{2:3.1E}.pdf".format(plt_case,real,phi))
         plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}_phi_{2:3.2E}.pdf".format(plt_case,real,phi))
+
+
+
+
 
     obs = pst.observation_data
     print(pst.nnz_obs_groups)
@@ -1434,15 +1441,15 @@ if __name__ == "__main__":
     #make_ies_figs()
     #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
 
-    #run_glm_demo()
+    run_glm_demo()
     make_glm_figs()
     make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
     # #
-    #run_sen_demo()
-    #make_sen_figs()
+    run_sen_demo()
+    make_sen_figs()
 
-    #run_opt_demo()
-    #make_opt_figs2()
+    run_opt_demo()
+    make_opt_figs2()
 
     # plot_domain()
 
