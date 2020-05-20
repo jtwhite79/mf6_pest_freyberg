@@ -510,13 +510,16 @@ def run_ies_demo():
     pst.pestpp_options["ies_autoadaloc"] = True
     pst.pestpp_options["ies_num_threads"] = 3
     #pst.pestpp_options["ies_no_noise"] = True
+    pst.pestpp_options["overdue_giveup_fac"] = 10.0
     pst.write(os.path.join(t_d, "freyberg6_run_ies.pst"), version=2)
     m_d = "master_ies"
-    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+    #pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15,
+    #                             master_dir=m_d)
+
 
     pst = pyemu.Pst(os.path.join(t_d, pst_file))
     pst.control_data.noptmax = 3
-    pst.pestpp_options = {}
+    pst.pestpp_options = {"overdue_giveup_fac":10}
     _block_tie(pst)
     pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"))
 
@@ -538,6 +541,9 @@ def make_ies_figs(m_d="master_ies",plt_case="ies"):
     pt_pv = pt_oe.phi_vector
     pr_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".0.par.csv")),index_col=0)
     pt_pe = pd.read_csv(os.path.join(m_d, pst_file.replace(".pst", ".{0}.par.csv".format(pst.control_data.noptmax))),index_col=0)
+    print(pt_pv.sort_values())
+
+    full_pr_oe = pd.read_csv(os.path.join("master_prior","freyberg6_sweep.0.obs.csv"),index_col=0)
 
     for real in ["base",pt_pe.index[0]]:
         try:
@@ -572,7 +578,9 @@ def make_ies_figs(m_d="master_ies",plt_case="ies"):
         grp_obs = grp_obs.loc[grp_obs.weight > 0,:]
         x = np.arange(2, grp_obs.shape[0]+2)
         ax.plot(x,grp_obs.obsval, 'r',lw=1.5)
-
+        full_upper = full_pr_oe.loc[:,grp_obs.obsnme].max().max()
+        full_lower = full_pr_oe.loc[:,grp_obs.obsnme].min().min()
+        ax.set_ylim(full_lower,full_upper)
         unit = None
         label = None
         for tag,u in unit_dict.items():
@@ -619,7 +627,9 @@ def make_ies_figs(m_d="master_ies",plt_case="ies"):
         ax.set_yticks([])
         ax.grid(False)
         ax_count +=1
-
+        full_upper = full_pr_oe.loc[:, forecast].max()
+        full_lower = full_pr_oe.loc[:, forecast].min()
+        ax.set_xlim(full_lower,full_upper)
 
     plt.tight_layout()
     plt.savefig(os.path.join(plt_dir,"{0}.pdf".format(plt_case)))
@@ -663,6 +673,8 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
     fig = plt.figure(figsize=(8,6))
     ax_count = 0
 
+    full_pr_oe = pd.read_csv(os.path.join("master_prior", "freyberg6_sweep.0.obs.csv"), index_col=0)
+
     for i,nz_grp in enumerate(pst.nnz_obs_groups):
         grp_obs = obs.loc[obs.obgnme==nz_grp,:].copy()
         x = np.arange(1, grp_obs.shape[0]+1)
@@ -681,7 +693,9 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
         grp_obs = grp_obs.loc[grp_obs.weight >0,:]
         x = np.arange(2, grp_obs.shape[0] + 2)
         ax.plot(x,grp_obs.obsval.values, 'r',lw=1.5)
-
+        full_upper = full_pr_oe.loc[:, grp_obs.obsnme].max().max()
+        full_lower = full_pr_oe.loc[:, grp_obs.obsnme].min().min()
+        ax.set_ylim(full_lower, full_upper)
         unit = None
         label = None
         for tag, u in unit_dict.items():
@@ -730,7 +744,9 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
         ax.set_xlabel(unit)
         ax.set_ylabel("increasing probability density")
         ax.set_yticks([])
-
+        full_upper = full_pr_oe.loc[:, forecast].max()
+        full_lower = full_pr_oe.loc[:, forecast].min()
+        ax.set_xlim(full_lower, full_upper)
         ax.grid(False)
         ylim = axt.get_ylim()
         axt.set_ylim(0,ylim[1])
@@ -821,7 +837,7 @@ def run_glm_demo():
 
     _block_tie(pst)
     pst.control_data.noptmax = 3
-
+    pst.pestpp_options["forecasts"] = forecasts
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm_default"
     pyemu.os_utils.start_workers(t_d, "pestpp-glm", "freyberg6_run_glm.pst", num_workers=15, master_dir=m_d)
@@ -1348,7 +1364,7 @@ def make_opt_figs2():
         ax.set_ylabel("well extraction rate $\\frac{ft^3}{d}$")
         ax.set_title(label, loc="left")
         ylim = ax.get_ylim()
-        ax.set_ylim(ylim[0], ylim[1] * 2)
+        ax.set_ylim(ylim[0], ylim[1])
         axt = plt.twinx(ax)
         tot = []
         for kper in range(1,w_par.kper.max()+1):
@@ -1434,22 +1450,22 @@ if __name__ == "__main__":
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
-
-    #set_truth_obs()
-
-    #run_ies_demo()
+    #
+    # set_truth_obs()
+    #
+    # run_ies_demo()
     #make_ies_figs()
     #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
-
-    run_glm_demo()
+    #
+    # run_glm_demo()
     make_glm_figs()
     make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-    # #
-    run_sen_demo()
-    make_sen_figs()
-
-    run_opt_demo()
-    make_opt_figs2()
+    # # #
+    # run_sen_demo()
+    # make_sen_figs()
+    #
+    # run_opt_demo()
+    #make_opt_figs2()
 
     # plot_domain()
 
