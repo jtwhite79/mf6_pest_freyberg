@@ -1,0 +1,20 @@
+pcf version=2
+* control data keyword
+pestmode                                 estimation
+noptmax                                 0
+svdmode                                 1
+maxsing                          10000000
+eigthresh                           1e-06
+eigwrite                                1
+* parameter groups external
+ies_pt_0_phi_2.37e+01.pargrp_data.csv
+* parameter data external
+ies_pt_0_phi_2.37e+01.par_data.csv
+* observation data external
+ies_pt_0_phi_2.37e+01.obs_data.csv
+* model command line
+mf6
+* model input external
+ies_pt_0_phi_2.37e+01.tplfile_data.csv
+* model output external
+ies_pt_0_phi_2.37e+01.insfile_data.csv
