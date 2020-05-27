@@ -502,9 +502,9 @@ def run_ies_demo():
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
 
-    #pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
-    #m_d = "master_ies_default"
-    #pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+    # pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
+    # m_d = "master_ies_default"
+    # pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
     pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
     pst.pestpp_options["ies_autoadaloc"] = True
@@ -513,8 +513,8 @@ def run_ies_demo():
     pst.pestpp_options["overdue_giveup_fac"] = 10.0
     pst.write(os.path.join(t_d, "freyberg6_run_ies.pst"), version=2)
     m_d = "master_ies"
-    #pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15,
-    #                             master_dir=m_d)
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15,
+                                master_dir=m_d)
 
 
     pst = pyemu.Pst(os.path.join(t_d, pst_file))
@@ -1452,20 +1452,20 @@ if __name__ == "__main__":
     # run_prior_sweep()
     #
     # set_truth_obs()
-    #
-    # run_ies_demo()
-    #make_ies_figs()
-    #make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    
+    run_ies_demo()
+    make_ies_figs()
+    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
     #
     # run_glm_demo()
-    make_glm_figs()
-    make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-    # # #
+    # make_glm_figs()
+    # make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
+    # # # #
     # run_sen_demo()
     # make_sen_figs()
     #
     # run_opt_demo()
-    #make_opt_figs2()
+    # make_opt_figs2()
 
     # plot_domain()
 

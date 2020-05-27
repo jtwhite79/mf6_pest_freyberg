@@ -13,42 +13,42 @@ pcf
   10000000    1.000000E-06
 1
 * parameter groups
- npf_k33_1               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_sy_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- npf_k33_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k_2                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k33_2               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_ss_2                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  npf_k_1                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- npf_k_0                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- sto_ss_1                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k33_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k33_1               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_sy_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  sto_ss_0                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ npf_k_0                 relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_ss_2                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ sto_ss_1                relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  rch                     relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_21              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_9               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_17              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_1               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_22              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_11              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_6               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_3               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_18              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_8               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_15              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_10              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_13              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  welflux_14              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_21              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_17              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_5               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_7               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_24              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_12              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_4               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_19              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_23              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  welflux_20              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  welflux_16              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_15              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_19              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_0               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_5               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_3               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_10              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_12              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_1               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_4               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
+ welflux_9               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
  welflux_2               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_23              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_24              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_11              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_13              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_7               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_6               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_8               relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_18              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
- welflux_22              relative              1.0000000000E-02       0.0  switch                2.0000000000E+00       parabolic             1.0000000000E-05      5.0000000000E-01       smaller              
 * parameter data
  npf_k33_0_000_000      log                    factor                3.0000000000E-01      3.0000000000E-02      3.0000000000E+00       npf_k33_0             1.0000000000E+00      0.0000000000E+00      1          
  npf_k33_0_000_001      tied                   factor                3.0000000000E-01      3.0000000000E-02      3.0000000000E+00       npf_k33_0             1.0000000000E+00      0.0000000000E+00      1          
