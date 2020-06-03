@@ -437,7 +437,6 @@ def set_truth_obs():
     except:
         plot_par_vector(pe.loc[int(idx), pst.par_names], "truth.pdf")
 
-
     pst.observation_data.loc[:,"obsval"] = oe.loc[idx,pst.obs_names]
     pst.observation_data.loc[:,"weight"] = 0.0
     obs = pst.observation_data
@@ -447,12 +446,147 @@ def set_truth_obs():
     obs.loc[g_obs, "weight"] = 1.0 / (obs.loc[g_obs,"obsval"] * 0.15)
     pst.control_data.noptmax = 0
 
+    par = pst.parameter_data
+    par.loc[par.parnme.apply(lambda x: "welflx" in x),"parval1"] *= 0.9
+    par.loc[par.parnme.apply(lambda x: "rch" in x), "parval1"] *= 1.05
+    par.loc[par.parnme.apply(lambda x: "npf_k_" in x), "parval1"] *= 0.85
+    #par.loc[par.parnme.apply(lambda x: "sto" in x), "parval1"] *= 1.2
+
+    #par.loc[par.parnme.apply(lambda x: "npf_k33_" in x), "parval1"] *= 1.1
+
     pst.write(os.path.join(t_d,"freyberg6_run.pst"),version=2)
 
     pyemu.os_utils.run("pestpp-ies.exe freyberg6_run.pst",cwd=t_d)
     pst = pyemu.Pst(os.path.join(t_d,"freyberg6_run.pst"))
 
     print(pst.phi_components)
+
+def run_ies_hypoth_demo():
+    t_d = "template"
+    assert os.path.exists(t_d)
+    pst_file = "freyberg6_run.pst"
+
+    org_m_d = "master_ies"
+
+    assert os.path.exists(org_m_d)
+    if not os.path.exists(os.path.join(org_m_d,"freyberg6_run_ies.base.rei")):
+        shutil.copy2(os.path.join(org_m_d,"freyberg6_run.base.rei"),os.path.join(org_m_d,"freyberg6_run_ies.base.rei"))
+    pst = pyemu.Pst(os.path.join(org_m_d, "freyberg6_run_ies.pst"))
+
+    # use the final prev ensembles as the initial ensembles this time
+    final_pe = "freyberg6_run_ies.{0}.par.csv".format(pst.control_data.noptmax)
+    final_oe = final_pe.replace(".par",".obs")
+    print(final_pe,final_oe)
+    assert os.path.exists(os.path.join(org_m_d,final_pe))
+    assert os.path.exists(os.path.join(org_m_d,final_oe))
+    
+    shutil.copy2(os.path.join(org_m_d,final_pe),os.path.join(t_d,"hypoth_par.csv"))
+    pst.pestpp_options["ies_par_en"] = "hypoth_par.csv"
+
+    shutil.copy2(os.path.join(org_m_d, final_oe), os.path.join(t_d, "hypoth_obs.csv"))
+    pst.pestpp_options["ies_obs_en"] = "hypoth_obs.csv"
+    # now mod the obs en and the control file for the obs we want to stress on
+    hp_obs = "out_sfr_flx_20170930"
+    obs = pst.observation_data
+    assert hp_obs in obs.obsnme
+    assert obs.loc[hp_obs,"weight"] == 0.0
+    oe = pd.read_csv(os.path.join(t_d,"hypoth_obs.csv"),index_col=0)
+    oe = pyemu.ObservationEnsemble(pst=pst,df=oe)
+    oe.loc[:,hp_obs] = -200.0
+    oe.to_csv(os.path.join(t_d,"hypoth_obs.csv"))
+    #obs.loc[hp_obs,"weight"] = 1.0
+    omn = oe.mean(axis=0).values
+    #print(oe.shape,omn.shape,pst.nobs,pst.res.shape)
+    pst.res.loc[pst.obs_names,"modelled"] = omn
+    print(pst.phi_components)
+    pst.adjust_weights(obs_dict={hp_obs:oe.phi_vector.mean() * 10.0})
+    print(pst.phi_components)
+    pst.pestpp_options["ies_add_base"] = False
+
+
+    loc = pyemu.Matrix.from_binary(os.path.join(t_d,"temporal_loc.jcb")).to_dataframe()
+    loc.loc[hp_obs,:] = 1.0
+    pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"hypoth_loc.jcb"))
+
+    pst.control_data.noptmax = 5
+    #pst.pestpp_options["ies_lambda_mults"] = 10000.0
+    #pst.pestpp_options["lambda_scale_fac"] = 1.0
+    #pst.pestpp_options["ies_subset_size"] = 50
+    pst.pestpp_options["ies_lambda_dec_fac"] = 1.0
+    pst.pestpp_options["ies_autoadaloc"] = False
+    pst.pestpp_options.pop("ies_localizer",None)
+    #pst.pestpp_options["ies_localizer"] = "hypoth_loc.jcb"
+    pst.write(os.path.join(t_d, "freyberg6_run_ies_hypoth.pst"), version=2)
+    m_d = "master_ies_hypoth_low"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies_hypoth.pst", num_workers=15,
+                                 master_dir=m_d,port=4005)
+    return
+    oe = pd.read_csv(os.path.join(t_d, "hypoth_obs.csv"), index_col=0)
+    oe = pyemu.ObservationEnsemble(pst=pst, df=oe)
+    oe.loc[:, hp_obs] = 1500
+    oe.to_csv(os.path.join(t_d, "hypoth_obs.csv"))
+    pst.observation_data.loc[hp_obs,"weight"] = 0.0
+    print(pst.phi_components)
+    pst.adjust_weights(obs_dict={hp_obs:oe.phi_vector.mean() * 2.5})
+    print(pst.phi_components)
+    m_d = "master_ies_hypoth_high"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies_hypoth.pst", num_workers=15,
+                                 master_dir=m_d, port=4005)
+
+def plot_ies_hypoth_results():
+    m_d_h = "master_ies_hypoth_high"
+    m_d_l = "master_ies_hypoth_low"
+    assert os.path.exists(m_d_h)
+    assert os.path.exists(m_d_l)
+    pst = pyemu.Pst(os.path.join(m_d_h,"freyberg6_run_ies_hypoth.pst"))
+    onames = [n for n in pst.nnz_obs_names if "sfr" not in n]
+
+    oei_l = pd.read_csv(os.path.join(m_d_l, "freyberg6_run_ies_hypoth.0.obs.csv"), index_col=0)
+    oef_l = pd.read_csv(os.path.join(m_d_l, "freyberg6_run_ies_hypoth.{0}.obs.csv".format(pst.control_data.noptmax)),
+                        index_col=0)
+    oei_l = pyemu.ObservationEnsemble(pst=pst, df=oei_l)
+    oef_l = pyemu.ObservationEnsemble(pst=pst, df=oef_l)
+
+    oei_h = pd.read_csv(os.path.join(m_d_h,"freyberg6_run_ies_hypoth.0.obs.csv"),index_col=0)
+    oef_h = pd.read_csv(os.path.join(m_d_h, "freyberg6_run_ies_hypoth.{0}.obs.csv".format(pst.control_data.noptmax)), index_col=0)
+    oei_h = pyemu.ObservationEnsemble(pst=pst,df=oei_h)
+    oef_h = pyemu.ObservationEnsemble(pst=pst, df=oef_h)
+
+    # oei = pd.read_csv(os.path.join(m_d, "freyberg6_run_ies_hypoth.0.obs.csv"), index_col=0)
+    # oef = pd.read_csv(os.path.join(m_d, "freyberg6_run_ies_hypoth.{0}.obs.csv".format(pst.control_data.noptmax)),
+    #                   index_col=0)
+    # oei = pyemu.ObservationEnsemble(pst=pst, df=oei)
+    # oef = pyemu.ObservationEnsemble(pst=pst, df=oef)
+
+    hp_obs = [n for n in pst.nnz_obs_names if "sfr" in n][0]
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    oei_l.loc[:,hp_obs].hist(ax=axes[0],fc="0.5",ec="none",alpha=0.5,label="posterior")
+    oef_l.loc[:,hp_obs].hist(ax=axes[0],fc="b",ec="none",alpha=0.5,label="hypothesis low")
+    oef_h.loc[:, hp_obs].hist(ax=axes[0], fc="g", ec="none", alpha=0.5, label="hypothesis high")
+    oei_l.loc[:,onames].phi_vector.hist(ax=axes[1],fc="0.5",ec="none",alpha=0.5,label="posterior")
+    oef_l.loc[:, onames].phi_vector.hist(ax=axes[1], fc="b", ec="none", alpha=0.5,label="hypothesis low")
+    oef_h.loc[:, onames].phi_vector.hist(ax=axes[1], fc="g", ec="none", alpha=0.5, label="hypothesis high")
+
+    axes[0].legend()
+    axes[1].legend()
+    axes[0].set_title("dry season gw-to-sw discharge")
+    axes[1].set_title("objective function")
+
+    plt.savefig("hypoth.pdf")
+
+
+
+
+    # covi = np.dot(oei.values.T,oei.values)
+    # print(covi.shape,np.linalg.det(covi))
+    # covf = np.dot(oef.values.T,oef.values)
+    # print(covf.shape,np.linalg.det(covf))
+    # print(covf)
+    # diff = oef - oei
+    # print(diff.mean())
+    # dcov = np.dot(diff.values.T,diff.values)
+    # plt.imshow(dcov)
+    # plt.show()
 
 def run_ies_demo():
     '''todo: localize
@@ -462,7 +596,7 @@ def run_ies_demo():
     pst_file = "freyberg6_run.pst"
     assert os.path.exists(os.path.join(t_d,pst_file))
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
-    pst.control_data.noptmax = 3
+    pst.control_data.noptmax = 4
     pe = pyemu.ParameterEnsemble.from_binary(pst=pst,filename=os.path.join(t_d,"prior.jcb"))
     pe = pe.iloc[:50,:]
     pe.to_binary(os.path.join(t_d,"ies_prior.jcb"))
@@ -502,9 +636,9 @@ def run_ies_demo():
        #break
     pyemu.Matrix.from_dataframe(df=loc).to_coo(os.path.join(t_d,"temporal_loc.jcb"))
 
-    # pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
-    # m_d = "master_ies_default"
-    # pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
+    pst.write(os.path.join(t_d,"freyberg6_run_ies.pst"),version=2)
+    m_d = "master_ies_default"
+    pyemu.os_utils.start_workers(t_d, "pestpp-ies", "freyberg6_run_ies.pst", num_workers=15, master_dir=m_d)
 
     pst.pestpp_options["ies_localizer"] = "temporal_loc.jcb"
     pst.pestpp_options["ies_autoadaloc"] = True
@@ -665,9 +799,12 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
             phi = pv.loc[real]
             plot_par_vector(pt_pe.loc[real], "{0}_pt_{1}_phi_{2:3.2E}.pdf".format(plt_case,real,phi))
         print(pt_oe.shape,pst.phi)
+        print(pv.min(),pv.max())
+        return
+
     plot_par_vector(pst.parameter_data.parval1.copy(), "{0}_pt_base_{1:3.2E}.pdf".format(plt_case,pst.phi))
     obs = pst.observation_data
-    print(pst.nnz_obs_groups)
+    #print(pst.nnz_obs_groups)
     #print(pst.forecast_names)
 
     fig = plt.figure(figsize=(8,6))
@@ -761,6 +898,11 @@ def make_glm_figs(m_d="master_glm",plt_case = "glm"):
 
 def invest():
     pst = pyemu.Pst(os.path.join("template","freyberg6_run.pst"))
+    oe = pyemu.ObservationEnsemble.from_csv(pst=pst,filename=os.path.join("master_prior","freyberg6_sweep.0.obs.csv"))
+    pv = oe.phi_vector
+    pv.loc[pv<0.01] = np.NaN
+    print(pv.min(),pv.max(),pv.mean())
+    return
     obs = pst.observation_data.loc[pst.nnz_obs_names,:].copy()
     obs = obs.loc[obs.obgnme=="gage",:]
     #obs.loc[:,"weight"] = 0.005
@@ -836,7 +978,7 @@ def run_glm_demo():
     pst = pyemu.Pst(os.path.join(t_d,pst_file))
 
     _block_tie(pst)
-    pst.control_data.noptmax = 3
+    pst.control_data.noptmax = 4
     pst.pestpp_options["forecasts"] = forecasts
     pst.write(os.path.join(t_d,"freyberg6_run_glm.pst"),version=2)
     m_d = "master_glm_default"
@@ -1450,17 +1592,17 @@ if __name__ == "__main__":
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
-    #
     # set_truth_obs()
-    
-    run_ies_demo()
-    make_ies_figs()
-    make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
-    #
+    # #
+    # run_ies_demo()
+    # make_ies_figs()
+    # make_ies_figs(m_d="master_ies_default",plt_case="ies_default")
+    # # #
+    # # #
     # run_glm_demo()
-    # make_glm_figs()
+    make_glm_figs()
     # make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
-    # # # #
+    # # # # # #
     # run_sen_demo()
     # make_sen_figs()
     #
@@ -1469,6 +1611,7 @@ if __name__ == "__main__":
 
     # plot_domain()
 
+    #invest()
 
     # plot_par_vector()
     #start()

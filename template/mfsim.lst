@@ -182,35 +182,35 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0    2.237762E+06    2.237762E+06
- Linear Solver             1        22                                                         780.782                       1_GWF-(3,40,16)
- Under-relaxation          1                                                                   780.782                       1_GWF-(3,40,16)
- Backtracking              2                   0         0     191317.         191317.    
- Linear Solver             2        50                                                         480.253                       1_GWF-(1,40,16)
- Under-relaxation          2                                                                   480.253                       1_GWF-(1,40,16)
- Backtracking              3                   0         0     47255.8         47255.8    
- Linear Solver             3        50                                                         27.2333                       1_GWF-(1,40,16)
- Under-relaxation          3                                                                   27.2333                       1_GWF-(1,40,16)
- Backtracking              4                   0         0     11559.0         11559.0    
- Linear Solver             4        50                                                         4.23458                       1_GWF-(3,39,16)
- Under-relaxation          4                                                                   3.59948                       1_GWF-(3,39,16)
- Backtracking              5                   0         0     2206.46         2206.46    
- Linear Solver             5        50                                                       -0.837428                        1_GWF-(1,11,1)
- Under-relaxation          5                                                                 -0.921171                        1_GWF-(1,11,1)
- Backtracking              6                   0         0     804.760         804.760    
- Linear Solver             6        50                                                       -0.127066                        1_GWF-(1,1,20)
- Under-relaxation          6                                                                 -0.104516                        1_GWF-(1,1,20)
- Backtracking              7                   0         0     233.104         233.104    
- Linear Solver             7        45                                                       -4.456453E-02                   1_GWF-(1,28,11)
- Under-relaxation          7                                                                 -3.182586E-02                   1_GWF-(1,28,11)
- Backtracking              8                   0         0     80.4824         80.4824    
- Linear Solver             8        22                                                       -1.239662E-02                   1_GWF-(1,28,11)
- Under-relaxation          8                                                                 -8.853201E-03                   1_GWF-(1,28,11)
- Backtracking              9                   0         0     21.9333         21.9333    
- Linear Solver             9        10                                                       -3.333383E-03                   1_GWF-(1,28,11)
+ Backtracking              1                   0         0    1.902098E+06    1.902098E+06
+ Linear Solver             1        21                                                         753.190                       1_GWF-(3,40,16)
+ Under-relaxation          1                                                                   753.190                       1_GWF-(3,40,16)
+ Backtracking              2                   0         0     186752.         186752.    
+ Linear Solver             2        41                                                         494.300                       1_GWF-(1,40,16)
+ Under-relaxation          2                                                                   494.300                       1_GWF-(1,40,16)
+ Backtracking              3                   0         0     43598.6         43598.6    
+ Linear Solver             3        50                                                         34.1200                       1_GWF-(1,40,16)
+ Under-relaxation          3                                                                   34.1200                       1_GWF-(1,40,16)
+ Backtracking              4                   0         0     11343.8         11343.8    
+ Linear Solver             4        50                                                         5.09230                       1_GWF-(3,39,16)
+ Under-relaxation          4                                                                   4.32856                       1_GWF-(3,39,16)
+ Backtracking              5                   0         0     2286.75         2286.75    
+ Linear Solver             5        50                                                       -0.988849                        1_GWF-(1,11,1)
+ Under-relaxation          5                                                                  -1.08773                        1_GWF-(1,11,1)
+ Backtracking              6                   0         0     865.315         865.315    
+ Linear Solver             6        50                                                       -0.152689                       1_GWF-(1,10,13)
+ Under-relaxation          6                                                                 -0.125591                       1_GWF-(1,10,13)
+ Backtracking              7                   0         0     278.739         278.739    
+ Linear Solver             7        24                                                       -4.331797E-02                    1_GWF-(1,30,8)
+ Under-relaxation          7                                                                 -3.093563E-02                    1_GWF-(1,30,8)
+ Backtracking              8                   0         0     82.8163         82.8163    
+ Linear Solver             8        29                                                       -2.866878E-02                    1_GWF-(1,31,7)
+ Under-relaxation          8                                                                 -2.082938E-02                    1_GWF-(1,26,1)
+ Backtracking              9                   0         0     59.6122         59.6122    
+ Linear Solver             9        17                                                       -6.560200E-03                    1_GWF-(1,31,7)
 
  9 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 1
- 349 TOTAL ITERATIONS
+ 332 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    2, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -227,11 +227,11 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     280.195         280.195    
- Linear Solver             1        33                                                        0.196536                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                  0.196536                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     6.58328         6.58328    
- Linear Solver             2        13                                                        4.685858E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     253.829         253.829    
+ Linear Solver             1        28                                                        0.200926                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                  0.200926                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     6.19276         6.19276    
+ Linear Solver             2        18                                                        4.585925E-03                    1_GWF-(3,15,3)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 2
  46 TOTAL ITERATIONS
@@ -251,14 +251,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     71.8959         71.8959    
- Linear Solver             1        23                                                        0.118545                        1_GWF-(1,26,1)
- Under-relaxation          1                                                                  0.118545                        1_GWF-(1,26,1)
- Backtracking              2                   0         0     4.56382         4.56382    
- Linear Solver             2        17                                                        2.939548E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     72.5702         72.5702    
+ Linear Solver             1        23                                                        0.122628                        1_GWF-(1,27,1)
+ Under-relaxation          1                                                                  0.122628                        1_GWF-(1,27,1)
+ Backtracking              2                   0         0     4.35096         4.35096    
+ Linear Solver             2        13                                                        2.966899E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 3
- 40 TOTAL ITERATIONS
+ 36 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    4, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -275,14 +275,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     102.950         102.950    
- Linear Solver             1        22                                                        9.648520E-02                    1_GWF-(1,15,1)
- Under-relaxation          1                                                                  9.648520E-02                    1_GWF-(1,15,1)
- Backtracking              2                   0         0     2.34488         2.34488    
- Linear Solver             2        11                                                        3.389193E-03                   1_GWF-(3,15,13)
+ Backtracking              1                   0         0     95.2167         95.2167    
+ Linear Solver             1        24                                                        0.102994                        1_GWF-(1,16,1)
+ Under-relaxation          1                                                                  0.102994                        1_GWF-(1,16,1)
+ Backtracking              2                   0         0     2.11040         2.11040    
+ Linear Solver             2         3                                                        9.887129E-04                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 4
- 33 TOTAL ITERATIONS
+ 27 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    5, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -299,14 +299,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     140.949         140.949    
- Linear Solver             1        27                                                       -5.079511E-02                   1_GWF-(3,10,17)
- Under-relaxation          1                                                                 -5.079511E-02                   1_GWF-(3,10,17)
- Backtracking              2                   0         0     1.01536         1.01536    
- Linear Solver             2         3                                                       -4.943485E-04                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     127.013         127.013    
+ Linear Solver             1        29                                                       -5.067167E-02                   1_GWF-(3,10,17)
+ Under-relaxation          1                                                                 -5.067167E-02                   1_GWF-(3,10,17)
+ Backtracking              2                   0         0    0.868193        0.868193    
+ Linear Solver             2         3                                                       -4.246801E-04                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 5
- 30 TOTAL ITERATIONS
+ 32 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    6, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -323,14 +323,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     152.941         152.941    
- Linear Solver             1        33                                                       -0.124692                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                 -0.124692                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     4.03912         4.03912    
- Linear Solver             2         8                                                       -2.646081E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     138.796         138.796    
+ Linear Solver             1        30                                                       -0.125406                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                 -0.125406                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     3.79154         3.79154    
+ Linear Solver             2        13                                                       -2.967376E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 6
- 41 TOTAL ITERATIONS
+ 43 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    7, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -347,14 +347,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     132.805         132.805    
- Linear Solver             1        29                                                       -0.162452                        1_GWF-(1,30,7)
- Under-relaxation          1                                                                 -0.162452                        1_GWF-(1,30,7)
- Backtracking              2                   0         0     6.29096         6.29096    
- Linear Solver             2        18                                                       -4.433782E-03                    1_GWF-(3,14,3)
+ Backtracking              1                   0         0     124.058         124.058    
+ Linear Solver             1        32                                                       -0.166745                        1_GWF-(1,30,7)
+ Under-relaxation          1                                                                 -0.166745                        1_GWF-(1,30,7)
+ Backtracking              2                   0         0     5.85381         5.85381    
+ Linear Solver             2        16                                                       -4.331260E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 7
- 47 TOTAL ITERATIONS
+ 48 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    8, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -371,14 +371,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     99.2270         99.2270    
- Linear Solver             1        25                                                       -0.165767                        1_GWF-(1,30,7)
- Under-relaxation          1                                                                 -0.165767                        1_GWF-(1,30,7)
- Backtracking              2                   0         0     7.64246         7.64246    
- Linear Solver             2        19                                                       -5.060979E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     97.8055         97.8055    
+ Linear Solver             1        26                                                       -0.171891                        1_GWF-(1,30,7)
+ Under-relaxation          1                                                                 -0.171891                        1_GWF-(1,30,7)
+ Backtracking              2                   0         0     7.06281         7.06281    
+ Linear Solver             2        13                                                       -4.898261E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 8
- 44 TOTAL ITERATIONS
+ 39 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.    9, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -395,14 +395,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     76.1495         76.1495    
- Linear Solver             1        23                                                       -0.155061                        1_GWF-(1,18,1)
- Under-relaxation          1                                                                 -0.155061                        1_GWF-(1,18,1)
- Backtracking              2                   0         0     7.03813         7.03813    
- Linear Solver             2        18                                                       -4.476420E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     77.4063         77.4063    
+ Linear Solver             1        24                                                       -0.160930                        1_GWF-(1,19,1)
+ Under-relaxation          1                                                                 -0.160930                        1_GWF-(1,19,1)
+ Backtracking              2                   0         0     6.32086         6.32086    
+ Linear Solver             2        16                                                       -4.459763E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 9
- 41 TOTAL ITERATIONS
+ 40 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   10, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -419,11 +419,11 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     60.6588         60.6588    
- Linear Solver             1        23                                                       -0.117073                        1_GWF-(1,15,1)
- Under-relaxation          1                                                                 -0.117073                        1_GWF-(1,15,1)
- Backtracking              2                   0         0     4.06508         4.06508    
- Linear Solver             2        13                                                       -3.446794E-03                   1_GWF-(1,37,16)
+ Backtracking              1                   0         0     59.5052         59.5052    
+ Linear Solver             1        23                                                       -0.122564                        1_GWF-(1,15,1)
+ Under-relaxation          1                                                                 -0.122564                        1_GWF-(1,15,1)
+ Backtracking              2                   0         0     3.52328         3.52328    
+ Linear Solver             2        13                                                       -3.030406E-03                   1_GWF-(1,37,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 10
  36 TOTAL ITERATIONS
@@ -443,14 +443,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     108.457         108.457    
- Linear Solver             1        27                                                       -5.190792E-02                    1_GWF-(1,14,1)
- Under-relaxation          1                                                                 -5.190792E-02                    1_GWF-(1,14,1)
- Backtracking              2                   0         0     1.18975         1.18975    
- Linear Solver             2         3                                                        5.733873E-04                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     98.0228         98.0228    
+ Linear Solver             1        24                                                       -5.485651E-02                    1_GWF-(1,14,1)
+ Under-relaxation          1                                                                 -5.485651E-02                    1_GWF-(1,14,1)
+ Backtracking              2                   0         0     1.17006         1.17006    
+ Linear Solver             2         9                                                       -3.135235E-03                    1_GWF-(3,12,2)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 11
- 30 TOTAL ITERATIONS
+ 33 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   12, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -467,14 +467,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     150.769         150.769    
- Linear Solver             1        28                                                        0.114512                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                  0.114512                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     5.62937         5.62937    
- Linear Solver             2        13                                                        4.340072E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     136.850         136.850    
+ Linear Solver             1        30                                                        0.116053                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                  0.116053                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     4.94231         4.94231    
+ Linear Solver             2        13                                                        3.824261E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 12
- 41 TOTAL ITERATIONS
+ 43 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   13, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -491,14 +491,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     157.738         157.738    
- Linear Solver             1        31                                                        0.171681                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                  0.171681                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     7.61108         7.61108    
- Linear Solver             2        13                                                        5.537622E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     145.433         145.433    
+ Linear Solver             1        39                                                        0.175839                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                  0.175839                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     6.91868         6.91868    
+ Linear Solver             2        19                                                        5.213696E-03                   1_GWF-(1,38,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 13
- 44 TOTAL ITERATIONS
+ 58 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   14, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -515,14 +515,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     125.921         125.921    
- Linear Solver             1        33                                                        0.176829                        1_GWF-(1,30,7)
- Under-relaxation          1                                                                  0.176829                        1_GWF-(1,30,7)
- Backtracking              2                   0         0     7.08493         7.08493    
- Linear Solver             2        13                                                        4.985743E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     119.357         119.357    
+ Linear Solver             1        42                                                        0.182094                        1_GWF-(1,30,7)
+ Under-relaxation          1                                                                  0.182094                        1_GWF-(1,30,7)
+ Backtracking              2                   0         0     6.58973         6.58973    
+ Linear Solver             2         9                                                        4.455698E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 14
- 46 TOTAL ITERATIONS
+ 51 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   15, LENGTH =   28.00000    
                             -----------------------------------------------
@@ -539,14 +539,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     73.7268         73.7268    
- Linear Solver             1        23                                                        0.128502                        1_GWF-(1,24,1)
- Under-relaxation          1                                                                  0.128502                        1_GWF-(1,24,1)
- Backtracking              2                   0         0     4.65706         4.65706    
- Linear Solver             2        12                                                        2.935688E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     73.6227         73.6227    
+ Linear Solver             1        21                                                        0.131846                        1_GWF-(1,25,1)
+ Under-relaxation          1                                                                  0.131846                        1_GWF-(1,25,1)
+ Backtracking              2                   0         0     4.38765         4.38765    
+ Linear Solver             2        13                                                        2.886146E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 15
- 35 TOTAL ITERATIONS
+ 34 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   16, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -563,14 +563,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     70.2563         70.2563    
- Linear Solver             1        25                                                        9.837276E-02                    1_GWF-(1,16,1)
- Under-relaxation          1                                                                  9.837276E-02                    1_GWF-(1,16,1)
- Backtracking              2                   0         0     2.06184         2.06184    
- Linear Solver             2        12                                                        1.964277E-03                   1_GWF-(1,36,16)
+ Backtracking              1                   0         0     65.9140         65.9140    
+ Linear Solver             1        26                                                        0.101260                        1_GWF-(1,17,1)
+ Under-relaxation          1                                                                  0.101260                        1_GWF-(1,17,1)
+ Backtracking              2                   0         0     1.92745         1.92745    
+ Linear Solver             2         3                                                        9.233789E-04                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 16
- 37 TOTAL ITERATIONS
+ 29 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   17, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -587,14 +587,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     121.229         121.229    
- Linear Solver             1        27                                                       -5.167885E-02                   1_GWF-(3,10,17)
- Under-relaxation          1                                                                 -5.167885E-02                   1_GWF-(3,10,17)
- Backtracking              2                   0         0     1.38087         1.38087    
- Linear Solver             2         3                                                       -6.711207E-04                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     109.312         109.312    
+ Linear Solver             1        26                                                       -5.324665E-02                   1_GWF-(3,10,17)
+ Under-relaxation          1                                                                 -5.324665E-02                   1_GWF-(3,10,17)
+ Backtracking              2                   0         0     1.34051         1.34051    
+ Linear Solver             2         3                                                       -7.192095E-04                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 17
- 30 TOTAL ITERATIONS
+ 29 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   18, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -611,14 +611,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     155.786         155.786    
- Linear Solver             1        33                                                       -0.131574                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                 -0.131574                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     4.51350         4.51350    
- Linear Solver             2        13                                                       -3.372885E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     141.887         141.887    
+ Linear Solver             1        30                                                       -0.134190                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                 -0.134190                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     4.30168         4.30168    
+ Linear Solver             2        13                                                       -3.288306E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 18
- 46 TOTAL ITERATIONS
+ 43 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   19, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -635,14 +635,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     152.533         152.533    
- Linear Solver             1        37                                                       -0.171369                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                 -0.171369                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     6.68690         6.68690    
- Linear Solver             2        13                                                       -4.709358E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     141.530         141.530    
+ Linear Solver             1        36                                                       -0.176409                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                 -0.176409                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     6.26860         6.26860    
+ Linear Solver             2         9                                                       -4.241003E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 19
- 50 TOTAL ITERATIONS
+ 45 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   20, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -659,14 +659,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     113.125         113.125    
- Linear Solver             1        34                                                       -0.168609                        1_GWF-(1,30,7)
- Under-relaxation          1                                                                 -0.168609                        1_GWF-(1,30,7)
- Backtracking              2                   0         0     7.78050         7.78050    
- Linear Solver             2        18                                                       -5.559435E-03                   1_GWF-(1,38,16)
+ Backtracking              1                   0         0     108.420         108.420    
+ Linear Solver             1        32                                                       -0.174639                        1_GWF-(1,30,7)
+ Under-relaxation          1                                                                 -0.174639                        1_GWF-(1,30,7)
+ Backtracking              2                   0         0     7.12644         7.12644    
+ Linear Solver             2         8                                                       -4.485307E-03                   1_GWF-(1,40,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 20
- 52 TOTAL ITERATIONS
+ 40 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   21, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -683,14 +683,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     64.0056         64.0056    
- Linear Solver             1        21                                                       -0.130183                        1_GWF-(1,20,1)
- Under-relaxation          1                                                                 -0.130183                        1_GWF-(1,20,1)
- Backtracking              2                   0         0     6.38935         6.38935    
- Linear Solver             2        12                                                       -4.127459E-03                   1_GWF-(1,40,16)
+ Backtracking              1                   0         0     64.6684         64.6684    
+ Linear Solver             1        28                                                       -0.137779                        1_GWF-(1,20,1)
+ Under-relaxation          1                                                                 -0.137779                        1_GWF-(1,20,1)
+ Backtracking              2                   0         0     5.59067         5.59067    
+ Linear Solver             2        13                                                       -4.093383E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 21
- 33 TOTAL ITERATIONS
+ 41 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   22, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -707,14 +707,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     81.2784         81.2784    
- Linear Solver             1        26                                                       -7.726609E-02                    1_GWF-(1,15,1)
- Under-relaxation          1                                                                 -7.726609E-02                    1_GWF-(1,15,1)
- Backtracking              2                   0         0     1.97337         1.97337    
- Linear Solver             2        12                                                       -2.881269E-03                   1_GWF-(3,35,19)
+ Backtracking              1                   0         0     74.7080         74.7080    
+ Linear Solver             1        22                                                       -8.198632E-02                    1_GWF-(1,16,1)
+ Under-relaxation          1                                                                 -8.198632E-02                    1_GWF-(1,16,1)
+ Backtracking              2                   0         0     1.67861         1.67861    
+ Linear Solver             2        13                                                       -2.351633E-03                   1_GWF-(3,33,20)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 22
- 38 TOTAL ITERATIONS
+ 35 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   23, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -731,14 +731,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     132.865         132.865    
- Linear Solver             1        33                                                        7.412365E-02                   1_GWF-(3,27,11)
- Under-relaxation          1                                                                  7.412365E-02                   1_GWF-(3,27,11)
- Backtracking              2                   0         0     3.57883         3.57883    
- Linear Solver             2        12                                                        2.872024E-03                   1_GWF-(1,38,16)
+ Backtracking              1                   0         0     119.960         119.960    
+ Linear Solver             1        31                                                        7.467322E-02                   1_GWF-(3,27,11)
+ Under-relaxation          1                                                                  7.467322E-02                   1_GWF-(3,27,11)
+ Backtracking              2                   0         0     3.11727         3.11727    
+ Linear Solver             2        13                                                        2.566689E-03                   1_GWF-(1,38,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 23
- 45 TOTAL ITERATIONS
+ 44 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   24, LENGTH =   30.00000    
                             -----------------------------------------------
@@ -755,14 +755,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     159.022         159.022    
- Linear Solver             1        42                                                        0.145348                        1_GWF-(3,30,7)
- Under-relaxation          1                                                                  0.145348                        1_GWF-(3,30,7)
- Backtracking              2                   0         0     6.74758         6.74758    
- Linear Solver             2        12                                                        4.923141E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     145.374         145.374    
+ Linear Solver             1        35                                                        0.148181                        1_GWF-(3,30,7)
+ Under-relaxation          1                                                                  0.148181                        1_GWF-(3,30,7)
+ Backtracking              2                   0         0     6.08456         6.08456    
+ Linear Solver             2        17                                                        4.575043E-03                   1_GWF-(1,38,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 24
- 54 TOTAL ITERATIONS
+ 52 TOTAL ITERATIONS
 1
                             STRESS PERIOD NO.   25, LENGTH =   31.00000    
                             -----------------------------------------------
@@ -779,14 +779,14 @@ Integer Variables
                        OUTER     INNER BACKTRACK BACKTRACK        INCOMING        OUTGOING         MAXIMUM                    MAXIMUM CHANGE
                    ITERATION ITERATION      FLAG    NUMBER        RESIDUAL        RESIDUAL          CHANGE                    MODEL-(CELLID)
  -------------------------------------------------------------------------------------------------------------------------------------------
- Backtracking              1                   0         0     146.062         146.062    
- Linear Solver             1        38                                                        0.179854                        1_GWF-(1,30,7)
- Under-relaxation          1                                                                  0.179854                        1_GWF-(1,30,7)
- Backtracking              2                   0         0     7.56539         7.56539    
- Linear Solver             2        13                                                        5.374424E-03                   1_GWF-(1,39,16)
+ Backtracking              1                   0         0     136.361         136.361    
+ Linear Solver             1        27                                                        0.184658                        1_GWF-(1,30,7)
+ Under-relaxation          1                                                                  0.184658                        1_GWF-(1,30,7)
+ Backtracking              2                   0         0     7.01586         7.01586    
+ Linear Solver             2        19                                                        5.169523E-03                   1_GWF-(1,39,16)
 
  2 CALLS TO NUMERICAL SOLUTION IN TIME STEP 1 STRESS PERIOD 25
- 51 TOTAL ITERATIONS
+ 46 TOTAL ITERATIONS
 
  INFORMATION ON VARIABLES STORED IN THE MEMORY MANAGER
  
@@ -795,7 +795,7 @@ Integer Variables
  Allocated memory in megabytes:     1.77600    
  
 
- Run end date and time (yyyy/mm/dd hh:mm:ss): 2020/05/27  9:36:48
- Elapsed run time:  0.285 Seconds
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2020/06/03 15:33:36
+ Elapsed run time:  0.403 Seconds
 
  Normal termination of simulation.
