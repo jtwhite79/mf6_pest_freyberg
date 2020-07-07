@@ -1588,7 +1588,7 @@ def make_opt_figs2():
 
 if __name__ == "__main__":
 
-    # prep_mf6_model()
+    prep_mf6_model()
     # setup_pest_interface()
     # build_and_draw_prior()
     # run_prior_sweep()
@@ -1600,7 +1600,7 @@ if __name__ == "__main__":
     # # #
     # # #
     # run_glm_demo()
-    make_glm_figs()
+    #make_glm_figs()
     # make_glm_figs(m_d="master_glm_default",plt_case="glm_default")
     # # # # # #
     # run_sen_demo()
